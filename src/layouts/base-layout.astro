@@ -1,0 +1,45 @@
+---
+import '@/styles/global.css';
+import SiteHeader from '@/components/site-header.astro';
+import SiteFooter from '@/components/site-footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '@/consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE_DESCRIPTION } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+---
+<!doctype html>
+<html lang={SITE_LANG}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const isDark = stored ? stored === 'dark' : prefersDark;
+          if (isDark) document.documentElement.classList.add('dark');
+        } catch {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <SiteHeader />
+    <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-8">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

@@ -1,0 +1,30 @@
+---
+import ThemeToggle from './theme-toggle.astro';
+import { SITE_TITLE } from '@/consts';
+
+const base = import.meta.env.BASE_URL;
+function withBase(path: string): string {
+  return (base.endsWith('/') ? base.slice(0, -1) : base) + path;
+}
+
+const nav: ReadonlyArray<{ href: string; label: string }> = [
+  { href: withBase('/'), label: '首页' },
+  { href: withBase('/archive'), label: '归档' },
+  { href: withBase('/tags'), label: '标签' },
+  { href: withBase('/search'), label: '搜索' },
+  { href: withBase('/rss.xml'), label: 'RSS' },
+];
+---
+<header class="border-b border-zinc-200 dark:border-zinc-800">
+  <div class="max-w-3xl mx-auto px-4 h-14 flex items-center gap-4">
+    <a href={withBase('/')} class="font-semibold tracking-tight hover:text-sky-600 dark:hover:text-sky-400">
+      {SITE_TITLE}
+    </a>
+    <nav class="flex-1 flex items-center gap-4 text-sm text-zinc-600 dark:text-zinc-300">
+      {nav.map((item) => (
+        <a href={item.href} class="hover:text-sky-600 dark:hover:text-sky-400">{item.label}</a>
+      ))}
+    </nav>
+    <ThemeToggle />
+  </div>
+</header>

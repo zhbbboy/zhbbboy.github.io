@@ -1,0 +1,55 @@
+---
+import BaseLayout from './base-layout.astro';
+import TableOfContents from '@/components/table-of-contents.astro';
+import { formatDate } from '@/lib/posts';
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  updated?: Date;
+  tags: string[];
+  readingMinutes: number;
+  headings: MarkdownHeading[];
+}
+
+const { title, description, date, updated, tags, readingMinutes, headings } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const tagBase = `${base.endsWith('/') ? base.slice(0, -1) : base}/tags`;
+---
+<BaseLayout title={title} description={description}>
+  <article class="prose-content" data-pagefind-body>
+    <header class="mb-8 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+      <h1 class="text-3xl font-bold mb-2" data-pagefind-meta="title">{title}</h1>
+      <div class="text-sm text-zinc-500 dark:text-zinc-400 flex flex-wrap items-center gap-x-3 gap-y-1">
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        {updated && <span>· 更新于 {formatDate(updated)}</span>}
+        <span>· {readingMinutes} 分钟阅读</span>
+      </div>
+      {tags.length > 0 && (
+        <div class="mt-2 flex flex-wrap gap-1.5 text-xs" data-pagefind-ignore>
+          {tags.map((t) => (
+            <a
+              href={`${tagBase}/${encodeURIComponent(t)}`}
+              class="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-100 dark:hover:bg-sky-900"
+            >#{t}</a>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="lg:grid lg:grid-cols-[1fr_12rem] lg:gap-8">
+      <div>
+        <slot />
+      </div>
+      {headings.length > 0 && (
+        <aside class="hidden lg:block" data-pagefind-ignore>
+          <div class="sticky top-6">
+            <TableOfContents headings={headings} />
+          </div>
+        </aside>
+      )}
+    </div>
+  </article>
+</BaseLayout>

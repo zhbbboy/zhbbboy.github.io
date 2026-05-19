@@ -1,0 +1,50 @@
+---
+title: "代码块高亮示例：从一个 TypeScript 函数说起"
+date: 2026-05-10
+tags: ["TypeScript", "示例"]
+description: "演示 Shiki 代码高亮、diff 与行高亮的效果。"
+---
+
+这是一篇演示**代码块**功能的示例笔记。Shiki 内置于 Astro，下面几种写法都可以正常渲染。
+
+## 普通代码块
+
+```ts
+export function add(a: number, b: number): number {
+  return a + b;
+}
+```
+
+## 带行高亮
+
+在 ``` 后写上语言和 `{2,4-5}` 形式可以高亮特定行（需要 Shiki transformer，
+默认未启用；下方使用 CSS 类作为最小可用示例）：
+
+```ts
+function greet(name: string) {
+  const message = `Hello, ${name}!`; // [!code highlight]
+  console.log(message);
+  return message; // [!code highlight]
+}
+```
+
+## diff 风格
+
+```diff
+  function sum(nums: number[]) {
+-   let total = 0;
+-   for (let i = 0; i < nums.length; i++) total += nums[i];
++   const total = nums.reduce((acc, n) => acc + n, 0);
+    return total;
+  }
+```
+
+## 内联代码
+
+调用 `add(1, 2)` 会返回 `3`，类型签名是 `(a: number, b: number) => number`。
+
+## 小结
+
+- Shiki 的双主题在亮/暗模式下都能正常显示
+- diff 块与高亮行有不同的背景色
+- 内联代码使用强调色

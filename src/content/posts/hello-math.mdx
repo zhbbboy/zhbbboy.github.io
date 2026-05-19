@@ -1,0 +1,57 @@
+---
+title: "数学公式示例：从欧拉恒等式到傅里叶变换"
+date: 2026-05-12
+tags: ["数学", "示例"]
+description: "演示 remark-math + rehype-katex 的行内与块级公式渲染。"
+---
+
+这篇笔记演示如何在文章里使用 **LaTeX 数学公式**。
+
+## 行内公式
+
+著名的欧拉恒等式：$e^{i\pi} + 1 = 0$，它把五个最重要的常数 $0, 1, i, \pi, e$ 联系到一起。
+
+勾股定理：$a^2 + b^2 = c^2$。
+
+## 块级公式
+
+二次方程的求根公式：
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+正态分布的概率密度函数：
+
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+$$
+
+## 矩阵
+
+$$
+A = \begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{bmatrix}
+$$
+
+## 求和与极限
+
+$$
+\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}, \qquad
+\lim_{x \to 0} \frac{\sin x}{x} = 1
+$$
+
+## 傅里叶变换
+
+$$
+\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i x \xi}\, dx
+$$
+
+## 小结
+
+- 行内公式用 `$ ... $`
+- 块级公式用 `$$ ... $$`
+- KaTeX 在亮/暗模式下都能良好显示
