@@ -13,7 +13,7 @@ import {
 
 export default defineConfig({
   site: 'https://zhbbboy.github.io',
-  base: '/-zhbbboy-.github.io/',
+  base: '/',
   trailingSlash: 'ignore',
   output: 'static',
 
