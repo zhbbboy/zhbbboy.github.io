@@ -140,3 +140,65 @@ html.dark .prose-content hr {
 .katex-display {
   @apply overflow-x-auto overflow-y-hidden py-2;
 }
+
+/* Folder navigation used by the article directory. */
+.post-tree {
+  @apply text-[0.95rem];
+}
+
+.tree-folder + .tree-folder,
+.tree-root-posts {
+  @apply mt-1;
+}
+
+.tree-summary {
+  @apply flex min-h-9 cursor-pointer list-none items-center gap-1.5 rounded-md px-2 py-1 text-zinc-700 outline-none transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus-visible:ring-2 focus-visible:ring-sky-500 dark:text-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-white;
+}
+
+.tree-summary::-webkit-details-marker {
+  display: none;
+}
+
+.tree-chevron {
+  @apply size-3.5 shrink-0 text-zinc-400 transition-transform duration-150;
+}
+
+details[open] > .tree-summary .tree-chevron {
+  transform: rotate(90deg);
+}
+
+.tree-folder-icon {
+  @apply size-[1.05rem] shrink-0 text-amber-500 dark:text-amber-400;
+}
+
+.tree-count {
+  @apply ml-auto rounded-full bg-zinc-100 px-2 py-0.5 text-xs tabular-nums text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400;
+}
+
+.tree-children {
+  @apply ml-3 border-l border-zinc-200 pl-2 dark:border-zinc-800 sm:ml-4;
+}
+
+.tree-post {
+  @apply flex min-h-9 items-center gap-2 rounded-md px-2 py-1 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-800;
+}
+
+.tree-file-icon {
+  @apply size-4 shrink-0 text-sky-600 dark:text-sky-400;
+}
+
+.tree-post-link {
+  @apply min-w-0 flex-1 truncate outline-none hover:text-sky-700 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-sky-500 dark:hover:text-sky-300;
+}
+
+.tree-date {
+  @apply hidden shrink-0 text-xs tabular-nums text-zinc-400 sm:inline dark:text-zinc-500;
+}
+
+.tree-root-posts {
+  @apply mt-3 border-t border-zinc-200 pt-3 dark:border-zinc-800;
+}
+
+.tree-root-title {
+  @apply px-2 pb-1 text-sm font-medium text-zinc-500 dark:text-zinc-400;
+}
