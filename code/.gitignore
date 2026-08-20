@@ -1,0 +1,7 @@
+# Visual Studio workspace data and CMake build artifacts.
+.vs/
+build/
+out/
+**/build/
+**/out/
+CMakeUserPresets.json

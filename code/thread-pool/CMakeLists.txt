@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(thread_pool STATIC
     src/project.cpp
+    include/thread_pool/project.hpp
 )
 
 target_include_directories(thread_pool
