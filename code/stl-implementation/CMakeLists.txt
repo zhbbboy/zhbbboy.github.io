@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(stl_implementation STATIC
-    src/project.cpp
+    src/bbnS.cpp
+    include/stl_implementation/bbnS.h
 )
 
 target_include_directories(stl_implementation
@@ -17,10 +18,16 @@ target_include_directories(stl_implementation
 
 enable_testing()
 
-add_executable(stl_implementation_smoke_test
-    tests/smoke_test.cpp
+add_executable(STL_test
+    tests/STL_test.cpp
 )
 
-target_link_libraries(stl_implementation_smoke_test PRIVATE stl_implementation)
+target_link_libraries(STL_test PRIVATE stl_implementation)
 
-add_test(NAME stl_implementation.smoke COMMAND stl_implementation_smoke_test)
+if (MSVC)
+    # bbnS.cpp 中包含中文学习注释，明确让 MSVC 按 UTF-8 读取源文件。
+    target_compile_options(stl_implementation PRIVATE /utf-8)
+    target_compile_options(STL_test PRIVATE /utf-8)
+endif()
+
+add_test(NAME STL_test COMMAND STL_test)

@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(object_pool STATIC
-    src/project.cpp
+    src/objectPool.cpp
+    include/object_pool/objectPool.h
 )
 
 target_include_directories(object_pool
@@ -17,10 +18,10 @@ target_include_directories(object_pool
 
 enable_testing()
 
-add_executable(object_pool_smoke_test
-    tests/smoke_test.cpp
+add_executable(objectPool_test
+    tests/objectPool_test.cpp
 )
 
-target_link_libraries(object_pool_smoke_test PRIVATE object_pool)
+target_link_libraries(objectPool_test PRIVATE object_pool)
 
-add_test(NAME object_pool.smoke COMMAND object_pool_smoke_test)
+add_test(NAME objectPool_test COMMAND objectPool_test)

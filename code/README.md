@@ -33,6 +33,6 @@ cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 
-如需只构建一个 smoke test，可在第二条命令中指定目标，例如 `--target thread_pool_smoke_test`。
+如需只构建一个测试，可在第二条命令中指定目标，例如 `--target threadPool_test`。
 
 该生成器使用本机的 `mingw32-make` 驱动构建，编译器仍为 Clang。三个项目均使用 C++20；本目录不以较旧的 MinGW GCC 6.3 作为兼容性基准。

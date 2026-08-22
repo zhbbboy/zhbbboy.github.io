@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(thread_pool STATIC
-    src/project.cpp
-    include/thread_pool/project.hpp
+    src/threadPool.cpp
+    include/thread_pool/threadPool.h
 )
 
 target_include_directories(thread_pool
@@ -18,10 +18,10 @@ target_include_directories(thread_pool
 
 enable_testing()
 
-add_executable(thread_pool_smoke_test
-    tests/smoke_test.cpp
+add_executable(threadPool_test
+    tests/threadPool_test.cpp
 )
 
-target_link_libraries(thread_pool_smoke_test PRIVATE thread_pool)
+target_link_libraries(threadPool_test PRIVATE thread_pool)
 
-add_test(NAME thread_pool.smoke COMMAND thread_pool_smoke_test)
+add_test(NAME threadPool_test COMMAND threadPool_test)
