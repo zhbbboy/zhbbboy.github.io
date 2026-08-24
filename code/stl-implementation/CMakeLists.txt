@@ -9,6 +9,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_library(stl_implementation STATIC
     src/bbnS.cpp
     include/stl_implementation/bbnS.h
+    src/bbnV.cpp
+    include/stl_implementation/bbnV.h
 )
 
 target_include_directories(stl_implementation
