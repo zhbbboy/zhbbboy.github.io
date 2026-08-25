@@ -163,9 +163,15 @@ namespace bbnV
 	}
 
 	template<class T>
-	typename vector<T>::const_iterator vector<T>::end()const
+	typename vector<T>::const_iterator vector<T>::begin()const
 	{
 		return _start;
+	}
+
+	template<class T>
+	typename vector<T>::const_iterator vector<T>::end()const
+	{
+		return _finish;
 	}
 
 	template<class T>
@@ -284,7 +290,7 @@ namespace bbnV
 	template<class T>
 	void vector<T>::swap(vector<T>& v)
 	{
-		std::swap(_start,v._start);
+		std::swap(_start, v._start);
 		std::swap(_finish, v._finish);
 		std::swap(_endofstorage, v._endofstorage);
 	}

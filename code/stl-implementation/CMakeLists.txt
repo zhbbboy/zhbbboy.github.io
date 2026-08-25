@@ -11,7 +11,7 @@ add_library(stl_implementation STATIC
     include/stl_implementation/bbnS.h
     src/bbnV.cpp
     include/stl_implementation/bbnV.h
-)
+ "include/stl_implementation/bbnL.h")
 
 target_include_directories(stl_implementation
     PUBLIC
@@ -22,7 +22,7 @@ enable_testing()
 
 add_executable(STL_test
     tests/STL_test.cpp
-)
+ "include/stl_implementation/bbnL.h")
 
 target_link_libraries(STL_test PRIVATE stl_implementation)
 
