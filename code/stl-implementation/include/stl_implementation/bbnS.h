@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <iosfwd>
 
-namespace bbnS {
+namespace bbn {
 
 class string
 {

@@ -1,6 +1,8 @@
 ﻿#include "stl_implementation/bbnS.h"
 #include "stl_implementation/bbnV.h"
 #include "stl_implementation/bbnL.h"
+#include "stl_implementation/bbnSQ.h"
+
 
 #include <cstring>
 #include<iostream>
@@ -8,7 +10,7 @@
 
 int main()
 {
-	bbnS::string value("hello");
+	bbn::string value("hello");
 	value.push_back(' ');
 	value += "world";
 	if (std::strcmp(value.c_str(), "hello world") != 0)
@@ -28,14 +30,14 @@ int main()
 		return 3;
 	}
 
-	bbnS::string copy(value);
+	bbn::string copy(value);
 	copy.resize(5);
 	if (std::strcmp(copy.c_str(), "hello") != 0 || copy.size() != 5)
 	{
 		return 4;
 	}
 
-	bbnV::vector<int> v(10, 1);
+	bbn::vector<int> v(10, 1);
 	for (int e : v)
 	{
 		std::cout << e << ' ';
@@ -43,7 +45,7 @@ int main()
 
 	std::cout << std::endl;
 
-	bbnL::list<int> lt;
+	bbn::list<int> lt;
 	lt.push_back(3);
 	lt.push_back(5);
 	lt.push_back(7);
@@ -77,6 +79,33 @@ int main()
 	for (int e : lt)
 	{
 		std::cout << e << ' ';
+	}
+	std::cout << std::endl;
+
+	bbn::stack<int> st;
+	st.push(1);
+	st.push(2);
+	st.push(3);
+	st.push(4);
+	st.push(5);
+	std::cout << st.size() << std::endl; //4
+	while (!st.empty())
+	{
+		std::cout << st.top() << " ";
+		st.pop();
+	}
+	std::cout << std::endl;
+
+	bbn::queue<int, bbn::list<int>> q;
+	q.push(1);
+	q.push(2);
+	q.push(3);
+	q.push(4);
+	std::cout << q.size() << std::endl; //4
+	while (!q.empty())
+	{
+		std::cout << q.front() << " ";
+		q.pop();
 	}
 	std::cout << std::endl;
 

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <utility>
 
-namespace bbnS {
+namespace bbn {
 
 namespace {
 

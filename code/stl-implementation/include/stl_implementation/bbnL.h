@@ -6,7 +6,7 @@
 #include <iostream>
 #include <utility>
 
-namespace bbnL
+namespace bbn
 {
 	//模拟实现list当中的结点类
 	template<class T>
@@ -324,6 +324,12 @@ namespace bbnL
 		{
 			it = erase(it);
 		}
+	}
+
+	template<class T>
+	bool list<T>::empty() const
+	{
+		return _head == _head->_next;
 	}
 
 	template<class T>

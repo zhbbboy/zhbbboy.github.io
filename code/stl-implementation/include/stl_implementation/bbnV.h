@@ -6,7 +6,7 @@
 #include <iostream>
 #include <utility>
 
-namespace bbnV
+namespace bbn
 {
 
 	template<class T>
