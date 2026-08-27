@@ -2,7 +2,7 @@
 #include "stl_implementation/bbnV.h"
 #include "stl_implementation/bbnL.h"
 #include "stl_implementation/bbnSQ.h"
-
+#include "stl_implementation/bbnPQ.h"
 
 #include <cstring>
 #include<iostream>
@@ -109,6 +109,33 @@ int main()
 	}
 	std::cout << std::endl;
 
-	return copy < value ? 0 : 5;
+	bbn::priority_queue<int> pqL;
+	pqL.push(4);
+	pqL.push(1);
+	pqL.push(5);
+	pqL.push(7);
+	pqL.push(9);
+	while (!pqL.empty())
+	{
+		std::cout << pqL.top() << " ";
+		pqL.pop();
+	}
+	std::cout << std::endl;
+
+	bbn::priority_queue<int, std::vector<int>, std::greater<int>> pqG;
+
+	pqG.push(4);
+	pqG.push(1);
+	pqG.push(5);
+	pqG.push(7);
+	pqG.push(9);
+	while (!pqG.empty())
+	{
+		std::cout << pqG.top() << " ";
+		pqG.pop();
+	}
+	std::cout << std::endl;
+
+	return  0 ;
 
 }
