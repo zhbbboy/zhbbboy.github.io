@@ -68,13 +68,16 @@ namespace bbn
 		//向下调整
 		void AdjustDown(int parent, int size)
 		{
+			// 先假设左孩子优先级更高
 			int child = 2 * parent + 1;
 			while (child < size)
 			{
+				// 如果右孩子存在，而且右孩子优先级更高
 				if (child + 1 < size && _comp(_con[child], _con[child + 1]))
 				{
 					child++;
 				}
+				// 如果孩子优先级比父结点高，就交换
 				if (_comp(_con[parent], _con[child]))
 				{
 					std::swap(_con[child], _con[parent]);
@@ -90,6 +93,8 @@ namespace bbn
 			int parent = (child - 1) / 2;
 			while (child > 0)
 			{
+				// 默认 less：
+				// parent < child，说明 child 优先级更高
 				if (_comp(_con[parent], _con[child]))
 				{
 					std::swap(_con[child], _con[parent]);
@@ -98,8 +103,6 @@ namespace bbn
 				parent = (child - 1) / 2;
 			}
 		}
-
-
 	};
 
 }
