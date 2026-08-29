@@ -3,7 +3,8 @@
 #include "stl_implementation/bbnL.h"
 #include "stl_implementation/bbnSQ.h"
 #include "stl_implementation/bbnPQ.h"
-
+#include "stl_implementation/bbnHT.h"
+#include "stl_implementation/bbnUnorderedMS.h"
 #include <cstring>
 #include<iostream>
 #include<algorithm>
@@ -136,6 +137,6 @@ int main()
 	}
 	std::cout << std::endl;
 
-	return  0 ;
+	return  0;
 
 }
