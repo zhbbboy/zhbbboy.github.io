@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include "bbnHT.h"
+#include <functional>
+#include <string>
 
 namespace bbn
 {
@@ -10,6 +12,22 @@ namespace bbn
 		size_t operator()(const K& key) const
 		{
 			return key;
+		}
+	};
+
+	template<>
+	struct HashFunc<std::string>
+	{
+		size_t operator()(const std::string& s) const
+		{
+			size_t hash = 0;
+
+			for (auto ch : s)
+			{
+				hash = hash * 131 + ch;
+			}
+
+			return hash;
 		}
 	};
 

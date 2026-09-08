@@ -11,7 +11,7 @@ add_library(stl_implementation STATIC
     include/stl_implementation/bbnS.h
     src/bbnV.cpp
     include/stl_implementation/bbnV.h
- "include/stl_implementation/bbnL.h" "include/stl_implementation/bbnSQ.h" "include/stl_implementation/bbnPQ.h" "include/stl_implementation/bbnHT.h"  "include/stl_implementation/bbnUnorderedMS.h")
+ "include/stl_implementation/bbnL.h" "include/stl_implementation/bbnSQ.h" "include/stl_implementation/bbnPQ.h" "include/stl_implementation/bbnHT.h"  "include/stl_implementation/bbnUnorderedMS.h" "include/stl_implementation/bbnBST.h" "include/stl_implementation/bbnAVL.h" "include/stl_implementation/bbnRBTree.h" "include/stl_implementation/bbnMS.h" "include/stl_implementation/bbnbitset.h")
 
 target_include_directories(stl_implementation
     PUBLIC
@@ -22,7 +22,7 @@ enable_testing()
 
 add_executable(STL_test
     tests/STL_test.cpp
- "include/stl_implementation/bbnL.h" "include/stl_implementation/bbnSQ.h" "include/stl_implementation/bbnPQ.h" "include/stl_implementation/bbnHT.h"  "include/stl_implementation/bbnUnorderedMS.h")
+ "include/stl_implementation/bbnL.h" "include/stl_implementation/bbnSQ.h" "include/stl_implementation/bbnPQ.h" "include/stl_implementation/bbnHT.h"  "include/stl_implementation/bbnUnorderedMS.h" "include/stl_implementation/bbnBST.h" "include/stl_implementation/bbnAVL.h" "include/stl_implementation/bbnRBTree.h" "include/stl_implementation/bbnMS.h" "include/stl_implementation/bbnbitset.h")
 
 target_link_libraries(STL_test PRIVATE stl_implementation)
 
