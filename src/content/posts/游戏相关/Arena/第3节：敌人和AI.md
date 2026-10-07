@@ -5,7 +5,7 @@ tags: []
 draft: false
 ---
 
-这一节在角色移动、武器和实体子弹的基础上，增加敌人、敌人血量、AI 追击与攻击、玩家血量，以及开局生成敌人的 Spawner。
+这一节在角色移动、武器和实体子弹的基础上，记录敌人血量、AI 追击与攻击、玩家受伤，以及最新的多出生点波次管理。第 4 节继续说明血量、波次和剩余敌人数量怎样显示到 HUD。
 
 笔记对应当前 UE 5.4 项目的最新 C++ 实现。目标是能说清楚“谁创建谁、谁控制谁、谁调用谁”，并能顺着完整执行链找到对应代码。
 
@@ -15,12 +15,12 @@ draft: false
 | --- | --- | --- |
 | `AMyEnemyCharacter` | `ACharacter` | 敌人的身体、胶囊、移动组件、血量与死亡处理 |
 | `AMyEnemyAIController` | `AAIController` | 保存玩家目标，判断距离，决定追击或攻击 |
-| `AMyEnemySpawner` | `AActor` | 开始游戏时，在自己的位置附近生成一个敌人 |
+| `AMyEnemySpawner` | `AActor` | 按波次配置分配出生点，维护本波敌人引用，清空后进入下一波并通知 HUD |
 | `AMyArenaShooterCharacter` | `ACharacter` | 玩家已有的移动与武器功能，加上玩家血量和受伤函数 |
 | `AMyProjectile` | `AActor` | 命中时把伤害传给敌人；详见第二节 |
 
 ```text
-Spawner：在哪里生成、生成哪种敌人？
+Spawner：本波生成多少敌人、使用哪些出生点、何时进入下一波？
     ↓ SpawnActor
 EnemyCharacter：实际存在于世界里的敌人身体
     ↑ Possess：建立控制关系
@@ -37,17 +37,54 @@ EnemyAIController：每帧决定追击还是攻击
 
 当前 AI 是直接写在 Controller Tick 中的距离判断。它通过玩家索引 0 获取目标，没有行为树、黑板或 AI 感知；攻击是范围内直接调用扣血函数，没有攻击动画、武器挥砍碰撞或视线检测。
 
-Spawner 在 BeginPlay 里只生成一次；敌人死亡不会触发自动补充。玩家归零只打印 `Player Dead!`，还没有销毁、停止输入、死亡界面或重生。这些边界要与“接下来想做什么”分开记。
+最新 Spawner 在 BeginPlay 启动第一波，在 Tick 中清理失效敌人引用；本波全部清空后立即开始下一波，直到所有配置波次完成。玩家受伤后先将血量限制在有效范围并刷新 HUD，归零仍只打印 `Player Dead!`；没有停止输入、死亡界面或重生。当前波次没有等待倒计时、逐只定时生成或敌人死亡委托。
 
 ### 1.2 用两个交互方向理解本节
 
 ```text
 玩家打敌人：输入 → 武器 → 子弹 → Enemy 扣血 → Enemy 死亡
 
-敌人打玩家：AI Tick → 距离与冷却判断 → Player 扣血 → 打印死亡日志
+敌人打玩家：AI Tick → 距离与冷却判断 → Player 扣血并 Clamp → HUD 刷新 → 必要时打印死亡日志
 ```
 
 两边的受伤函数都是自己写的普通成员函数，不是 UE 因为两个角色靠近或发生碰撞就自动扣血。
+
+### 1.3 从需求推导代码：不要先背 API
+
+先把玩法写成几条规则，再决定数据和函数放在哪个对象：
+
+| 玩法规则 | 需要保存的数据 | 负责对象与入口 |
+| --- | --- | --- |
+| 敌人有自己的血量，被打到会扣血 | MaxHealth、CurrentHealth | EnemyCharacter::TakeProjectileDamage |
+| 远处追玩家，近处攻击 | 玩家目标、攻击范围、剩余冷却 | EnemyAIController::Tick |
+| 每波生成指定数量 | Waves、CurrentWaveIndex | Spawner::SpawnWave |
+| 清光本波才进入下一波 | 本波敌人引用数组、bWaveActive | Spawner::CleanupDeadEnemies 与 Tick |
+| 数值变化后显示到 HUD | 玩家 HUD 实例引用 | Character 的转发函数、HUD 的显示函数 |
+
+据此先实现一个静止敌人的受伤，再实现一个 AI 的追击与攻击，最后让 Spawner 生成并记录多个敌人。复杂度逐步增加，角色移动、伤害、波次和 UI 各自有明确入口。
+
+本节有三种不同更新节奏：
+
+```text
+单次初始化：BeginPlay → 初始化血量、查找目标、启动第一波
+逐帧检查：AI Tick → 判断追击/攻击；Spawner Tick → 检查本波是否结束
+直接调用：命中后调用受伤函数；数据变化后调用 HUD 更新函数
+```
+
+不是所有逻辑都写进 Tick，也不是所有变化都来自委托回调。当前敌人死亡被 Spawner 发现，是逐帧检查 IsValid；并没有自动触发 Spawner 的 OnEnemyDeath。
+
+### 1.4 先记住两层循环
+
+```text
+一只敌人的循环：追击 → 攻击/等待冷却 → 被打到 → 血量归零 → 销毁
+
+整局波次的循环：生成本波 → 记录实例 → 清理失效引用
+              → 本波数组清空 → 索引前进 → 生成下一波/结束
+```
+
+第一层由每只敌人的 Controller 和 Character 分工完成；第二层由 Spawner 管理。不能把“一个敌人死亡”直接等同于“整波结束”，还要确认本波其他敌人也都失效。
+
+下面标注为伪代码的段落用于解释思路，不是复制到 .cpp 就能编译的代码；完整 C++ 函数片段对应当前实现。
 
 ## 2. 创建 EnemyCharacter：先让敌人能受伤
 
@@ -167,7 +204,7 @@ Controller 自己的空间位置不能替代敌人位置；计算敌人到玩家
 PublicDependencyModuleNames.AddRange(new string[]
 {
     "Core", "CoreUObject", "Engine", "InputCore",
-    "EnhancedInput", "AIModule"
+    "EnhancedInput", "AIModule", "UMG"
 });
 ```
 
@@ -175,7 +212,7 @@ PublicDependencyModuleNames.AddRange(new string[]
 
 `#include "AIController.h"` 让 C++ 编译器看到类型声明；Build.cs 中的 AIModule 告诉 UE 构建系统，这个项目模块依赖 AI 模块。二者职责不同，缺少模块依赖可能导致头文件或链接问题。
 
-当前敌人 AI 继承 AAIController，因此加入 AIModule。本文只说明已有依赖，不为了写笔记额外更改工程模块。
+当前敌人 AI 继承 AAIController，因此依赖 AIModule；UMG 是新增 HUD 使用的模块，第 4 节详细说明。
 
 ### 3.3 AIController 的成员
 
@@ -387,6 +424,33 @@ void AMyEnemyAIController::Tick(float DeltaTime)
 
 这个函数做了五件事：检查目标 → 减少冷却 → 取得受控 Pawn → 计算距离 → 选择追击或攻击。
 
+先用伪代码看当前决策顺序：
+
+```text
+每次 AI Tick(经过时间)：
+    如果玩家目标失效：结束本次 Tick
+
+    剩余攻击冷却 = max(剩余攻击冷却 - 经过时间, 0)
+    敌人身体 = GetPawn()
+    如果敌人身体失效：结束本次 Tick
+
+    距离 = 敌人身体与玩家的三维直线距离
+
+    如果距离 > 攻击范围：
+        请求向玩家导航移动
+    否则：
+        停止当前导航移动
+        如果剩余攻击冷却为 0：
+            调用玩家受伤函数
+            剩余攻击冷却 = 1 秒
+```
+
+先用 IsValid 拦住不可用对象，之后才读取位置、调用函数。冷却放在距离分支前面，表示追击期间也在倒数；攻击之后才重置冷却，表示“已经攻击一次，接下来等多久”。这些代码位置决定了玩法，并非随意排列。
+
+return 只结束当前这次函数调用；下一帧引擎仍可能调用 Tick。当前没有保存专门的追击/攻击状态枚举，分支选择本身形成最小决策流程。
+
+
+
 ### 5.2 首次重点使用：DeltaTime 与 FMath::Max
 
 ```cpp
@@ -508,11 +572,20 @@ void AMyArenaShooterCharacter::ReceiveEnemyDamage(float Damage)
 {
     CurrentHealth -= Damage;
 
-    UE_LOG(LogTemp, Warning, TEXT("Player Damage: %.1f, Health: %.1f"), Damage, CurrentHealth);
+    CurrentHealth = FMath::Clamp(CurrentHealth, 0.0f, MaxHealth);
+
+    if (HUDWidget)
+    {
+        HUDWidget->UpdateHealth(CurrentHealth, MaxHealth);
+    }
 
     if (CurrentHealth <= 0.0f)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Player Dead!"));
+        UE_LOG(
+            LogTemp,
+            Warning,
+            TEXT("Player Dead!")
+        );
     }
 }
 ```
@@ -525,53 +598,112 @@ void AMyArenaShooterCharacter::ReceiveEnemyDamage(float Damage)
                     Player Dead! 日志
 ```
 
-注意：当前归零后没有 Destroy、禁用输入、停止 AI 攻击或重生。玩家仍是有效 Actor，AI 的 IsValid(PlayerCharacter) 不会因为血量为 0 就自动失败；后续攻击仍可能把血量扣成负数，并再次打印死亡日志。
+最新受伤函数增加了 FMath::Clamp(CurrentHealth, 0.0f, MaxHealth)，将血量限制在 0～MaxHealth，然后调用 HUDWidget->UpdateHealth。正常最大血量配置下，后续攻击不会再把玩家血量扣成负数。归零后仍没有 Destroy、禁用输入、停止 AI 攻击或重生，仍可能再次打印死亡日志。
 
-“对象是否有效”和“角色是否活着”是两个不同条件。完整死亡状态、只执行一次的死亡处理和 UI 放到后续实现。
+“对象是否有效”和“角色是否活着”是两个不同条件。HUD 血条归零不代表玩家 Actor 被销毁；完整死亡状态和只执行一次的死亡处理仍需后续补充。UI 更新流程在第 4 节展开。
+
+FMath::Clamp 是这里首次重点使用的 API：把数值限制在指定上下界。它修改玩家实际保存的血量，不只是把血条画成 0；血量条显示比例则由 HUD 再计算。
 
 ### 6.3 Enemy 与 Player 两个受伤函数对比
 
 | 对象 | 入口 | 当前血量处理 | 当前归零处理 |
 | --- | --- | --- | --- |
 | Enemy | TakeProjectileDamage | 减去传入伤害并记录日志 | Destroy 当前敌人 |
-| Player | ReceiveEnemyDamage | 减去传入伤害并记录日志 | 只打印 Player Dead |
+| Player | ReceiveEnemyDamage | 扣血、Clamp 到范围、刷新 HUD | 只打印 Player Dead，仍可继续被攻击 |
 
 它们命名不同、死亡处理不同，但都是当前项目自己写的直接扣血方法。不会因为名字包含 Damage 就自动接入 UE 通用伤害系统。
 
-## 7. EnemySpawner：把“生成敌人”独立出来
+## 7. 波次管理：为什么要让 Spawner 保存本波敌人
 
-### 7.1 类引用与实例引用
+### 7.1 从“生成一只”扩展到“清光一波再生成下一波”
 
-当前 MyEnemySpawner 继承 AActor，重点成员如下：
+旧版本只有 EnemyClass 和一只 SpawnedEnemy 的引用，BeginPlay 生成一次就结束。现在的需求是：
+
+```text
+第一波生成 2 只 → 全部消灭 → 第二波生成 3 只
+              → 全部消灭 → 第三波生成 4 只 → 全部完成
+```
+
+2、3、4 是说明用的波次配置例子；当前运行日志也出现过这组数量，C++ 没有把它硬编码成固定三波。
+
+因此要保存三类信息：玩法配置 Waves、场景位置 SpawnPoints，以及实际生成的本波敌人 CurrentWaveEnemies。不能只存“想生成多少只”，因为出生可能失败；也不能只数地图上的所有 Enemy，因为手动摆放或其他 Spawner 生成的敌人可能不属于本波。
+
+### 7.2 波次配置：FEnemyWaveData
+
+在 MyEnemySpawner.h 中，结构体放在 Spawner 类定义前：
+
+```cpp
+USTRUCT(BlueprintType)
+struct FEnemyWaveData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int32 EnemyCount = 1;
+};
+```
+
+#### 首次出现：USTRUCT、BlueprintType 和配置数据
+
+USTRUCT 让 UE 反射认识这个结构体，BlueprintType 让这个结构体类型可用于蓝图。EnemyCount 是这一整波计划生成的数量，不是“每一个出生点各生成多少只”。
+
+Waves 的每个元素描述一波，例如 `[{EnemyCount=2}, {EnemyCount=3}, {EnemyCount=4}]`。它保存规则，不保存敌人 Actor；以后增加波次配置字段，也不需要把配置和运行时引用混在一起。
+
+EditAnywhere 允许编辑值，BlueprintReadOnly 表示蓝图脚本只读这项反射属性；它不等于禁止在编辑器中配置。
+
+### 7.3 运行状态：哪些数据需要跨帧保留
+
+当前类中与波次有关的成员：
 
 ```cpp
 private:
     UPROPERTY(EditAnywhere, Category = "Spawn")
     TSubclassOf<AMyEnemyCharacter> EnemyClass;
 
-    UPROPERTY()
-    AMyEnemyCharacter* SpawnedEnemy = nullptr;
+    UPROPERTY(EditInstanceOnly, Category = "Spawn")
+    TArray<AActor*> SpawnPoints;
 
-    void SpawnEnemy();
+    UPROPERTY(EditAnywhere, Category = "Wave")
+    TArray<FEnemyWaveData> Waves;
+
+    UPROPERTY()
+    TArray<AMyEnemyCharacter*> CurrentWaveEnemies;
+
+    int32 CurrentWaveIndex = 0;
+    bool bWaveActive = false;
+
+    UPROPERTY()
+    AMyArenaShooterCharacter* PlayerCharacter = nullptr;
 ```
 
-| 成员 | 保存什么 | 在哪里设置 |
+| 数据 | 保存的含义 | 为什么放在成员里 |
 | --- | --- | --- |
-| EnemyClass | 要生成的敌人类，例如 BP_MyEnemyCharacter | 蓝图类默认值或关卡内实例细节 |
-| SpawnedEnemy | 这次生成成功后的具体敌人引用 | SpawnActor 返回后赋值 |
+| EnemyClass | 生成哪种敌人类 | 所有波次生成时都要读取 |
+| SpawnPoints | 地图中哪些 Actor 提供出生变换 | 每波循环分配位置 |
+| Waves | 各波计划数量 | 按当前索引读取配置 |
+| CurrentWaveEnemies | 本波生成成功的敌人实例引用 | 跨帧检查它们是否仍有效 |
+| CurrentWaveIndex | 当前配置索引，从 0 开始 | 结束本波后需要进入下一项 |
+| bWaveActive | 当前是否处于等待本波敌人清空的阶段 | 避免未启动或完成后每帧继续推进 |
+| PlayerCharacter | 当前用于转发 HUD 更新的玩家 | 生成与清理时通知同一个玩家 |
 
-这是第二节 DefaultWeaponClass / CurrentWeapon 区分的再次应用。TSubclassOf 限制 EnemyClass 只能选 AMyEnemyCharacter 的派生类，不是从场景里选择已有敌人。
+SpawnPoints 使用 EditInstanceOnly，配置的是地图上某个 Spawner 实例引用的关卡 Actor，不能只在蓝图类默认值里找它。Waves 是 EditAnywhere，可以作为默认配置或实例配置。
 
-#### 本节重点：EditAnywhere 与 EditDefaultsOnly
+#### 首次出现：TArray 与三个不同的“数量”
 
-EnemyClass 使用 EditAnywhere，因此可以给地图上的不同 Spawner 实例配置不同敌人类。MaxHealth 使用 EditDefaultsOnly，主要编辑蓝图类默认值；二者不是同样的编辑范围。
+```text
+Waves.Num()              → 一共配置了几波
+SpawnPoints.Num()        → 有几个可轮流使用的出生点
+CurrentWaveEnemies.Num() → 数组中目前记录了几个敌人引用
+```
 
-### 7.2 开始游戏时只生成一次
+最后一项在清理前可能还含刚被销毁的引用，所以不能永远把 Num 直接当成已经即时同步的存活数量。CleanupDeadEnemies 负责消除这个差别。
+
+### 7.4 初始化：只启动第一波，后续由 Tick 接力
 
 ```cpp
 AMyEnemySpawner::AMyEnemySpawner()
 {
-    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bCanEverTick = true;
 
 }
 ```
@@ -581,121 +713,307 @@ void AMyEnemySpawner::BeginPlay()
 {
     Super::BeginPlay();
 
-    SpawnEnemy();
+    PlayerCharacter = Cast<AMyArenaShooterCharacter>(
+        UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)
+    );
+
+    SpawnWave();
 
 }
 ```
 
-关闭 Actor Tick，但 BeginPlay 仍然调用 SpawnEnemy()。当前没有 Tick 生成、Timer、循环、波次、死亡监听或补怪代码。
+现在开启了 Spawner Tick，因为要持续检查本波敌人；BeginPlay 查找玩家并调用 SpawnWave 启动第一波。以后每波结束，是 Tick 再调用 SpawnWave，不是 BeginPlay 重复执行。
 
-一个 Spawner 通常在一次进入游戏的 BeginPlay 中生成一个敌人。放两个 Spawner 才是两个出生来源，并不是当前已经实现了每隔几秒持续生成。
+PlayerCharacter 是用于 HUD 通知的引用。Spawner 与每只 AIController 各自在 BeginPlay 查询玩家一次，两个引用承担不同职责；Spawner 查找失败仍可能生成敌人，只是不会完成该路径的 HUD 更新。
 
-### 7.3 当前 SpawnEnemy 实现
+### 7.5 SpawnWave：生成一波的完整实现
 
-MyEnemySpawner.cpp 顶部需要完整敌人定义：
-
-```cpp
-#include "MyEnemySpawner.h"
-#include "MyEnemyCharacter.h"
-```
+MyEnemySpawner.cpp 包含 MyEnemySpawner.h、MyEnemyCharacter.h、MyArenaShooterCharacter.h 和 Kismet/GameplayStatics.h。
 
 ```cpp
-void AMyEnemySpawner::SpawnEnemy()
+void AMyEnemySpawner::SpawnWave()
 {
     if (!EnemyClass)
     {
         return;
     }
 
-    FActorSpawnParameters SpawnParams;
+    if (SpawnPoints.Num() == 0)
+    {
+        return;
+    }
 
-    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
-    FVector SpawnLocation = GetActorLocation() + FVector(0.0f, 0.0f, 100.0f);
-
-    FRotator SpawnRotation = GetActorRotation();
-
-    SpawnedEnemy = GetWorld()->SpawnActor<AMyEnemyCharacter>(
-        EnemyClass,
-        SpawnLocation,
-        SpawnRotation,
-        SpawnParams
-    );
-
-
-    if (IsValid(SpawnedEnemy))
+    if (CurrentWaveIndex >= Waves.Num())
     {
         UE_LOG(
             LogTemp,
             Warning,
-            TEXT("Enemy Spawned: %s"),
-            *GetNameSafe(SpawnedEnemy)
+            TEXT("All Waves Completed!")
+        );
+
+        return;
+    }
+
+    CurrentWaveEnemies.Empty();
+
+    int32 EnemyCount = Waves[CurrentWaveIndex].EnemyCount;
+
+    for (int32 i = 0; i < EnemyCount; ++i)
+    {
+        AActor* SpawnPoint = SpawnPoints[i % SpawnPoints.Num()];
+
+        if (!IsValid(SpawnPoint))
+        {
+            continue;
+        }
+
+        FVector SpawnLocation = SpawnPoint->GetActorLocation()
+            + FVector(0.0f, 0.0f, 100.0f);
+        FRotator SpawnRotation = SpawnPoint->GetActorRotation();
+
+        FActorSpawnParameters SpawnParams;
+        SpawnParams.SpawnCollisionHandlingOverride =
+            ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+        AMyEnemyCharacter* Enemy = GetWorld()->SpawnActor<AMyEnemyCharacter>(
+            EnemyClass,
+            SpawnLocation,
+            SpawnRotation,
+            SpawnParams
+        );
+
+        if (IsValid(Enemy))
+        {
+            CurrentWaveEnemies.Add(Enemy);
+        }
+
+        bWaveActive = CurrentWaveEnemies.Num() > 0;
+
+        UE_LOG(
+            LogTemp,
+            Warning,
+            TEXT("Wave %d Started, Enemy Count = %d"),
+            CurrentWaveIndex + 1,
+            CurrentWaveEnemies.Num()
+        );
+    }
+
+    if (IsValid(PlayerCharacter))
+    {
+        PlayerCharacter->UpadteWaveHUD(
+            CurrentWaveIndex + 1,
+            Waves.Num(),
+            CurrentWaveEnemies.Num()
         );
     }
 }
 ```
 
-顺序：检查类配置 → 准备出生碰撞策略 → 计算出生位置和旋转 → 生成敌人 → 保存引用 → 成功时打印日志。
+先将长函数分成六段，理解每段为什么放在这里：
 
-### 7.4 出生变换：用 Spawner 位置加向上偏移
+| 段落 | 作用 | 先做它的原因 |
+| --- | --- | --- |
+| 检查 EnemyClass、出生点数量、波次索引 | 确认可生成 | 避免无配置生成、取模除零和数组越界 |
+| 清空本波引用数组，读取 EnemyCount | 准备新波 | 不能把上一波记录混到本波数量里 |
+| 循环分配出生点 | 决定每只敌人的位置 | 数量可能超过出生点数量 |
+| SpawnActor 并记录有效引用 | 建立本波名单 | 实际成功数量可能少于计划数量 |
+| 设置活动状态、记录日志 | 后续 Tick 可以监控 | 当前代码这两句放在 for 内 |
+| 循环结束后通知 HUD | 显示本波初始数量 | 使用成功记录的数量，而非直接显示计划值 |
 
-```cpp
-FVector SpawnLocation = GetActorLocation()
-    + FVector(0.0f, 0.0f, 100.0f);
-
-FRotator SpawnRotation = GetActorRotation();
-```
-
-这里加的是世界 Z 方向的 100 cm，不是 Spawner 自己旋转后的局部向上方向。假设 Spawner 世界位置为 (500, 200, 0)，请求的出生位置就是 (500, 200, 100)。
-
-角色 Actor 位置通常位于胶囊中心，而不是脚底。默认胶囊半高为 88 cm，在水平地面附近加 100 cm 是方便测试的起点，不是对任何地形高度都正确的落地算法。
-
-最终位置还可能被出生碰撞策略调整；这里也没有向下射线查地面、随机选导航点或判断是否在 NavMesh 上。
-
-当前原生 Spawner 构造函数没有创建 SceneComponent 根。笔记里的编辑器操作使用实际已有的 BP_MyEnemySpawner；在蓝图中确认存在用于位置变换的场景根节点，才能把它作为清楚可调的出生位置标记。
-
-### 7.5 首次出现：SpawnCollisionHandlingOverride
-
-```cpp
-SpawnParams.SpawnCollisionHandlingOverride =
-    ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-```
-
-它覆盖这次生成的出生碰撞策略：如果目标位置阻挡，尝试调整到附近可用位置；调整失败时，这个策略仍允许生成，不保证敌人最终不会卡在物体里。
-
-它处理的是出生阶段，不是后来 CharacterMovement 的移动碰撞，也不是关闭敌人碰撞。SpawnActor 仍可能由于其他原因失败，所以代码在返回后使用 IsValid(SpawnedEnemy) 检查再记录成功日志。
-
-本次 Spawner 没有设置 Owner / Instigator，也没有把敌人挂载到 Spawner。SpawnedEnemy 只是引用；Spawner 不会因此自动管理敌人的血量、死亡或重生。
-
-### 7.6 整条出生链
+按当前代码顺序写成伪代码：
 
 ```text
-关卡中存在 BP_MyEnemySpawner
-↓
-Spawner::BeginPlay → SpawnEnemy
-↓
-检查 EnemyClass 是否配置
-↓
-准备 SpawnParams 和请求的世界出生变换
-↓
-SpawnActor<AMyEnemyCharacter>(EnemyClass, Location, Rotation, Params)
-↓
-生成 Enemy 与自带的角色组件，应用蓝图默认配置
-↓
-自动 AI 控制配置建立 Controller 与 Enemy 的控制关系
-↓
-Enemy 的 BeginPlay 初始化血量
-↓
-SpawnActor 返回敌人指针，保存为 SpawnedEnemy
-↓
-IsValid 成功，Spawner 打印 Enemy Spawned: 对象名
-↓
-后续 AI Tick 决策，CharacterMovement 执行移动
+生成当前波：
+    如果敌人类未配置：返回
+    如果出生点数组为空：返回
+    如果当前索引 >= 波次数量：
+        输出“全部波次完成”
+        返回
+
+    清空本波敌人引用数组
+    本波计划数量 = Waves[当前索引].EnemyCount
+
+    对 i 从 0 到 本波计划数量-1：
+        出生点 = SpawnPoints[i % 出生点数量]
+        如果出生点无效：跳过这一次生成，继续下一次循环
+
+        从出生点世界位置 + 世界 Z 的 100 cm 生成敌人
+        如果生成成功：将这个敌人引用加入本波数组
+
+        本波活动 = 本波数组数量 > 0
+        输出一次当前波次及此刻成功记录的数量
+
+    如果玩家引用有效：
+        通知玩家刷新 HUD（当前索引+1，总波数，实际记录数量）
 ```
 
-图是正常运行下的依赖示意。AIController 是另一个 Actor，它的 BeginPlay 获取玩家与敌人的初始化可能交错；不要靠这张图假定所有 Actor BeginPlay 有固定全局先后顺序。
+这里的 return 退出整个 SpawnWave；continue 只跳过当前这只敌人的尝试。当前不会因一个出生点无效而自动换另一个点补足，也不会重试生成失败的敌人。
+
+Empty() 清的是引用数组，不会调用每只 Enemy 的 Destroy。正常设计只在开局或本波清空后生成下一波，因此没有用 Empty 来“杀掉上一波敌人”。
+
+### 7.6 难点一：为什么用 i % SpawnPoints.Num()
+
+有 3 个出生点 A、B、C，计划生成 5 只：
+
+| i | i % 3 | 使用的出生点 |
+| --- | --- | --- |
+| 0 | 0 | A |
+| 1 | 1 | B |
+| 2 | 2 | C |
+| 3 | 0 | A |
+| 4 | 1 | B |
+
+取模把递增索引循环映射到已有出生点范围，超过数量后从头轮流使用。它不是随机选点，不是每个点都生成 5 只，也不是多出来的敌人就不生成。
+
+所以前面必须先检查 SpawnPoints.Num() != 0，否则取模没有合法的除数。重复使用同一个点可能让同一波的敌人出生位置相近，当前用出生碰撞策略尝试调整。
+
+### 7.7 出生变换与碰撞策略仍沿用前面的基础
+
+SpawnPoint->GetActorLocation() 读取被选中标记 Actor 的世界位置，再加世界 Z 的 100 cm；旋转也取该 SpawnPoint。Spawner 自己放在哪里，不再直接决定所有敌人的出生位置。
+
+`AdjustIfPossibleButAlwaysSpawn` 会尝试调整阻挡出生位置，调整失败仍允许生成，不保证一定不卡住。它也不会自动把出生点投影到 NavMesh；位置、胶囊和导航覆盖需要在地图中确认。
+
+### 7.8 难点二：敌人 Destroy 后，数组为什么还要清理
+
+```text
+子弹命中 → Enemy 扣血到 0 → Enemy::Destroy()
+↓
+世界中的这个 Actor 开始销毁，IsValid 会失败
+↓
+Spawner 的数组槽位不会因此自动消失
+↓
+Spawner 之后的 Tick 用 CleanupDeadEnemies 移除这个槽位
+↓
+数组 Num 才反映清理后的剩余数量
+```
+
+UPROPERTY 让 UE 认识这些引用，不会把 Destroy 取消，也不会自动维护“存活敌人名单”。IsValid 检查的是对象是否仍可用，而不是读取血量；当前敌人归零会 Destroy，才能通过这条链从波次名单中清理。
+
+不是固定必须“下一帧”才发现：取决于销毁与 Spawner Tick 的顺序，可在同帧后续检查或之后的帧发现。敌人并没有直接调用 Spawner 的清理函数。
+
+### 7.9 CleanupDeadEnemies：为什么倒序遍历
+
+```cpp
+void AMyEnemySpawner::CleanupDeadEnemies()
+{
+
+    for (int32 i = CurrentWaveEnemies.Num() - 1; i >= 0; --i)
+    {
+        int32 PreviousEnemyCount = CurrentWaveEnemies.Num();
+
+        if (!IsValid(CurrentWaveEnemies[i]))
+        {
+            CurrentWaveEnemies.RemoveAt(i);
+        }
+
+        if (CurrentWaveEnemies.Num() != PreviousEnemyCount)
+        {
+            if (IsValid(PlayerCharacter))
+            {
+                PlayerCharacter->UpadteWaveHUD(
+                    CurrentWaveIndex + 1,
+                    Waves.Num(),
+                    CurrentWaveEnemies.Num()
+                );
+            }
+        }
+    }
+}
+```
+
+```text
+清理本波名单：
+    从最后一个索引向 0 遍历：
+        记录本次删除前的数组数量
+        如果这个敌人引用已无效：
+            RemoveAt(当前索引)
+
+        如果数组数量发生变化，且玩家有效：
+            通知玩家刷新 HUD 的剩余敌人数量
+```
+
+RemoveAt 删除槽位后，后面的元素会向前补位。假设 [失效A, 失效B, 存活C]：
+
+```text
+从前往后直接删：删除索引0的A → B移到0
+              → 循环索引变成1，检查C → B可能被跳过
+
+从后往前删：先检查C → 删除B → 删除A
+          → 不影响尚未检查的较小索引
+```
+
+Num()-1 在空数组时为 -1，当前索引用 int32，`i >= 0` 不成立，循环自然不执行。
+
+PreviousEnemyCount 在当前源码中放在循环内，因此每次成功删除都会通知一次 HUD。同一轮清理删除多只时会有多次更新，不是整个 for 结束后只更新一次。用前后数量比较，是为了只在这次迭代确实改变数组时通知 UI。
+
+### 7.10 难点三：Tick 怎样只推进一次下一波
+
+```cpp
+void AMyEnemySpawner::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    if (!bWaveActive)
+    {
+        return;
+    }
+
+    CleanupDeadEnemies();
+
+    if (CurrentWaveEnemies.Num() == 0)
+    {
+        bWaveActive = false;
+        ++CurrentWaveIndex;
+        SpawnWave();
+    }
+}
+```
+
+```text
+每次 Spawner Tick：
+    如果本波未活动：返回
+
+    清理已销毁的敌人引用
+
+    如果本波数组已经为空：
+        标记本波不再活动
+        当前波次索引 + 1
+        调用 SpawnWave
+            有下一波 → 记录新敌人，本波重新活动
+            没有下一波 → 输出完成，保持不活动
+```
+
+bWaveActive 是这一段的执行门槛。最后一波结束后保持 false，后续 Tick 提前返回，避免每帧重复增加索引、输出完成。
+
+当前索引从 0 开始，访问配置用 0、1、2；给玩家显示用 CurrentWaveIndex+1，即第 1、2、3 波。要先做越界检查，才能读取 Waves[CurrentWaveIndex]。
+
+### 7.11 用两波、三个敌人走一遍
+
+```text
+配置：Waves=[2只, 1只]，出生点=[A,B]
+
+开局：索引0 → 生成 E1、E2 → 数组[E1,E2] → HUD显示1/2、剩余2
+击杀E1：E1失效 → 清理后[E2] → HUD显示剩余1 → 不换波
+击杀E2：清理后[] → HUD更新剩余0
+      → Tick把索引改成1 → SpawnWave生成E3
+      → 数组[E3] → HUD显示2/2、剩余1
+击杀E3：清理后[] → HUD更新剩余0
+      → 索引变成2 → 2 >= Waves.Num()
+      → 输出All Waves Completed，后续不继续监控
+```
+
+本波剩余 0 与新波生成可能发生在同一次 Spawner Tick 中，画面不一定能看到中间的 0。最后全部完成时当前代码只打印日志，HUD 保持最后一波编号和剩余 0，没有另外显示胜利页面。
+
+### 7.12 现有实现需要知道的边界
+
+- EnemyCount 为 0、所有出生点无效或所有生成失败，可能没有任何敌人让 bWaveActive 变成 true；之后 Tick 会提前返回，不会自动跳过空波。
+- 日志放在生成 for 内，成功记录数量会逐次变化，如同一波输出 1、2、3；不表示重开了三次同一波。
+- 当前没有波间等待，新一波在检测到清空的这次 Tick 中立即启动；也没有敌人死亡委托或波次事件广播。
+- CurrentWaveEnemies 只记录本 Spawner 生成成功的实例，不包括地图上另外手动放置的敌人。
+- 玩家引用和 HUD 尚未准备好时，本次通知可能不执行；当前没有缓存后重放。第 4 节说明这条初始化边界。
 
 ## 8. 在编辑器里把代码连起来
+
 
 ### 8.1 当前资源关系
 
@@ -716,8 +1034,8 @@ Content/BluePrints/
 | --- | --- |
 | BP_MyEnemyCharacter 类默认值 | AI Controller Class 对应 MyEnemyAIController；Auto Possess AI 为 Placed in World or Spawned；MaxHealth 按需配置 |
 | BP_MyEnemyCharacter Capsule | 保持有效碰撞，对子弹对象通道形成阻挡 |
-| BP_MyEnemySpawner 或关卡实例 | EnemyClass = BP_MyEnemyCharacter；出生位置合适 |
-| BP_MyArenaShooterCharacter 类默认值 | 玩家最大血量与已有输入、武器配置 |
+| 关卡中的 BP_MyEnemySpawner 实例 | EnemyClass = BP_MyEnemyCharacter；SpawnPoints 引用关卡出生点 Actor；Waves 配置每波 EnemyCount |
+| BP_MyArenaShooterCharacter 类默认值 | 玩家最大血量、HUDWidgetClass = WBP_HUD，以及已有输入、武器配置 |
 | BP_MyProjectile 类默认值 | Damage 按需配置；默认 C++ 数值 25 |
 | 地图 | 放置 Spawner，并提供覆盖可行走区域的导航数据 |
 
@@ -735,7 +1053,7 @@ MoveToActor 默认走导航路径，所以有敌人和 AIController 还不够。
 
 ### 8.3 分阶段验证
 
-先手动放置一个 BP_MyEnemyCharacter，确认受伤和 AI 行为；再使用 Spawner 验证运行时出生。若把手动敌人和 Spawner 都保留，Play 后可能有两个敌人，这是两个不同来源，不一定是重复生成错误。
+先手动放置一个 BP_MyEnemyCharacter，确认受伤与 AI，再用 Spawner 验证波次。至少配置一个有效出生点和一波正数量，确认清光后推进；随后测试多个出生点和多波。手动敌人不在本 Spawner 的 CurrentWaveEnemies 中，不参与它的剩余数量和换波判定。
 
 Enemy 没设置可视模型时仍可有胶囊碰撞，但不利于观察追击。显示模型与胶囊、AI、导航是不同配置项，要分别确认。
 
@@ -778,9 +1096,9 @@ CurrentAttackCooldown <= 0？
 ├─ 否：这一帧不攻击，等待后续 Tick 推进冷却
 └─ 是：PlayerCharacter->ReceiveEnemyDamage(20)
        ↓
-       玩家 CurrentHealth -= 20
+       玩家 CurrentHealth -= 20，再 Clamp 到 0～MaxHealth
        ↓
-       输出 Player Damage 与当前血量
+       HUDWidget->UpdateHealth，刷新血条和文字
        ↓
        血量 <= 0 时输出 Player Dead，目前不销毁
        ↓ 函数返回
@@ -813,31 +1131,54 @@ TakeProjectileDamage(25)
 回到子弹命中回调 → Destroy 当前子弹
 ```
 
-敌人销毁会结束该 Pawn 的活动与控制关系，AI 的 GetPawn / IsValid 检查可避免继续按可用敌人访问。当前 Spawner 不会监听这一事件，因此不会自动生成替补。
+敌人销毁会结束该 Pawn 的活动与控制关系。Spawner 后续通过 IsValid 清理本波名单，更新剩余数量；只有全部清空才换波，不是死一只就立刻补一只。
 
-### 9.4 用日志核对实际执行
-
-本次项目运行日志中已出现下列行为，下面保留关键内容作为阅读例子：
+### 9.4 波次到 UI 的跨对象执行链
 
 ```text
-Enemy Possessed By: MyEnemyAIController_0
-Player Damage: 20.0, Health: 80.0
-Player Damage: 20.0, Health: 60.0
-...
-Player Damage: 20.0, Health: 0.0
-Player Dead!
-Enemy Took Damage: 25.000000, Current Health: 75.000000
-Enemy Took Damage: 25.000000, Current Health: 50.000000
-Enemy Took Damage: 25.000000, Current Health: 25.000000
-Enemy Took Damage: 25.000000, Current Health: 0.000000
-Enemy Dead!
+最后一个本波 Enemy：TakeProjectileDamage → Destroy
+↓
+Spawner Tick → CleanupDeadEnemies → IsValid失败 → RemoveAt
+↓
+Spawner：PlayerCharacter->UpadteWaveHUD(当前波次, 总波数, 剩余数)
+↓
+Character：HUDWidget->UpdateWaveInfo(...)
+↓
+Widget：格式化文字 → WaveText / EnemyCountText 的 SetText
+↓ 回到 Spawner Tick
+CurrentWaveEnemies.Num()==0 → bWaveActive=false → ++CurrentWaveIndex
+↓
+SpawnWave → 成功生成下一波 → 再次通知 HUD 显示新波次
 ```
 
-这段按阅读用途整理，不是原始日志的精确时序，攻击和射击可以交错。默认参数下的关键观察是玩家每次扣 20、敌人每次扣 25。
+名字 `UpadteWaveHUD` 是当前源码的实际拼写，声明、实现、调用一致。笔记保留这个名字便于搜索；若以后改为 UpdateWaveHUD，三处要一起改。
 
-Spawner 最新代码还会在生成成功后打印 `Enemy Spawned: 对象名`。这与 Enemy BeginPlay 的 `Enemy Spawned, Health = ...` 是两处不同日志，不能仅因为出现两条含 Spawned 的日志就断定生成了两个敌人。
+### 9.5 从当前日志理解循环位置
+
+当前运行日志出现过：
+
+```text
+Wave 1 Started, Enemy Count = 1
+Wave 1 Started, Enemy Count = 2
+...
+Wave 2 Started, Enemy Count = 1
+Wave 2 Started, Enemy Count = 2
+Wave 2 Started, Enemy Count = 3
+...
+Wave 3 Started, Enemy Count = 1
+Wave 3 Started, Enemy Count = 2
+Wave 3 Started, Enemy Count = 3
+Wave 3 Started, Enemy Count = 4
+...
+All Waves Completed!
+```
+
+这里按阅读用途截取关键内容，省略了受伤等交错日志。同一波的数量从 1 递增，是因为生成循环里每添加成功一只后就打印一次；开始新波的实际入口仍是 SpawnWave。
+
+Enemy BeginPlay 的 `Enemy Spawned, Health = ...` 与 Spawner 的 Wave 日志来自不同对象。玩家最新受伤函数已没有旧版 Player Damage 数值日志，而是更新 HUD 并在归零时打印 Player Dead。
 
 ## 10. 实际编译与运行排查
+
 
 ### 10.1 本次编译错误：前向声明不等于完整定义
 
@@ -847,7 +1188,7 @@ MyEnemySpawner.h 中可以写：
 class AMyEnemyCharacter;
 ```
 
-它让编译器知道存在这个类，便于声明指针等成员。但在 .cpp 中实际检查 TSubclassOf、实例化 SpawnActor<AMyEnemyCharacter> 等模板时，需要敌人完整定义。
+它让编译器知道存在这个类，便于声明指针等成员。但在 .cpp 中实际检查 TSubclassOf、实例化 `SpawnActor<AMyEnemyCharacter>()` 等模板时，需要敌人完整定义。最新已用 SpawnWave 替代旧 SpawnEnemy，但这条 include 原则仍然适用。
 
 本次缺少 include 时出现了：
 
@@ -881,7 +1222,7 @@ Unable to build while Live Coding is active
 
 | 现象 | 优先确认 |
 | --- | --- |
-| Play 没有生成敌人 | 地图里是否有 Spawner，EnemyClass 是否配置，SpawnActor 返回引用是否有效 |
+| Play 没有生成敌人 | 地图是否有 Spawner；EnemyClass、SpawnPoints、Waves、EnemyCount 是否有效；生成是否成功 |
 | 有敌人但没有 Controller 日志 | AIControllerClass、AutoPossessAI、蓝图旧覆盖值，以及实际使用的敌人类 |
 | 有 Controller 但完全不追击 | PlayerCharacter 是否查找成功，GetPawn 是否有效，距离分支、NavMesh、MoveToActor 返回值 |
 | 一直不找玩家 | BeginPlay 仅查询一次，是否因为初始化时机或玩家类型导致保存了 nullptr |
@@ -890,7 +1231,10 @@ Unable to build while Live Coding is active
 | 玩家每帧都快速扣血 | 攻击后是否赋值 CurrentAttackCooldown，是否有多个敌人同时攻击，实际代码是否与当前版本一致 |
 | 玩家死亡后还能移动、仍被攻击 | 当前死亡分支只有日志，尚未加入死亡状态和停止攻击逻辑 |
 | 子弹碰到敌人但没有伤害日志 | 是否真正命中该敌人 Actor、Cast 是否成功、Damage 是否配置、是否运行新代码 |
-| 敌人死后没有再出现 | 当前 Spawner 仅 BeginPlay 生成一次，没有补怪或波次逻辑 |
+| 清光后没有下一波 | 是否还有配置波次，本波失效引用是否被移除，bWaveActive 是否曾成功开启，下一波是否有成功生成的敌人 |
+| 手动摆放的敌人没计入数量 | 当前数组只记录本 Spawner 生成的敌人 |
+| 波次显示与敌人数量不更新 | PlayerCharacter / HUDWidget 是否准备好，UpadteWaveHUD 与 UpdateWaveInfo 是否执行 |
+| 同一波打印多条 Started | 当前日志在生成 for 内，观察索引是否真正增加，而非只看消息名称 |
 | 修改数值后细节里找不到 | 当前 AI 参数不是可编辑 UPROPERTY；确认修改的是 C++ 普通成员还是蓝图默认属性 |
 
 ## 11. 第一次出现的重要 API 速查
@@ -913,8 +1257,13 @@ Unable to build while Live Coding is active
 | EditAnywhere | 可编辑类默认值，也可编辑关卡实例配置 | 第 7 节 |
 | SpawnCollisionHandlingOverride | 设置本次 Actor 生成的出生碰撞策略 | 第 7 节 |
 | NavMeshBoundsVolume | 标记需要生成导航网格的区域 | 第 8 节 |
+| FMath::Clamp | 将实际玩家血量限制到上下界 | 第 6 节 |
+| USTRUCT(BlueprintType) | 把每波配置组织成反射可识别的结构体 | 第 7 节 |
+| TArray / Num / Add / Empty / RemoveAt | 管理波次配置、出生点和实际敌人引用 | 第 7 节 |
+| EditInstanceOnly | 在关卡实例上配置出生点 Actor 引用 | 第 7 节 |
+| i % 出生点数量 | 循环分配出生点索引 | 第 7 节 |
 
-Cast、IsValid、SpawnActor、TSubclassOf、GetWorld、UE_LOG、Destroy 已在前两节出现，本节主要复习它们在敌人和 AI 中的用途。TakeProjectileDamage、ReceiveEnemyDamage、SpawnEnemy 都是自定义函数，不是引擎内置 API。
+Cast、IsValid、SpawnActor、TSubclassOf、GetWorld、UE_LOG、Destroy 已在前两节出现，本节主要复习它们在敌人和 AI 中的用途。TakeProjectileDamage、ReceiveEnemyDamage、SpawnWave、CleanupDeadEnemies、UpadteWaveHUD 都是自定义函数，不是引擎内置 API。
 
 ## 12. 学完后尝试自己复述
 
@@ -926,12 +1275,16 @@ Cast、IsValid、SpawnActor、TSubclassOf、GetWorld、UE_LOG、Destroy 已在�
 6. 不设置攻击冷却，会产生什么结果？为什么要减 DeltaTime 而不是每帧减 1？
 7. 当前敌人攻击是否依赖动画或碰撞事件？有没有视线检测？
 8. 玩家归零和敌人归零，当前分别做了什么？IsValid 为什么不能代替血量判断？
-9. EnemyClass 与 SpawnedEnemy 分别保存什么？为什么不只保留其中一个？
+9. EnemyClass、Waves、SpawnPoints、CurrentWaveEnemies 分别保存什么？为什么配置和实例名单不能混用？
 10. 出生位置加 100 的方向是什么？AdjustIfPossibleButAlwaysSpawn 能不能保证不重叠？
 11. 为什么在头文件前向声明 Enemy，还要在 Spawner.cpp 中 include 它？
-12. 敌人死后为什么不会自动补充？下一步实现波次需要增加哪些职责？
+12. 一个敌人 Destroy 后，Spawner 怎样发现？为什么 Num 不会自动减少？
+13. 为什么倒序 RemoveAt？为什么 CurrentWaveIndex 给玩家显示时加 1？
+14. bWaveActive=false 后为什么后续 Tick 不再重复换波？
+15. 全部生成失败或数量为 0 的波为什么可能停住？怎样从执行门槛推导这个结果？
+16. 波次更新为什么经过 Player 再调用 Widget，而不是 Enemy 自己寻找文字控件？
 
-复习时先画“Spawner 生成敌人 → AI 控制身体 → 远处追击 → 近处按冷却攻击 → 玩家扣血”，再画反方向的“玩家射击 → 子弹命中 → Enemy 扣血 → 敌人死亡”。能把两条链对应到具体函数，再进行下一步扩展。
+复习时先复述单个 AI 的判断，再用两波示例解释“生成名单 → 敌人销毁 → 清理名单 → 通知 HUD → 清空后换波”。特别说明什么时候是引擎回调、什么时候是自己直接调用、什么时候只是保存状态等下一帧检查。
 
 ### 12.1 后续扩展方向
 
@@ -940,8 +1293,8 @@ Cast、IsValid、SpawnActor、TSubclassOf、GetWorld、UE_LOG、Destroy 已在�
 | BeginPlay 查询一次玩家 | 初始化失败重试、玩家重生后更新目标 |
 | 每帧重新请求追击 | 按状态或合理频率更新导航请求，处理返回值与完成结果 |
 | 距离内直接调用玩家受伤 | 攻击动画、命中判定、视线检测 |
-| 玩家死亡只打印日志 | 死亡状态、停止输入和攻击、UI、重生 |
-| Spawner 开始时生成一个 | 定时生成、死亡补充、波次与数量限制 |
+| 受伤更新HUD，玩家死亡仍只打印日志 | 死亡状态、停止输入和攻击、死亡页面、重生 |
+| 按配置多点生成，清光后立即换波 | 波间等待、逐只定时生成、生成失败与空波处理、完成页面 |
 | 两个独立受伤函数 | 统一伤害接口、来源归属和血量显示 |
 
 这些是可继续学习的内容，当前源码尚未实现。
