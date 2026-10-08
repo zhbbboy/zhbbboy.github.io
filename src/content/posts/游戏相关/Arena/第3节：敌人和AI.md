@@ -1298,3 +1298,45 @@ Cast、IsValid、SpawnActor、TSubclassOf、GetWorld、UE_LOG、Destroy 已在�
 | 两个独立受伤函数 | 统一伤害接口、来源归属和血量显示 |
 
 这些是可继续学习的内容，当前源码尚未实现。
+
+
+## 13. 后续学习记录：AI攻击请求接到新版受伤反馈（2026-10-08）
+
+前面Enemy、AIController、Spawner的逐步过程继续保留。这次这些类的源码没有改变，新增行为接在玩家ReceiveEnemyDamage和Projectile命中回调中；敌人仍按距离与冷却提出攻击请求，玩家现在先判断是否接受。
+
+### 13.1 AI发起调用，不等于玩家一定处理伤害
+
+玩家新版入口先判断：
+
+```cpp
+if (bIsDead || Damage <= 0.0f)
+{
+    return;
+}
+```
+
+接收有效伤害后才扣血、Clamp，刷新血量并闪红；条件满足时播放本机受伤声，最后再检查是否Die。完整新函数与反馈定时器在第4节本次后续学习记录中说明。
+
+```text
+AI.Tick：玩家引用有效 → 计算距离
+→ 进入AttackRange → StopMovement
+→ 冷却结束 → 调用Player.ReceiveEnemyDamage(AttackDamage)
+    ├─ 已死亡或伤害不为正：返回，不重复反馈
+    └─ 有效伤害：扣血 → HUD血量与闪红 → 声音 → 归零则Die
+→ 调用返回后，AI重设自己的攻击冷却
+```
+
+因此新版玩家不会因后续AI攻击请求反复闪红、播声或再次进入正常伤害链的Die。AI本身仍没有读取bIsDead停止追击和攻击；玩家Actor也没有因为归零而自动销毁。这次增加的是接收端保护，不是改变AI决策。
+
+### 13.2 玩家反击时新增命中反馈，敌人扣血规则继续沿用
+
+```text
+相机选点 → 枪口按计算方向生成Projectile
+→ 实际命中Enemy → TakeProjectileDamage(默认25)
+→ 敌人扣血，归零仍Destroy
+→ 子弹根据自己的Instigator通知发射玩家显示Hit Marker
+→ 按实际碰撞位置生成ImpactEffect，销毁子弹
+→ Spawner继续清理失效Enemy引用，更新数量并推进波次
+```
+
+敌人没有因此新增HUD引用，也没有直接控制玩家的命中标记。射击追踪选点与真实命中的区别在第5节详细记录，UI通知与定时隐藏在第4节记录；AI和波次保持原来清晰的职责。

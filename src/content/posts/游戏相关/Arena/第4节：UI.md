@@ -1058,3 +1058,337 @@ UpdateAmmo、UpadteAmmoHUD、ShowGameOver、Die、RestartGame 是自己的业务
 9. 死亡入口阻止新射击请求，为什么不自动停止已经保存的按住状态？
 
 把原来的血量和波次链复习后，再补两条：“武器扣弹药 / 完成换弹 → 玩家转发 → AmmoText”，“血量归零 → Die → ShowGameOver → 重开输入 → OpenLevel → 重新初始化”。每个箭头对应一处调用，能说清数据归谁和显示归谁，就能继续独立扩展。
+
+
+## 17. 后续学习记录：命中标记与玩家受伤反馈（2026-10-08）
+
+前面的血量、波次、弹药、Game Over与重新开始过程继续保留。这一阶段新增两种短时反馈：玩家的子弹实际命中Enemy时显示Hit Marker；玩家受到有效伤害时刷新血量、短暂闪红并播放受伤音效。
+
+| 反馈 | 触发来源 | 当前作用 |
+| --- | --- | --- |
+| HitMarkerText | Projectile实际碰撞Enemy后通知发射者 | 显示约0.15秒的命中标记 |
+| DamageFlashOverlay | Character收到一次有效伤害 | 显示约0.2秒的受伤遮罩 |
+| DamageSound | Character收到有效伤害且受本机控制 | 播放一次2D受伤声音 |
+
+第5节“射击瞄准与反馈”解释了相机追踪选点到真实子弹命中的过程。相机选中Enemy不会直接调用ShowHitMarker；这两个概念要从这一阶段开始分清楚。
+
+### 17.1 在原有控件上补两个引用和两个定时器
+
+MyHUDWidget.h本次新增UBorder的前置声明，并显式包含TimerManager.h。已有类内部增加以下成员与方法，访问区段按当前源码整理：
+
+```cpp
+public:
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* HitMarkerText = nullptr;
+
+    FTimerHandle HitMarkerTimerHandle;
+
+private:
+    UPROPERTY(meta = (BindWidget))
+    UBorder* DamageFlashOverlay = nullptr;
+
+    FTimerHandle DamageFlashTimerHandle;
+
+public:
+    void ShowHitMarker();
+    void ShowDamageFlash();
+
+private:
+    void HideHitMarker();
+    void HideDamageFlash();
+```
+
+HitMarkerText使用Text Block；DamageFlashOverlay使用Border。它们仍采用普通BindWidget，所以WBP_HUD需要同名且兼容类型的控件。原有六个绑定继续保留，本阶段总计八个：一个Progress Bar、六个Text Block和一个Border。
+
+两个FTimerHandle标识两份独立定时器。命中敌人和玩家受伤可能同时发生，用同一个handle会让后一次设置替换前一次定时器；这里分开保存，两个显示过程互不覆盖。
+
+### 17.2 为什么这次让“隐藏”由定时器调用
+
+```text
+收到事件 → 显示控件 → 安排一次隐藏回调 → 显示函数立即返回
+后续定时器到期 → 执行Hide函数 → 隐藏控件
+```
+
+Show/Hide是同一状态的两个入口，不需要阻塞游戏等0.15秒，也不需要Widget Tick每帧查“是否够时间”。它沿用第2节换弹已经学过的定时器思路，只把回调任务改成隐藏控件。
+
+## 18. 实际命中Enemy到Hit Marker的完整链
+
+### 18.1 子弹通过Instigator找到发射玩家
+
+```text
+Character生成Weapon时：Weapon.Instigator = Character
+Weapon生成Projectile时：Projectile.Instigator = Weapon.GetInstigator()
+所以Projectile保存的Instigator仍指向发射者
+```
+
+Projectile.OnProjectileHit先Cast命中对象是否为AMyEnemyCharacter。成功后调用Enemy.TakeProjectileDamage(Damage)，再从自己的GetInstigator取得玩家，调用NotifyEnemyHit。
+
+不需要让Enemy知道HUD的控件名字，也不按“世界里第0个玩家”重新查询：当前子弹已经携带发射者来源。
+
+### 18.2 角色增加NotifyEnemyHit转发入口
+
+角色头文件public区段新增`void NotifyEnemyHit();`，实现如下：
+
+```cpp
+void AMyArenaShooterCharacter::NotifyEnemyHit()
+{
+    if (bIsDead)
+    {
+        return;
+    }
+
+    if (HUDWidget)
+    {
+        HUDWidget->ShowHitMarker();
+    }
+}
+```
+
+先检查bIsDead，再通知已有HUD。死亡玩家不显示新的命中反馈；这个return不撤回子弹前面已经对Enemy调用的伤害函数。
+
+NotifyEnemyHit是自己的函数，没有统计击杀，也没有读取敌人剩余血量。它只表示“收到了一次当前命中通知”。
+
+### 18.3 ShowHitMarker与HideHitMarker
+
+```cpp
+void UMyHUDWidget::ShowHitMarker()
+{
+    if (!HitMarkerText)
+    {
+        return;
+    }
+
+    HitMarkerText->SetVisibility(ESlateVisibility::Visible);
+
+    GetWorld()->GetTimerManager().SetTimer(
+        HitMarkerTimerHandle,
+        this,
+        &UMyHUDWidget::HideHitMarker,
+        0.15f,
+        false
+    );
+}
+```
+
+```cpp
+void UMyHUDWidget::HideHitMarker()
+{
+    if (HitMarkerText)
+    {
+        HitMarkerText->SetVisibility(ESlateVisibility::Hidden);
+    }
+}
+```
+
+SetVisibility(Visible)让已有Text Block显示，GetWorld()->GetTimerManager()取得当前Widget所属世界的定时器管理器，再设置一次0.15秒后的HideHitMarker。
+
+与Actor的GetWorldTimerManager()入口相比，这里从Widget取得UWorld后访问管理器；定时器作用仍是同一个思路。false表示一次，不是每隔0.15秒不停执行。
+
+当前ShowHitMarker只检查HitMarkerText，没有额外检查GetWorld；实际调用建立在已创建并放入运行世界的HUD上。ShowDamageFlash则同时检查控件与世界，见后面代码。
+
+### 18.4 连续命中为什么会让标记继续显示
+
+FTimerManager::SetTimer使用同一个有效handle时，会替换这个handle之前安排的定时器。因此每次命中都会重新安排隐藏时刻：
+
+```text
+假设时间t=0.00命中：显示，安排约t=0.15隐藏
+假设t=0.10又命中：仍然显示，替换为约t=0.25隐藏
+之后不再命中：到约t=0.25执行HideHitMarker
+```
+
+这组时间只是说明替换规则，实际事件与回调落在帧上。效果是从最近一次命中起保留一小段时间，不会为每次命中创建一个新的HUD，也不会累积许多互相抢着隐藏的回调。[UE 5.4 定时器说明](https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-timers-in-unreal-engine?application_version=5.4)
+
+### 18.5 把碰撞、通知、显示、隐藏放在一条链上
+
+```text
+ProjectileMovement移动碰撞球 → 实际碰撞
+→ OnProjectileHit：OtherActor能Cast为Enemy
+→ Enemy.TakeProjectileDamage：实际扣血
+→ Projectile.GetInstigator → Cast玩家
+→ Player.NotifyEnemyHit：未死亡且有HUD
+→ HUD.ShowHitMarker：绑定存在则显示
+→ SetTimer(handle, this, HideHitMarker, 0.15, false)
+→ 本次调用返回，子弹继续处理ImpactEffect并Destroy
+→ 后续定时器到期 → HideHitMarker → TextBlock隐藏
+```
+
+命中墙时不进入这个Enemy分支，所以不显示Hit Marker。击杀与普通命中目前共用同一个入口，也没有区分爆头或命中身体部位。
+
+## 19. 玩家受伤：扣血、闪红、声音、死亡判断
+
+### 19.1 受伤入口在上个阶段基础上继续扩展
+
+角色头文件新增声音类型USoundBase的前置声明，private区段新增可配置资源：
+
+```cpp
+UPROPERTY(EditDefaultsOnly, Category = "Effects")
+USoundBase* DamageSound = nullptr;
+```
+
+当前完整ReceiveEnemyDamage如下，替换的是项目代码的这一函数实现；笔记前面保留的旧版属于早期学习阶段：
+
+```cpp
+void AMyArenaShooterCharacter::ReceiveEnemyDamage(float Damage)
+{
+
+    if (bIsDead || Damage <= 0.0f)
+    {
+        return;
+    }
+
+    CurrentHealth = FMath::Clamp(CurrentHealth - Damage, 0.0f, MaxHealth);
+
+    if (HUDWidget)
+    {
+        HUDWidget->UpdateHealth(CurrentHealth, MaxHealth);
+
+        HUDWidget->ShowDamageFlash();
+    }
+
+    if (DamageSound && IsLocallyControlled())
+    {
+        UGameplayStatics::PlaySound2D(
+            this,
+            DamageSound
+        );
+    }
+
+    if (CurrentHealth <= 0.0f)
+    {
+        Die();
+    }
+}
+```
+
+按顺序读：
+
+```text
+已经死亡，或者Damage<=0 → 不处理本次请求
+否则：
+    当前血量 = Clamp(当前血量 - Damage, 0, 最大血量)
+    若有HUD：刷新血量、显示受伤遮罩
+    若配置受伤声且角色受本机控制：播放2D声音
+    若血量归零：进入Die
+```
+
+与上一阶段相比，新加的第一道判断阻止死亡后再次收到AI伤害时重复扣血、闪红、播声音、进入Die。Damage<=0的请求也被忽略，这个入口不把负数伤害当作回血。
+
+AI当前仍会按距离和冷却尝试调用这个方法；“AI提出请求”与“玩家接受并处理请求”是两层逻辑。玩家归零后依然可能被AI当作目标，但这条受伤入口会直接返回。
+
+### 19.2 ShowDamageFlash与HideDamageFlash
+
+```cpp
+void UMyHUDWidget::ShowDamageFlash()
+{
+    if (!DamageFlashOverlay || !GetWorld())
+    {
+        return;
+    }
+
+    DamageFlashOverlay->SetVisibility(ESlateVisibility::HitTestInvisible);
+
+    GetWorld()->GetTimerManager().SetTimer(
+        DamageFlashTimerHandle,
+        this,
+        &UMyHUDWidget::HideDamageFlash,
+        0.2f,
+        false
+    );
+}
+```
+
+```cpp
+void UMyHUDWidget::HideDamageFlash()
+{
+    if (DamageFlashOverlay)
+    {
+        DamageFlashOverlay->SetVisibility(ESlateVisibility::Hidden);
+    }
+}
+```
+
+先确认Border和World存在，显示遮罩，再用独立的DamageFlashTimerHandle安排0.2秒后的隐藏。连续受伤也会用同一个handle延后隐藏时刻，从最近一次受伤计算这一段显示时间。
+
+### 19.3 首次实际使用HitTestInvisible
+
+前面的Game Over和命中标记使用Visible，这次受伤遮罩使用HitTestInvisible：可以看见，但它和子控件不参与鼠标命中测试。全屏红色视觉层因此不需要靠自身承接鼠标输入。[ESlateVisibility 官方说明](https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/ESlateVisibility)
+
+“Hit Test”在这里指UI鼠标命中检测，与Projectile的物理碰撞Hit、相机LineTrace的Hit是不同系统。同一个英文词出现在多个地方，不能因此理解成“红色遮罩忽略子弹”。
+
+UBorder只是所用的界面控件。代码只设置可见性；红色、透明度、全屏尺寸、锚点与遮罩层级仍需要在设计器配置。初始Visibility设为Hidden或Collapsed，因为当前C++没有在创建HUD时自动隐藏它。
+
+### 19.4 PlaySound2D与IsLocallyControlled
+
+PlaySound2D(this, DamageSound)直接播放声音，不按一个世界坐标计算空间距离衰减，适合这次玩家自身的受伤提示。它与武器的PlaySoundAtLocation是两种声音用途。[PlaySound2D 官方说明](https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UGameplayStatics/PlaySound2D)
+
+IsLocallyControlled判断这个Pawn是否受本机控制。在当前单人玩家场景中，配好资源后本机玩家受伤时播放。这里的条件只包住声音调用，不包住血量修改或HUD分支；不能从没听到声音就推断没有扣血。
+
+DamageSound是配置资源，代码不会因为属性名字叫受伤声就自动找到音频。需要在玩家蓝图Effects分类指定对应声音。
+
+### 19.5 受到致命伤害时的执行顺序
+
+```text
+AI在攻击范围内且冷却结束 → ReceiveEnemyDamage(AttackDamage)
+→ 角色存活且伤害为正
+→ 扣血并Clamp到0
+→ HUD.UpdateHealth显示0
+→ HUD.ShowDamageFlash显示红色遮罩，安排0.2秒后隐藏
+→ 条件满足时播放受伤声
+→ CurrentHealth<=0 → Die
+→ bIsDead=true、DisableMovement、ShowGameOver、输出死亡日志
+↓ 下一次AI伤害请求
+→ ReceiveEnemyDamage一开始发现bIsDead → 返回
+```
+
+最后一次伤害仍先做受伤反馈，再进入死亡，因为顺序就在当前函数中这样安排。Die本身的内容没有改成停止所有Actor；它仍未清除武器之前已保存的按住射击或取消已开始的换弹。新伤害保护和这些尚未收尾的状态是不同改进点。
+
+## 20. 本阶段蓝图配置、验证顺序与复习
+
+### 20.1 新增控件的对应关系
+
+| C++成员 | 控件类型 | 设计器要做什么 |
+| --- | --- | --- |
+| HitMarkerText | Text Block | 同名、类型对应，初始隐藏；设置可见的命中符号与布局 |
+| DamageFlashOverlay | Border | 同名、类型对应，初始隐藏；配置红色、适当透明度、全屏布局 |
+| 原有HealthBar等六个控件 | 原有类型 | 继续保留，仍遵守原来的BindWidget关系 |
+
+本次新增绑定存在于C++，WBP_HUD也需要添加对应控件后编译保存。控件有引用、更新方法有调用、布局实际可见是三个条件；不存在自动添加红色Border的代码。
+
+### 20.2 顺着入口验证
+
+| 现象 | 优先检查 |
+| --- | --- |
+| 瞄准时没有Hit Marker | 当前只有实际子弹命中Enemy才显示，先确认碰撞 |
+| Enemy扣血了，标记没显示 | Projectile.Instigator、NotifyEnemyHit、玩家是否死亡、HUD引用和绑定 |
+| 标记开局就显示 | HitMarkerText的设计器默认Visibility |
+| 标记不消失或持续很久 | 是否连续命中不断重设Timer，HideHitMarker是否执行 |
+| 玩家扣血却没闪红 | HUD引用、DamageFlashOverlay绑定、颜色透明度和全屏布局 |
+| 红层出现后鼠标交互被影响 | 当前ShowDamageFlash使用HitTestInvisible，核对运行版本和父控件行为 |
+| 闪红了但没有受伤声 | DamageSound是否赋值、IsLocallyControlled条件和音量等资源设置 |
+| 死亡后不再重复闪红、播声 | 新版ReceiveEnemyDamage的bIsDead保护正常返回 |
+| 血量归零后已有射击仍持续 | Die未调用StopFire，见前阶段及本次的状态边界说明 |
+
+### 20.3 重要 API 与自定义入口
+
+| 名称 | 当前用途 |
+| --- | --- |
+| UBorder | 承载受伤视觉遮罩的UMG控件 |
+| ESlateVisibility::HitTestInvisible | 显示视觉层，同时不参与鼠标命中测试 |
+| UWorld::GetTimerManager | Widget从所在世界访问定时器管理器 |
+| FTimerHandle / SetTimer | 显示后等待一次隐藏，重复事件替换原定时器 |
+| GetInstigator / Cast | 子弹找到发射玩家，传递命中通知 |
+| IsLocallyControlled | 决定当前角色的受伤声是否由本机播放 |
+| UGameplayStatics::PlaySound2D | 播放不按世界距离衰减的自身提示音 |
+| NotifyEnemyHit、Show/HideHitMarker、Show/HideDamageFlash | 项目自定义业务入口，不是UE内置函数 |
+
+### 20.4 自己复述两条新链
+
+1. 为什么“相机选中Enemy”不能替代“子弹实际碰到Enemy”的Hit Marker？
+2. Instigator怎么从角色传到武器再传到子弹？命中时为什么不用让Enemy查找HUD？
+3. 同一个定时器handle在0.10秒后重新设置，原来的隐藏时刻会怎样？两个反馈为什么使用两个handle？
+4. DamageFlashOverlay的HitTestInvisible与物理碰撞有什么关系？
+5. 玩家受伤的扣血、闪红、声音与死亡判断按什么顺序发生？致命伤害是否仍会闪红？
+6. AI还在尝试攻击时，玩家死亡后为什么不再重复进入受伤反馈？
+7. 新保护阻止重复受伤，为什么不会同时自动停掉已经按住的武器？
+
+把“实际碰到Enemy → 通知发射者 → 显示并定时隐藏标记”和“AI攻击请求 → 有效伤害 → 扣血与闪红 → 本机受伤声 → 死亡判断”各自口述一次，再回源码找箭头对应的入口。
