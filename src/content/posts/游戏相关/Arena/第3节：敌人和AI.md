@@ -1340,3 +1340,163 @@ AI.Tick：玩家引用有效 → 计算距离
 ```
 
 敌人没有因此新增HUD引用，也没有直接控制玩家的命中标记。射击追踪选点与真实命中的区别在第5节详细记录，UI通知与定时隐藏在第4节记录；AI和波次保持原来清晰的职责。
+
+
+## 14. 后续学习记录：伤害接受结果与最后一波胜利（2026-10-09）
+
+这次AIController的追击、距离判断和攻击冷却没有变化。更新集中在Enemy的受伤入口、子弹是否通知命中标记，以及Spawner清完所有波次后怎样通知玩家胜利。
+
+### 14.1 TakeProjectileDamage由void改成bool
+
+头文件的声明与cpp的定义同时改成：
+
+```cpp
+bool TakeProjectileDamage(float Damage);
+```
+
+最新完整函数：
+
+```cpp
+bool AMyEnemyCharacter::TakeProjectileDamage(float Damage)
+{
+    if (IsActorBeingDestroyed()
+        || CurrentHealth <= 0.0f
+        || !FMath::IsFinite(Damage)
+        || Damage <= 0.0f)
+    {
+        return false;
+    }
+
+    CurrentHealth = FMath::Clamp(CurrentHealth - Damage, 0.0f, MaxHealth);
+
+    UE_LOG(
+        LogTemp,
+        Warning,
+        TEXT("Enemy Took Damage: %f, Current Health: %f"),
+        Damage,
+        CurrentHealth
+    );
+
+    if (CurrentHealth <= 0.0f)
+    {
+        UE_LOG(
+            LogTemp,
+            Warning,
+            TEXT("Enemy Dead!")
+        );
+
+        Destroy();
+    }
+    return true;
+}
+```
+
+它给调用者增加了一份明确结果：
+
+| 返回结果 | 代表的情况 |
+| --- | --- |
+| false | 敌人正在销毁、生命值已归零，或传入伤害不是有效的正有限数 |
+| true | 本次伤害通过检查，已经执行扣血处理；包含击杀敌人的那次伤害 |
+
+`return true` 放在死亡判断之后，但并不表示“敌人还活着”。致死伤害同样会走到它。当前代码也没有把 `Destroy()` 的返回值当成这个伤害结果。
+
+### 14.2 从四个拒绝条件读出设计思路
+
+```cpp
+if (IsActorBeingDestroyed()
+    || CurrentHealth <= 0.0f
+    || !FMath::IsFinite(Damage)
+    || Damage <= 0.0f)
+{
+    return false;
+}
+```
+
+1. `IsActorBeingDestroyed()`：引擎报告Actor正在销毁时，不继续处理新的受伤事件。参见 [AActor API中的IsActorBeingDestroyed](https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/AActor)。
+2. `CurrentHealth <= 0`：即使对象引用尚未清掉，也不要再让已经归零的生命值重复受伤。
+3. `FMath::IsFinite(Damage)`：伤害必须是有限数，排除NaN和正负无穷大。这一步避免异常浮点值继续进入血量计算，不能只用 `Damage <= 0` 代替。参见 [IsFinite官方说明](https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Core/FGenericPlatformMath/IsFinite)。
+4. `Damage <= 0`：拒绝零和负伤害；这个入口处理伤害，没有把负数约定成回血。
+
+`||` 从左到右短路判断：只要某一项为true，整体就为true，直接进入拒绝分支。
+
+通过检查后，`FMath::Clamp(CurrentHealth - Damage, 0.0f, MaxHealth)` 限制扣血结果在0到最大生命值之间。假设敌人原有20血、受到25伤害，得到0，随后请求销毁。这次没有新增Enemy血条或独立死亡动画。
+
+### 14.3 子弹如何消费这个返回值
+
+```cpp
+if (IsValid(Enemy) && Enemy->TakeProjectileDamage(Damage))
+{
+    if (AMyArenaShooterCharacter* Player =
+        Cast<AMyArenaShooterCharacter>(GetInstigator()))
+    {
+        Player->NotifyEnemyHit();
+    }
+}
+```
+
+`&&` 也是短路求值：引用无效时，不调用成员函数；引用有效才请求伤害；伤害返回true才进入通知分支。
+
+```text
+Enemy有效 + 正常扣血 → true → 命中标记
+Enemy有效 + 扣血至0 → Destroy请求 + true → 击杀这发仍有命中标记
+Enemy拒绝伤害        → false → 本次不显示命中标记
+```
+
+“碰到了Enemy”“Enemy接受伤害”“Enemy被击杀”是三个不同信息。当前返回值只回答第二个问题。碰撞特效与命中声音放在这个判断之外，仍由各自资源引用和 `Hit.bBlockingHit` 决定是否播放。
+
+### 14.4 Destroy之后，Spawner才清理自己的数组
+
+Enemy的 `Destroy()` 请求结束自身生命周期，不会替其他对象删除数组元素。Spawner继续按原有方式检查 `CurrentWaveEnemies`，发现无效引用后 `RemoveAt()`，更新剩余数量。
+
+销毁不能理解为当场对C++指针执行 `delete` 并让所有数组同步缩短；实际销毁具有延后处理的语义，后续代码仍按各自事件顺序执行。参见 [AActor::Destroy官方API](https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/AActor/Destroy)。
+
+```text
+一发致死伤害
+    → Enemy血量归零
+    → 请求Destroy
+    → 返回true给子弹
+    → 子弹显示命中反馈并请求销毁自己
+    → Spawner后续Tick清掉失效Enemy引用
+    → 本波数组数量变为0
+```
+
+### 14.5 本波结束后的两个分支
+
+Spawner这次在原有空数组判断之后增加了最终胜利路径：
+
+```text
+CleanupDeadEnemies
+    → CurrentWaveEnemies.Num() == 0
+    → bWaveActive = false
+    → ++CurrentWaveIndex
+    → CurrentWaveIndex >= Waves.Num()？
+        否：SpawnWave生成下一波
+        是：取得有效PlayerCharacter → WinGame → return
+```
+
+内部波次索引从0开始；HUD显示从1开始。3波配置的最后一波索引是2，清完后加到3，等于 `Waves.Num()`，于是走最终分支。最新完整Spawner Tick、胜利函数与重开链集中记在第6节。
+
+当前“全部完成”只统计这个Spawner实际管理的配置波次。空波次配置、无效出生点或整波没有成功生成敌人的情况，仍可能使活动检查无法推进；这次没有额外实现跳过空波次或失败重试。
+
+### 14.6 玩家终局后怎样拒绝AI请求
+
+`ReceiveEnemyDamage()` 的入口现在检查：
+
+```cpp
+if (bIsDead || bHasWon || Damage <= 0.0f)
+{
+    return;
+}
+```
+
+因此胜利后即使仍有攻击请求，也不会继续扣血或触发受伤反馈。AI本次没有读取 `bHasWon`，仍可能继续自己的逻辑与冷却更新；拒绝发生在玩家入口。
+
+Enemy的伤害入口新增了 `IsFinite`，玩家的这个入口目前没有新增相同检查；学习记录要区分两个对象的实际实现，不能把Enemy的所有条件套到玩家上。
+
+### 14.7 本阶段复习
+
+1. 为什么受伤函数的返回值不能解释为“是否击杀”？
+2. 为什么检查指针有效后，还需要检查生命值和销毁状态？
+3. 为什么伤害被拒绝后，仍可能播放碰撞声音与特效？
+4. Enemy死亡和Spawner波次数量变化为什么属于不同对象、不同执行阶段？
+5. 当前AI行为没有改，为什么玩家胜利后不会再掉血？

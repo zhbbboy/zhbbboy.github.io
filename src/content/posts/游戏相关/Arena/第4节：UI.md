@@ -1392,3 +1392,140 @@ AI在攻击范围内且冷却结束 → ReceiveEnemyDamage(AttackDamage)
 7. 新保护阻止重复受伤，为什么不会同时自动停掉已经按住的武器？
 
 把“实际碰到Enemy → 通知发射者 → 显示并定时隐藏标记”和“AI攻击请求 → 有效伤害 → 扣血与闪红 → 本机受伤声 → 死亡判断”各自口述一次，再回源码找箭头对应的入口。
+
+
+## 21. 后续学习记录：界面初始状态与胜利提示（2026-10-09）
+
+本节之前的血量、波次、弹药、死亡提示、命中标记、闪红过程继续保留。本次增加 `VictoryText`，并在HUD构建阶段隐藏两个短暂反馈控件。
+
+### 21.1 新增VictoryText绑定
+
+```cpp
+UPROPERTY(meta = (BindWidget))
+UTextBlock* VictoryText = nullptr;
+```
+
+当前共有9个 `BindWidget` 引用：1个Progress Bar、7个Text Block、1个Border。新增的是 `VictoryText`，原有控件继续使用。
+
+| 新增/关联控件 | 类型 | 显示入口 | 初始隐藏由哪里处理 |
+| --- | --- | --- | --- |
+| VictoryText | Text Block | ShowVictory | Widget蓝图默认值 |
+| GameOverText | Text Block | ShowGameOver | Widget蓝图默认值 |
+| HitMarkerText | Text Block | ShowHitMarker | 本次NativeConstruct调用HideHitMarker |
+| DamageFlashOverlay | Border | ShowDamageFlash | 本次NativeConstruct调用HideDamageFlash |
+
+`WBP_HUD` 需要有精确同名、类型兼容的 `VictoryText`，确认Is Variable，默认设为Hidden或Collapsed，然后编译保存。普通 `BindWidget` 是绑定要求，函数里的空指针判断不能免除蓝图配置。
+
+### 21.2 ShowVictory只负责显示
+
+头文件public区新增 `void ShowVictory();`。完整实现：
+
+```cpp
+void UMyHUDWidget::ShowVictory()
+{
+    if (VictoryText)
+    {
+        VictoryText->SetVisibility(ESlateVisibility::Visible);
+    }
+}
+```
+
+完整通知方向：
+
+```text
+最后一波清空
+    → Spawner判定全部波次完成
+    → PlayerCharacter->WinGame()
+    → 玩家记录bHasWon，停止连射、禁用移动
+    → HUDWidget->ShowVictory()
+    → VictoryText.SetVisibility(Visible)
+```
+
+HUD不决定胜利，也不改变玩家血量或武器状态。胜负和重开的完整实现见第6节《胜负状态与重新开始》。
+
+### 21.3 NativeConstruct在控件可用的阶段隐藏短暂反馈
+
+头文件protected区新增：
+
+```cpp
+virtual void NativeConstruct() override;
+```
+
+完整实现：
+
+```cpp
+void UMyHUDWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+
+    HideHitMarker();
+    HideDamageFlash();
+}
+```
+
+`NativeConstruct` 是继承自 `UUserWidget` 的生命周期函数，`override` 表明覆盖父类函数。先调用 `Super`，保留引擎与蓝图Construct行为，再做本HUD的显示初始化。声明可查 [UUserWidget API](https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/UUserWidget)。
+
+本项目运行时可以这样理解：
+
+```text
+CreateWidget创建HUD实例，完成控件初始化/绑定
+    → AddToViewport使界面建立并显示到视口
+    → 引擎构建生命周期调用NativeConstruct
+    → Super::NativeConstruct
+    → HideHitMarker
+    → HideDamageFlash
+    → 后续实际命中与受伤再显示它们
+```
+
+不要把 `NativeConstruct()` 当作只执行一次的普通C++构造函数：底层界面重建、移除后重新加入层级等情况下，Construct阶段可能再次调用。参见 [Construct生命周期说明](https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/UMG/UUserWidget/Construct?lang=en-US)。
+
+本次没有在这里隐藏 `VictoryText`、`GameOverText`，也没有清除两个反馈定时器。胜负文字仍须在Widget蓝图里默认隐藏。此前笔记中“没有C++初始化隐藏”的说明属于2026-10-08阶段；本次已为命中标记和受伤遮罩补上入口。
+
+### 21.4 命中标记现在要求Enemy接受伤害
+
+最新前半段链变为：
+
+```text
+子弹发生实际碰撞
+    → 转换成Enemy
+    → IsValid(Enemy)
+    → Enemy.TakeProjectileDamage(Damage)返回true
+    → 通过Instigator找到发射玩家
+    → Player.NotifyEnemyHit()
+    → HUD.ShowHitMarker()
+    → 0.15秒定时隐藏
+```
+
+伤害返回false时，不进入玩家通知分支。返回true也包含击杀的那发子弹，因此不是专门的击杀标记。末尾的碰撞特效和ImpactSound不以伤害返回值为条件，它们仍按阻挡命中与资源是否配置决定执行。
+
+当前 `NotifyEnemyHit()` 本身仍只判断 `bIsDead`，没有新增 `bHasWon` 条件。胜利会停止新的连射，但已经飞出的子弹没有被清除；它们仍可能完成自己的后续事件。记录时不要把“终局拒绝新射击”扩展成“所有旧反馈立刻停止”。
+
+### 21.5 受伤与重开如何扩展到胜利状态
+
+`ReceiveEnemyDamage()` 的入口新增 `bHasWon`，因此胜利后不再从该入口扣血、闪红或播放受伤声音。`RestartGame()` 则把“仅死亡能重开”扩展成“死亡或胜利能重开”。
+
+```text
+收到伤害请求
+    → 已死亡 / 已胜利 / Damage<=0？
+    → 是：返回
+    → 否：扣血、更新HUD、闪红、受伤音效、死亡判断
+
+收到RestartAction Started
+    → 既没有死亡也没有胜利？
+    → 是：返回
+    → 否：获取当前地图名 → OpenLevel重新加载
+```
+
+本次死亡与胜利函数均调用武器 `StopFire()`。旧章节里“仅拦新输入还不足以停止死亡前连射”的学习过程仍保留；现在已经用清理武器状态补上这一条路径。
+
+### 21.6 按现象核对配置
+
+| 现象 | 核对点 |
+| --- | --- |
+| Widget蓝图编译提示缺少绑定 | 是否有名为VictoryText的Text Block，名称/类型/父类是否正确 |
+| 进入游戏即显示胜利/失败 | 胜负文字的蓝图默认可见性；当前NativeConstruct不处理它们 |
+| 命中标记不显示 | 先看Enemy是否接受伤害返回true，再看玩家通知和控件绑定 |
+| 胜利了但不能重开 | RestartAction映射和绑定，以及`!bIsDead && !bHasWon`提前返回条件 |
+| 胜利提示显示但世界仍有活动 | ShowVictory只显示文字，未暂停世界、AI和所有定时器 |
+
+复习时试着回答：为什么界面初始状态要在生命周期里处理？为什么“实际接触反馈”和“伤害确认标记”可以有不同条件？为什么胜利文字的可见性不能代替玩家的 `bHasWon` 状态？
