@@ -1,0 +1,18 @@
+<mxfile host="draw.io">
+  <diagram id="demo" name="协作绘图示例">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageScale="1" pageWidth="900" pageHeight="600">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="draw.io 协作绘图测试" style="text;html=1;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="180" y="30" width="420" height="50" as="geometry"/></mxCell>
+        <mxCell id="start" value="描述流程需求" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=18;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="80" y="140" width="180" height="70" as="geometry"/></mxCell>
+        <mxCell id="generate" value="Agent 生成流程图" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=18;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="320" y="140" width="210" height="70" as="geometry"/></mxCell>
+        <mxCell id="review" value="你在 draw.io 中审阅" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=18;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="320" y="270" width="210" height="70" as="geometry"/></mxCell>
+        <mxCell id="edit" value="拖动节点、修改文字与连线" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=18;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="290" y="400" width="270" height="70" as="geometry"/></mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="start" target="generate"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="generate" target="review"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="review" target="edit"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

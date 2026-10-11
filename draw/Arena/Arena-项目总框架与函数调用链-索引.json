@@ -1,0 +1,1547 @@
+{
+  "date": "2026-10-11",
+  "repository": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample",
+  "pages": [
+    {
+      "index": 1,
+      "name": "00 学习导航",
+      "png": "Arena-项目总框架与函数调用链-01-00-学习导航.png",
+      "nodes": 17,
+      "edges": 0
+    },
+    {
+      "index": 2,
+      "name": "01 总框架",
+      "png": "Arena-项目总框架与函数调用链-02-01-总框架.png",
+      "nodes": 12,
+      "edges": 10
+    },
+    {
+      "index": 3,
+      "name": "02 启动与生命周期",
+      "png": "Arena-项目总框架与函数调用链-03-02-启动与生命周期.png",
+      "nodes": 15,
+      "edges": 7
+    },
+    {
+      "index": 4,
+      "name": "03 玩家输入与移动",
+      "png": "Arena-项目总框架与函数调用链-04-03-玩家输入与移动.png",
+      "nodes": 13,
+      "edges": 6
+    },
+    {
+      "index": 5,
+      "name": "04 切枪与武器挂载",
+      "png": "Arena-项目总框架与函数调用链-05-04-切枪与武器挂载.png",
+      "nodes": 13,
+      "edges": 7
+    },
+    {
+      "index": 6,
+      "name": "05 开火与射线命中",
+      "png": "Arena-项目总框架与函数调用链-06-05-开火与射线命中.png",
+      "nodes": 14,
+      "edges": 10
+    },
+    {
+      "index": 7,
+      "name": "06 投射物命中",
+      "png": "Arena-项目总框架与函数调用链-07-06-投射物命中.png",
+      "nodes": 13,
+      "edges": 7
+    },
+    {
+      "index": 8,
+      "name": "07 敌人死亡、计分与波次",
+      "png": "Arena-项目总框架与函数调用链-08-07-敌人死亡、计分与波次.png",
+      "nodes": 15,
+      "edges": 9
+    },
+    {
+      "index": 9,
+      "name": "08 AI 导航与攻击组件",
+      "png": "Arena-项目总框架与函数调用链-09-08-AI-导航与攻击组件.png",
+      "nodes": 15,
+      "edges": 7
+    },
+    {
+      "index": 10,
+      "name": "09 玩家受伤与 HUD 查询",
+      "png": "Arena-项目总框架与函数调用链-10-09-玩家受伤与-HUD-查询.png",
+      "nodes": 13,
+      "edges": 7
+    },
+    {
+      "index": 11,
+      "name": "10 交互、跳板与伤害区",
+      "png": "Arena-项目总框架与函数调用链-11-10-交互、跳板与伤害区.png",
+      "nodes": 14,
+      "edges": 7
+    },
+    {
+      "index": 12,
+      "name": "11 工具组件与标记 Actor",
+      "png": "Arena-项目总框架与函数调用链-12-11-工具组件与标记-Actor.png",
+      "nodes": 14,
+      "edges": 3
+    },
+    {
+      "index": 13,
+      "name": "12 蓝图边界与索引",
+      "png": "Arena-项目总框架与函数调用链-13-12-蓝图边界与索引.png",
+      "nodes": 14,
+      "edges": 0
+    }
+  ],
+  "functions": [
+    {
+      "class": "ABoomerShooterGameMode",
+      "method": "ABoomerShooterGameMode",
+      "path": "BoomerShooterGameMode.cpp",
+      "line": 8,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/BoomerShooterGameMode.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "ABoomerShooterCharacter",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "BeginPlay",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 54,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "PostInitializeComponents",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 88,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "SetupPlayerInputComponent",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 105,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "Move",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 138,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "Look",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 149,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "JumpInput",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 160,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "Dash",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 173,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "Interaction",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 196,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "ChangeWeapon1",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 204,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "ChangeWeapon2",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 209,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "ChangeWeapon3",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 214,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "ChangeWeapon4",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 219,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "FireInputStart",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 224,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "FireInputCancelled",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 232,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "UpdateWeapon",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 240,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "IsWeaponShooting",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 267,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "Landed",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 277,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "Tick",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 287,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "KilledEnemy",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 329,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "TookDamage",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 335,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetDamageDirectionUI",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 379,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetHealth01",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 384,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetLevelTimer",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 389,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetComboText",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 394,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetScoreText",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 400,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetCurrentWeapon",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 405,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "ADamageZone",
+      "method": "ADamageZone",
+      "path": "Enemies/DamageZone.cpp",
+      "line": 29,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp",
+      "inline": false
+    },
+    {
+      "class": "ADamageZone",
+      "method": "BeginPlay",
+      "path": "Enemies/DamageZone.cpp",
+      "line": 39,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp",
+      "inline": false
+    },
+    {
+      "class": "ADamageZone",
+      "method": "Tick",
+      "path": "Enemies/DamageZone.cpp",
+      "line": 51,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp",
+      "inline": false
+    },
+    {
+      "class": "ADamageZone",
+      "method": "OnComponentBeginOverlap",
+      "path": "Enemies/DamageZone.cpp",
+      "line": 68,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp",
+      "inline": false
+    },
+    {
+      "class": "ADamageZone",
+      "method": "OnComponentEndOverlap",
+      "path": "Enemies/DamageZone.cpp",
+      "line": 81,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyAIController",
+      "method": "AEnemyAIController",
+      "path": "Enemies/EnemyAIController.cpp",
+      "line": 32,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyAIController",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemyAIController.cpp",
+      "line": 37,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyAIController",
+      "method": "OnPreceptionUpdated",
+      "path": "Enemies/EnemyAIController.cpp",
+      "line": 50,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyAIController",
+      "method": "OnTargetPerceptionUpdated",
+      "path": "Enemies/EnemyAIController.cpp",
+      "line": 55,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyAIController",
+      "method": "Tick",
+      "path": "Enemies/EnemyAIController.cpp",
+      "line": 60,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyCharacter",
+      "method": "AEnemyCharacter",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 33,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyCharacter",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 38,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyCharacter",
+      "method": "SetupPlayerInputComponent",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 48,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyCharacter",
+      "method": "PossessedBy",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 53,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyCharacter",
+      "method": "Tick",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 58,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyCharacter",
+      "method": "IsDead",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 63,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyCharacter",
+      "method": "DamageEnemy",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 68,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyNavigationPoint",
+      "method": "AEnemyNavigationPoint",
+      "path": "Enemies/EnemyNavigationPoint.cpp",
+      "line": 26,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyNavigationPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyNavigationPoint",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemyNavigationPoint.cpp",
+      "line": 31,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyNavigationPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemyNavigationPoint",
+      "method": "Tick",
+      "path": "Enemies/EnemyNavigationPoint.cpp",
+      "line": 36,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyNavigationPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnerManager",
+      "method": "AEnemySpawnerManager",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 29,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnerManager",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnerManager",
+      "method": "Tick",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnerManager",
+      "method": "SpawnWave",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 70,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnerManager",
+      "method": "UpdateEnemies",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 110,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnerManager",
+      "method": "GetWaveCharacters",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 122,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnPoint",
+      "method": "AEnemySpawnPoint",
+      "path": "Enemies/EnemySpawnPoint.cpp",
+      "line": 26,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnPoint",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemySpawnPoint.cpp",
+      "line": 31,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "AEnemySpawnPoint",
+      "method": "Tick",
+      "path": "Enemies/EnemySpawnPoint.cpp",
+      "line": 36,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "UExplodeWithinRange",
+      "method": "UExplodeWithinRange",
+      "path": "Enemies/ExplodeWithinRange.cpp",
+      "line": 30,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ExplodeWithinRange.cpp",
+      "inline": false
+    },
+    {
+      "class": "UExplodeWithinRange",
+      "method": "BeginPlay",
+      "path": "Enemies/ExplodeWithinRange.cpp",
+      "line": 35,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ExplodeWithinRange.cpp",
+      "inline": false
+    },
+    {
+      "class": "UExplodeWithinRange",
+      "method": "TickComponent",
+      "path": "Enemies/ExplodeWithinRange.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ExplodeWithinRange.cpp",
+      "inline": false
+    },
+    {
+      "class": "UShootProjectile",
+      "method": "UShootProjectile",
+      "path": "Enemies/ShootProjectile.cpp",
+      "line": 31,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ShootProjectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "UShootProjectile",
+      "method": "BeginPlay",
+      "path": "Enemies/ShootProjectile.cpp",
+      "line": 36,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ShootProjectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "UShootProjectile",
+      "method": "TickComponent",
+      "path": "Enemies/ShootProjectile.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ShootProjectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "UInteractionPoint",
+      "method": "UInteractionPoint",
+      "path": "Level/InteractionPoint.cpp",
+      "line": 28,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "UInteractionPoint",
+      "method": "BeginPlay",
+      "path": "Level/InteractionPoint.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "UInteractionPoint",
+      "method": "OnPlayerInteractionPressed",
+      "path": "Level/InteractionPoint.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "UInteractionPoint",
+      "method": "TickComponent",
+      "path": "Level/InteractionPoint.cpp",
+      "line": 56,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp",
+      "inline": false
+    },
+    {
+      "class": "AJumpPad",
+      "method": "AJumpPad",
+      "path": "Level/JumpPad.cpp",
+      "line": 30,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/JumpPad.cpp",
+      "inline": false
+    },
+    {
+      "class": "AJumpPad",
+      "method": "BeginPlay",
+      "path": "Level/JumpPad.cpp",
+      "line": 35,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/JumpPad.cpp",
+      "inline": false
+    },
+    {
+      "class": "AJumpPad",
+      "method": "Tick",
+      "path": "Level/JumpPad.cpp",
+      "line": 54,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/JumpPad.cpp",
+      "inline": false
+    },
+    {
+      "class": "AJumpPad",
+      "method": "OnComponentOverlap",
+      "path": "Level/JumpPad.cpp",
+      "line": 59,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/JumpPad.cpp",
+      "inline": false
+    },
+    {
+      "class": "ULookAtTarget",
+      "method": "ULookAtTarget",
+      "path": "Utilities/LookAtTarget.cpp",
+      "line": 29,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/LookAtTarget.cpp",
+      "inline": false
+    },
+    {
+      "class": "ULookAtTarget",
+      "method": "BeginPlay",
+      "path": "Utilities/LookAtTarget.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/LookAtTarget.cpp",
+      "inline": false
+    },
+    {
+      "class": "ULookAtTarget",
+      "method": "TickComponent",
+      "path": "Utilities/LookAtTarget.cpp",
+      "line": 40,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/LookAtTarget.cpp",
+      "inline": false
+    },
+    {
+      "class": "UMoveBetweenPoints",
+      "method": "UMoveBetweenPoints",
+      "path": "Utilities/MoveBetweenPoints.cpp",
+      "line": 26,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/MoveBetweenPoints.cpp",
+      "inline": false
+    },
+    {
+      "class": "UMoveBetweenPoints",
+      "method": "BeginPlay",
+      "path": "Utilities/MoveBetweenPoints.cpp",
+      "line": 31,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/MoveBetweenPoints.cpp",
+      "inline": false
+    },
+    {
+      "class": "UMoveBetweenPoints",
+      "method": "TickComponent",
+      "path": "Utilities/MoveBetweenPoints.cpp",
+      "line": 36,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/MoveBetweenPoints.cpp",
+      "inline": false
+    },
+    {
+      "class": "AProjectile",
+      "method": "AProjectile",
+      "path": "Weapon/Projectile.cpp",
+      "line": 33,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "AProjectile",
+      "method": "BeginPlay",
+      "path": "Weapon/Projectile.cpp",
+      "line": 41,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "AProjectile",
+      "method": "OnComponentHit",
+      "path": "Weapon/Projectile.cpp",
+      "line": 56,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "AProjectile",
+      "method": "OnComponentOverlap",
+      "path": "Weapon/Projectile.cpp",
+      "line": 61,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "AProjectile",
+      "method": "Tick",
+      "path": "Weapon/Projectile.cpp",
+      "line": 66,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "AWeapon",
+      "path": "Weapon/Weapon.cpp",
+      "line": 36,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "BeginPlay",
+      "path": "Weapon/Weapon.cpp",
+      "line": 57,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "SetFirePressed",
+      "path": "Weapon/Weapon.cpp",
+      "line": 63,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "IsShooting",
+      "path": "Weapon/Weapon.cpp",
+      "line": 68,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "IsFirePressed",
+      "path": "Weapon/Weapon.cpp",
+      "line": 73,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "GetCrosshairAngle",
+      "path": "Weapon/Weapon.cpp",
+      "line": 78,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "GetCrosshairScale",
+      "path": "Weapon/Weapon.cpp",
+      "line": 83,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "Fire",
+      "path": "Weapon/Weapon.cpp",
+      "line": 88,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "SpawnWeapon",
+      "path": "Weapon/Weapon.cpp",
+      "line": 236,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "AWeapon",
+      "method": "Tick",
+      "path": "Weapon/Weapon.cpp",
+      "line": 264,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetFirstPersonCameraComponent",
+      "path": "Character/BoomerShooterCharacter.h",
+      "line": 132,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.h",
+      "inline": true
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetSpawnManager",
+      "path": "Character/BoomerShooterCharacter.h",
+      "line": 133,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.h",
+      "inline": true
+    },
+    {
+      "class": "ABoomerShooterCharacter",
+      "method": "GetMoveComponent",
+      "path": "Character/BoomerShooterCharacter.h",
+      "line": 134,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.h",
+      "inline": true
+    }
+  ],
+  "source_nodes": [
+    {
+      "page": "02 启动与生命周期",
+      "node": "mode",
+      "symbol": "ABoomerShooterGameMode::ABoomerShooterGameMode",
+      "class": "ABoomerShooterGameMode",
+      "method": "ABoomerShooterGameMode",
+      "path": "BoomerShooterGameMode.cpp",
+      "line": 8,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/BoomerShooterGameMode.cpp",
+      "inline": false
+    },
+    {
+      "page": "02 启动与生命周期",
+      "node": "post",
+      "symbol": "ABoomerShooterCharacter::PostInitializeComponents",
+      "class": "ABoomerShooterCharacter",
+      "method": "PostInitializeComponents",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 88,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "02 启动与生命周期",
+      "node": "begin",
+      "symbol": "ABoomerShooterCharacter::BeginPlay",
+      "class": "ABoomerShooterCharacter",
+      "method": "BeginPlay",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 54,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "02 启动与生命周期",
+      "node": "input",
+      "symbol": "ABoomerShooterCharacter::SetupPlayerInputComponent",
+      "class": "ABoomerShooterCharacter",
+      "method": "SetupPlayerInputComponent",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 105,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "02 启动与生命周期",
+      "node": "spbegin",
+      "symbol": "AEnemySpawnerManager::BeginPlay",
+      "class": "AEnemySpawnerManager",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "page": "02 启动与生命周期",
+      "node": "spawn",
+      "symbol": "AEnemySpawnerManager::SpawnWave",
+      "class": "AEnemySpawnerManager",
+      "method": "SpawnWave",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 70,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "page": "03 玩家输入与移动",
+      "node": "input",
+      "symbol": "ABoomerShooterCharacter::SetupPlayerInputComponent",
+      "class": "ABoomerShooterCharacter",
+      "method": "SetupPlayerInputComponent",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 105,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "03 玩家输入与移动",
+      "node": "move",
+      "symbol": "ABoomerShooterCharacter::Move",
+      "class": "ABoomerShooterCharacter",
+      "method": "Move",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 138,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "03 玩家输入与移动",
+      "node": "look",
+      "symbol": "ABoomerShooterCharacter::Look",
+      "class": "ABoomerShooterCharacter",
+      "method": "Look",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 149,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "03 玩家输入与移动",
+      "node": "jump",
+      "symbol": "ABoomerShooterCharacter::JumpInput",
+      "class": "ABoomerShooterCharacter",
+      "method": "JumpInput",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 160,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "03 玩家输入与移动",
+      "node": "dash",
+      "symbol": "ABoomerShooterCharacter::Dash",
+      "class": "ABoomerShooterCharacter",
+      "method": "Dash",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 173,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "03 玩家输入与移动",
+      "node": "land",
+      "symbol": "ABoomerShooterCharacter::Landed",
+      "class": "ABoomerShooterCharacter",
+      "method": "Landed",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 277,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "03 玩家输入与移动",
+      "node": "tick",
+      "symbol": "ABoomerShooterCharacter::Tick",
+      "class": "ABoomerShooterCharacter",
+      "method": "Tick",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 287,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "04 切枪与武器挂载",
+      "node": "begin",
+      "symbol": "ABoomerShooterCharacter::BeginPlay",
+      "class": "ABoomerShooterCharacter",
+      "method": "BeginPlay",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 54,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "04 切枪与武器挂载",
+      "node": "update",
+      "symbol": "ABoomerShooterCharacter::UpdateWeapon",
+      "class": "ABoomerShooterCharacter",
+      "method": "UpdateWeapon",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 240,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "04 切枪与武器挂载",
+      "node": "spawnweapon",
+      "symbol": "AWeapon::SpawnWeapon",
+      "class": "AWeapon",
+      "method": "SpawnWeapon",
+      "path": "Weapon/Weapon.cpp",
+      "line": 236,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "page": "04 切枪与武器挂载",
+      "node": "wbegin",
+      "symbol": "AWeapon::BeginPlay",
+      "class": "AWeapon",
+      "method": "BeginPlay",
+      "path": "Weapon/Weapon.cpp",
+      "line": 57,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "page": "04 切枪与武器挂载",
+      "node": "wtick",
+      "symbol": "AWeapon::Tick",
+      "class": "AWeapon",
+      "method": "Tick",
+      "path": "Weapon/Weapon.cpp",
+      "line": 264,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "page": "05 开火与射线命中",
+      "node": "start",
+      "symbol": "ABoomerShooterCharacter::FireInputStart",
+      "class": "ABoomerShooterCharacter",
+      "method": "FireInputStart",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 224,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "05 开火与射线命中",
+      "node": "stop",
+      "symbol": "ABoomerShooterCharacter::FireInputCancelled",
+      "class": "ABoomerShooterCharacter",
+      "method": "FireInputCancelled",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 232,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "05 开火与射线命中",
+      "node": "pressed",
+      "symbol": "AWeapon::SetFirePressed",
+      "class": "AWeapon",
+      "method": "SetFirePressed",
+      "path": "Weapon/Weapon.cpp",
+      "line": 63,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "page": "05 开火与射线命中",
+      "node": "tick",
+      "symbol": "AWeapon::Tick",
+      "class": "AWeapon",
+      "method": "Tick",
+      "path": "Weapon/Weapon.cpp",
+      "line": 264,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "page": "05 开火与射线命中",
+      "node": "fire",
+      "symbol": "AWeapon::Fire",
+      "class": "AWeapon",
+      "method": "Fire",
+      "path": "Weapon/Weapon.cpp",
+      "line": 88,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp",
+      "inline": false
+    },
+    {
+      "page": "05 开火与射线命中",
+      "node": "damage",
+      "symbol": "AEnemyCharacter::DamageEnemy",
+      "class": "AEnemyCharacter",
+      "method": "DamageEnemy",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 68,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "06 投射物命中",
+      "node": "begin",
+      "symbol": "AProjectile::BeginPlay",
+      "class": "AProjectile",
+      "method": "BeginPlay",
+      "path": "Weapon/Projectile.cpp",
+      "line": 41,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp",
+      "inline": false
+    },
+    {
+      "page": "06 投射物命中",
+      "node": "tick",
+      "symbol": "AProjectile::Tick",
+      "class": "AProjectile",
+      "method": "Tick",
+      "path": "Weapon/Projectile.cpp",
+      "line": 66,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp",
+      "inline": false
+    },
+    {
+      "page": "06 投射物命中",
+      "node": "took",
+      "symbol": "ABoomerShooterCharacter::TookDamage",
+      "class": "ABoomerShooterCharacter",
+      "method": "TookDamage",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 335,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "06 投射物命中",
+      "node": "damage",
+      "symbol": "AEnemyCharacter::DamageEnemy",
+      "class": "AEnemyCharacter",
+      "method": "DamageEnemy",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 68,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "spbegin",
+      "symbol": "AEnemySpawnerManager::BeginPlay",
+      "class": "AEnemySpawnerManager",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "spawn",
+      "symbol": "AEnemySpawnerManager::SpawnWave",
+      "class": "AEnemySpawnerManager",
+      "method": "SpawnWave",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 70,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "ebegin",
+      "symbol": "AEnemyCharacter::BeginPlay",
+      "class": "AEnemyCharacter",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 38,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "damage",
+      "symbol": "AEnemyCharacter::DamageEnemy",
+      "class": "AEnemyCharacter",
+      "method": "DamageEnemy",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 68,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "dead",
+      "symbol": "AEnemyCharacter::IsDead",
+      "class": "AEnemyCharacter",
+      "method": "IsDead",
+      "path": "Enemies/EnemyCharacter.cpp",
+      "line": 63,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "killed",
+      "symbol": "ABoomerShooterCharacter::KilledEnemy",
+      "class": "ABoomerShooterCharacter",
+      "method": "KilledEnemy",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 329,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "update",
+      "symbol": "AEnemySpawnerManager::UpdateEnemies",
+      "class": "AEnemySpawnerManager",
+      "method": "UpdateEnemies",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 110,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "tick",
+      "symbol": "AEnemySpawnerManager::Tick",
+      "class": "AEnemySpawnerManager",
+      "method": "Tick",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "page": "07 敌人死亡、计分与波次",
+      "node": "get",
+      "symbol": "AEnemySpawnerManager::GetWaveCharacters",
+      "class": "AEnemySpawnerManager",
+      "method": "GetWaveCharacters",
+      "path": "Enemies/EnemySpawnerManager.cpp",
+      "line": 122,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp",
+      "inline": false
+    },
+    {
+      "page": "08 AI 导航与攻击组件",
+      "node": "begin",
+      "symbol": "AEnemyAIController::BeginPlay",
+      "class": "AEnemyAIController",
+      "method": "BeginPlay",
+      "path": "Enemies/EnemyAIController.cpp",
+      "line": 37,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp",
+      "inline": false
+    },
+    {
+      "page": "08 AI 导航与攻击组件",
+      "node": "tick",
+      "symbol": "AEnemyAIController::Tick",
+      "class": "AEnemyAIController",
+      "method": "Tick",
+      "path": "Enemies/EnemyAIController.cpp",
+      "line": 60,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp",
+      "inline": false
+    },
+    {
+      "page": "08 AI 导航与攻击组件",
+      "node": "shootbegin",
+      "symbol": "UShootProjectile::BeginPlay",
+      "class": "UShootProjectile",
+      "method": "BeginPlay",
+      "path": "Enemies/ShootProjectile.cpp",
+      "line": 36,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ShootProjectile.cpp",
+      "inline": false
+    },
+    {
+      "page": "08 AI 导航与攻击组件",
+      "node": "shoot",
+      "symbol": "UShootProjectile::TickComponent",
+      "class": "UShootProjectile",
+      "method": "TickComponent",
+      "path": "Enemies/ShootProjectile.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ShootProjectile.cpp",
+      "inline": false
+    },
+    {
+      "page": "08 AI 导航与攻击组件",
+      "node": "explodebegin",
+      "symbol": "UExplodeWithinRange::BeginPlay",
+      "class": "UExplodeWithinRange",
+      "method": "BeginPlay",
+      "path": "Enemies/ExplodeWithinRange.cpp",
+      "line": 35,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ExplodeWithinRange.cpp",
+      "inline": false
+    },
+    {
+      "page": "08 AI 导航与攻击组件",
+      "node": "explode",
+      "symbol": "UExplodeWithinRange::TickComponent",
+      "class": "UExplodeWithinRange",
+      "method": "TickComponent",
+      "path": "Enemies/ExplodeWithinRange.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/ExplodeWithinRange.cpp",
+      "inline": false
+    },
+    {
+      "page": "09 玩家受伤与 HUD 查询",
+      "node": "took",
+      "symbol": "ABoomerShooterCharacter::TookDamage",
+      "class": "ABoomerShooterCharacter",
+      "method": "TookDamage",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 335,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "09 玩家受伤与 HUD 查询",
+      "node": "killed",
+      "symbol": "ABoomerShooterCharacter::KilledEnemy",
+      "class": "ABoomerShooterCharacter",
+      "method": "KilledEnemy",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 329,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "09 玩家受伤与 HUD 查询",
+      "node": "tick",
+      "symbol": "ABoomerShooterCharacter::Tick",
+      "class": "ABoomerShooterCharacter",
+      "method": "Tick",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 287,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "09 玩家受伤与 HUD 查询",
+      "node": "isshooting",
+      "symbol": "ABoomerShooterCharacter::IsWeaponShooting",
+      "class": "ABoomerShooterCharacter",
+      "method": "IsWeaponShooting",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 267,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "ibegin",
+      "symbol": "UInteractionPoint::BeginPlay",
+      "class": "UInteractionPoint",
+      "method": "BeginPlay",
+      "path": "Level/InteractionPoint.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "itick",
+      "symbol": "UInteractionPoint::TickComponent",
+      "class": "UInteractionPoint",
+      "method": "TickComponent",
+      "path": "Level/InteractionPoint.cpp",
+      "line": 56,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "interaction",
+      "symbol": "ABoomerShooterCharacter::Interaction",
+      "class": "ABoomerShooterCharacter",
+      "method": "Interaction",
+      "path": "Character/BoomerShooterCharacter.cpp",
+      "line": 196,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "pressed",
+      "symbol": "UInteractionPoint::OnPlayerInteractionPressed",
+      "class": "UInteractionPoint",
+      "method": "OnPlayerInteractionPressed",
+      "path": "Level/InteractionPoint.cpp",
+      "line": 42,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "jbegin",
+      "symbol": "AJumpPad::BeginPlay",
+      "class": "AJumpPad",
+      "method": "BeginPlay",
+      "path": "Level/JumpPad.cpp",
+      "line": 35,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/JumpPad.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "overlap",
+      "symbol": "AJumpPad::OnComponentOverlap",
+      "class": "AJumpPad",
+      "method": "OnComponentOverlap",
+      "path": "Level/JumpPad.cpp",
+      "line": 59,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Level/JumpPad.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "dbegin",
+      "symbol": "ADamageZone::BeginPlay",
+      "class": "ADamageZone",
+      "method": "BeginPlay",
+      "path": "Enemies/DamageZone.cpp",
+      "line": 39,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp",
+      "inline": false
+    },
+    {
+      "page": "10 交互、跳板与伤害区",
+      "node": "dtick",
+      "symbol": "ADamageZone::Tick",
+      "class": "ADamageZone",
+      "method": "Tick",
+      "path": "Enemies/DamageZone.cpp",
+      "line": 51,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp",
+      "inline": false
+    },
+    {
+      "page": "11 工具组件与标记 Actor",
+      "node": "lookbegin",
+      "symbol": "ULookAtTarget::BeginPlay",
+      "class": "ULookAtTarget",
+      "method": "BeginPlay",
+      "path": "Utilities/LookAtTarget.cpp",
+      "line": 34,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/LookAtTarget.cpp",
+      "inline": false
+    },
+    {
+      "page": "11 工具组件与标记 Actor",
+      "node": "looktick",
+      "symbol": "ULookAtTarget::TickComponent",
+      "class": "ULookAtTarget",
+      "method": "TickComponent",
+      "path": "Utilities/LookAtTarget.cpp",
+      "line": 40,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/LookAtTarget.cpp",
+      "inline": false
+    },
+    {
+      "page": "11 工具组件与标记 Actor",
+      "node": "movebegin",
+      "symbol": "UMoveBetweenPoints::BeginPlay",
+      "class": "UMoveBetweenPoints",
+      "method": "BeginPlay",
+      "path": "Utilities/MoveBetweenPoints.cpp",
+      "line": 31,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/MoveBetweenPoints.cpp",
+      "inline": false
+    },
+    {
+      "page": "11 工具组件与标记 Actor",
+      "node": "movetick",
+      "symbol": "UMoveBetweenPoints::TickComponent",
+      "class": "UMoveBetweenPoints",
+      "method": "TickComponent",
+      "path": "Utilities/MoveBetweenPoints.cpp",
+      "line": 36,
+      "absolute": "D:/code/Unreal Projects/Arena/UE5-Arena-Shooter-Sample/BoomerShooter/Source/BoomerShooter/Utilities/MoveBetweenPoints.cpp",
+      "inline": false
+    }
+  ],
+  "source_hashes": {
+    "BoomerShooter/Source/BoomerShooter/BoomerShooter.Build.cs": "259429aa2f3cac67b389d226df316696289aa09a5c57752119712fb346620635",
+    "BoomerShooter/Source/BoomerShooter/BoomerShooter.cpp": "6fd0c2ba99a993e5666fc4cab763f229ce7ce1ceebc2b72581b795971f763063",
+    "BoomerShooter/Source/BoomerShooter/BoomerShooter.h": "cdb94f418efc5dd5f8a537c9f02ca85f488d2b6070d4caa8e18daa46083b75e0",
+    "BoomerShooter/Source/BoomerShooter/BoomerShooterGameMode.cpp": "c7fa023ac8dee7a5966a11652a9d1a0f714fa9b28fcc4b3c5566f8367a5c10c3",
+    "BoomerShooter/Source/BoomerShooter/BoomerShooterGameMode.h": "4a92f10a5e3d415b3dcc3e4445a2437b8e6c5dc413f99900995f634d3d4c798d",
+    "BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.cpp": "d4b5473590b62bc3486af5ba633931adcf87d1d11b89c39325232523ed4f541e",
+    "BoomerShooter/Source/BoomerShooter/Character/BoomerShooterCharacter.h": "b825f62c445701b98228835d608bf9488ba6f51d4fffc0aa0226689d49d0de1c",
+    "BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.cpp": "151ace7ec1218fc8f8a9e2e2d65c5bb212496d878316f11d1764926b251fb117",
+    "BoomerShooter/Source/BoomerShooter/Enemies/DamageZone.h": "059627550ad89bc43f299cae84f99180f12e295382ac4c111245b57cda4e560e",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.cpp": "9285a007d38a444b8e73385b691635876616514711767e241a4a2f7c7391991f",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemyAIController.h": "7a243e409c74788d2ff5d318439a974cc03a096a99d17636eb5fdd38295c85a0",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.cpp": "b228fa3ff3a192967436f4e2366694c651a2d70734c63b55a1c3c4ad449331c0",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemyCharacter.h": "fede013616758daa71bfcf68f6df07b8b2f49c698d68f8d4289e384608bcfa6d",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemyNavigationPoint.cpp": "e53d0e36ab4220c3d7b5ff0d3706a33c4782138eee130c88a9dcc17eb6165ab9",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemyNavigationPoint.h": "fc98909223d7a8d63f2e8e596b36084772ffdf95a157ca89d34a1fbe6a0b3fa1",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.cpp": "3b14ce44757bcc6a37db70b1e80a2e12468dd06f680618a2e5848c5cb64359bf",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnerManager.h": "fdc7fdf0614fa7a63d053758a94fba3029e5ff08cac6eea2ddd7b037ac31131d",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnPoint.cpp": "2060ec0bab746e3bf551471d1cde7451a1e87dc847e5b10606c51c387dab4a20",
+    "BoomerShooter/Source/BoomerShooter/Enemies/EnemySpawnPoint.h": "cd8690123b21a0e4483c21d44b1cb0b5a3aa7ca7782e8633a7d18dcb621608b1",
+    "BoomerShooter/Source/BoomerShooter/Enemies/ExplodeWithinRange.cpp": "52ff5fa5df2ab0ebc8ede8fcc3082e67eadeaec877c0028cde3373cf95d3ba94",
+    "BoomerShooter/Source/BoomerShooter/Enemies/ExplodeWithinRange.h": "d00a5ab6698fb136aadc00ef11886cbc087294f3f83961f1c67a5907fc27b0c1",
+    "BoomerShooter/Source/BoomerShooter/Enemies/ShootProjectile.cpp": "314684dfe0e2853a711be9dec7f6b27d8a3ae68588e977e4227100c0df21629e",
+    "BoomerShooter/Source/BoomerShooter/Enemies/ShootProjectile.h": "e5997484f9ad186ba67df2d7e73842648a4eb3c91fa177be2b320f6e090c6a9f",
+    "BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.cpp": "fa472b22bfc90d01e42f97c5dff6a57621d95e79bccd0d6c6c68acd0aa9a2862",
+    "BoomerShooter/Source/BoomerShooter/Level/InteractionPoint.h": "7da22a8d12dd9954474c7f2a8a88341009ada578b7b8caec05cf28cc3d6ea633",
+    "BoomerShooter/Source/BoomerShooter/Level/JumpPad.cpp": "3cbed58e72a288667a593c7c616d24ead02b19a3d9a7e18bd3919af3647fdaad",
+    "BoomerShooter/Source/BoomerShooter/Level/JumpPad.h": "2eb6aa9b843d834db1865fc7a523d957cf3f91db44863958ba8e1790a7cf666c",
+    "BoomerShooter/Source/BoomerShooter/Utilities/LookAtTarget.cpp": "997efd2432be6b2f22f26916bb29dffda1954b3b40db6f8be8bafb186272b507",
+    "BoomerShooter/Source/BoomerShooter/Utilities/LookAtTarget.h": "1dbf9df3ff8fde35046deb267e9c782d5a65703bf8fb95aaddeee6f4667b4878",
+    "BoomerShooter/Source/BoomerShooter/Utilities/MoveBetweenPoints.cpp": "edd782e1c1c1a096ecb257d7da9f8622858bc0032ec0e6c7691c0836d0140629",
+    "BoomerShooter/Source/BoomerShooter/Utilities/MoveBetweenPoints.h": "10406013c33aa18641326b234f9fd1422cb08524ed543fdecdab88886a7b7d5b",
+    "BoomerShooter/Source/BoomerShooter/Weapon/Projectile.cpp": "094dccbc4b9551f3a67f0f14b13dae7197bead6ece98f260bf830847cb4a5a3b",
+    "BoomerShooter/Source/BoomerShooter/Weapon/Projectile.h": "17d9249441b244f42936f9edfff2284a18f1d31eaa02b3e2ec701358af1706f7",
+    "BoomerShooter/Source/BoomerShooter/Weapon/Weapon.cpp": "75efe8d75de45099ca09637c7b6462d2c1859fe823829022fd9f73b59e17bc9e",
+    "BoomerShooter/Source/BoomerShooter/Weapon/Weapon.h": "bfb7dee8d899b64fac8177de86a5fbcb8fd1f690893e7d52205cc1f14a05bebd"
+  }
+}

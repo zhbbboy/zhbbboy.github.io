@@ -1,0 +1,445 @@
+{
+  "project": "D:\\code\\Unreal Projects\\MyArenaShooter\\MyArenaShooter",
+  "review_date": "2026-10-11",
+  "engine": "5.4",
+  "drawio": "MyArena-项目总框架与函数调用链.drawio",
+  "pages": [
+    {
+      "page": 0,
+      "name": "学习导航",
+      "question": "如何把图纸变成自己能复写的 demo？",
+      "preview": "MyArena-项目总框架与函数调用链-00-学习导航.png"
+    },
+    {
+      "page": 1,
+      "name": "总框架",
+      "question": "哪些类负责输入、伤害、波次和显示？",
+      "preview": "MyArena-项目总框架与函数调用链-01-总框架.png"
+    },
+    {
+      "page": 2,
+      "name": "启动与生命周期",
+      "question": "程序启动时对象如何建立，哪些初始化互相依赖？",
+      "preview": "MyArena-项目总框架与函数调用链-02-启动与生命周期.png"
+    },
+    {
+      "page": 3,
+      "name": "输入与移动",
+      "question": "每个输入事件如何变成移动，冲刺在哪恢复？",
+      "preview": "MyArena-项目总框架与函数调用链-03-输入与移动.png"
+    },
+    {
+      "page": 4,
+      "name": "开火、连射与瞄准",
+      "question": "按住开火如何持续出弹，枪口为何朝准星目标发射？",
+      "preview": "MyArena-项目总框架与函数调用链-04-开火、连射与瞄准.png"
+    },
+    {
+      "page": 5,
+      "name": "子弹命中与敌人受伤",
+      "question": "命中、伤害、死亡、反馈与波次更新如何衔接？",
+      "preview": "MyArena-项目总框架与函数调用链-05-子弹命中与敌人受伤.png"
+    },
+    {
+      "page": 6,
+      "name": "换弹与弹药 HUD",
+      "question": "何时开始换弹，子弹如何转移，谁更新显示？",
+      "preview": "MyArena-项目总框架与函数调用链-06-换弹与弹药-HUD.png"
+    },
+    {
+      "page": 7,
+      "name": "AI、玩家受伤与失败",
+      "question": "AI 谁来控制，伤害怎样从敌人传到玩家和 HUD？",
+      "preview": "MyArena-项目总框架与函数调用链-07-AI、玩家受伤与失败.png"
+    },
+    {
+      "page": 8,
+      "name": "波次、胜利与重开",
+      "question": "如何生成一波、推进下一波，以及恢复整个关卡状态？",
+      "preview": "MyArena-项目总框架与函数调用链-08-波次、胜利与重开.png"
+    },
+    {
+      "page": 9,
+      "name": "蓝图检查与扩展路线",
+      "question": "复写时必须配哪些资产，新增功能应落在哪里？",
+      "preview": "MyArena-项目总框架与函数调用链-09-蓝图检查与扩展路线.png"
+    }
+  ],
+  "source_references": [
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterGameMode.cpp",
+      "line": 6,
+      "symbol": "AMyArenaShooterGameMode"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 107,
+      "symbol": "SetupPlayerInputComponent"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyHUDWidget.h",
+      "line": 18,
+      "symbol": "UMyHUDWidget"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyArenaShooterCharacter.h",
+      "line": 18,
+      "symbol": "AMyArenaShooterCharacter"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyWeapon.h",
+      "line": 17,
+      "symbol": "AMyWeapon"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyProjectile.h",
+      "line": 15,
+      "symbol": "AMyProjectile"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyEnemySpawner.h",
+      "line": 23,
+      "symbol": "AMyEnemySpawner"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyEnemyCharacter.h",
+      "line": 10,
+      "symbol": "AMyEnemyCharacter"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyEnemyAIController.h",
+      "line": 16,
+      "symbol": "AMyEnemyAIController"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 17,
+      "symbol": "AMyArenaShooterCharacter"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 33,
+      "symbol": "BeginPlay"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyHUDWidget.cpp",
+      "line": 143,
+      "symbol": "NativeConstruct"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 60,
+      "symbol": "AddMappingContext"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 72,
+      "symbol": "SpawnActor"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 81,
+      "symbol": "AttachToComponent"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 26,
+      "symbol": "BeginPlay"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 13,
+      "symbol": "BeginPlay"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 18,
+      "symbol": "BeginPlay"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 14,
+      "symbol": "bCanEverTick"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 115,
+      "symbol": "BindAction"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 209,
+      "symbol": "::Move"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 229,
+      "symbol": "StopMove"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 234,
+      "symbol": "::Look"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 140,
+      "symbol": "JumpAction"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 242,
+      "symbol": "::Dash"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 257,
+      "symbol": "LaunchCharacter"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 377,
+      "symbol": "::Landed"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 266,
+      "symbol": "StartFireInput"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 415,
+      "symbol": "ReloadInput"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 403,
+      "symbol": "RestartGame"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 210,
+      "symbol": "StartFire"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 34,
+      "symbol": "::Tick"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 232,
+      "symbol": "StopFire"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 53,
+      "symbol": "::Fire"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 102,
+      "symbol": "LineTraceSingleByObjectType"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 116,
+      "symbol": "ShootDirection"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 133,
+      "symbol": "SpawnActor"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 177,
+      "symbol": "MuzzleFlashEffect"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 200,
+      "symbol": "CurrentAmmo"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 204,
+      "symbol": "CurrentAmmo"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 12,
+      "symbol": "AMyProjectile"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 43,
+      "symbol": "BeginPlay"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 72,
+      "symbol": "OnProjectileHit"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 39,
+      "symbol": "InitialLifeSpan"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 46,
+      "symbol": "TakeProjectileDamage"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 71,
+      "symbol": "Destroy"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 77,
+      "symbol": "TakeProjectileDamage"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyHUDWidget.cpp",
+      "line": 74,
+      "symbol": "ShowHitMarker"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 88,
+      "symbol": "ImpactEffect"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 109,
+      "symbol": "Destroy"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 146,
+      "symbol": "CleanupDeadEnemies"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 237,
+      "symbol": "StartReload"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 239,
+      "symbol": "bIsReoloading"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 262,
+      "symbol": "SetTimer"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 271,
+      "symbol": "FinishReload"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 277,
+      "symbol": "CurrentAmmo"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 45,
+      "symbol": "bFirePressed"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 286,
+      "symbol": "UpdateAmmoHUD"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 331,
+      "symbol": "UpadteAmmoHUD"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyHUDWidget.cpp",
+      "line": 60,
+      "symbol": "UpdateAmmo"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 12,
+      "symbol": "AIControllerClass"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyAIController.cpp",
+      "line": 13,
+      "symbol": "BeginPlay"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyAIController.cpp",
+      "line": 21,
+      "symbol": "::Tick"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyAIController.cpp",
+      "line": 43,
+      "symbol": "MoveToActor"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemyAIController.cpp",
+      "line": 50,
+      "symbol": "StopMovement"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 288,
+      "symbol": "ReceiveEnemyDamage"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyHUDWidget.cpp",
+      "line": 117,
+      "symbol": "ShowDamageFlash"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 384,
+      "symbol": "::Die"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 71,
+      "symbol": "SpawnWave"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 98,
+      "symbol": "for"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 125,
+      "symbol": "bWaveActive"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 23,
+      "symbol": "::Tick"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 355,
+      "symbol": "WinGame"
+    },
+    {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 412,
+      "symbol": "OpenLevel"
+    },
+    {
+      "file": "Source/MyArenaShooter/Public/MyHUDWidget.h",
+      "line": 24,
+      "symbol": "BindWidget"
+    }
+  ]
+}

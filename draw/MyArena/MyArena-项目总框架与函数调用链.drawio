@@ -1,0 +1,1033 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="draw.io" modified="2026-10-11T00:00:00.000Z" agent="Codex" version="32.4.1" type="device" compressed="false">
+  <diagram id="myarena-00" name="00 学习导航">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  00  学习导航" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="按页签逐个复习：先看职责与引用，再读触发条件、函数调用和状态变化。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="topic0" value="&lt;b&gt;01 总框架&lt;/b&gt;&lt;br&gt;8 个类的职责、对象引用和战斗闭环&lt;br&gt;&lt;br&gt;谁拥有数据？谁调用谁？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="185" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic1" value="&lt;b&gt;02 启动与生命周期&lt;/b&gt;&lt;br&gt;地图 → GameMode → 玩家 → HUD / 武器&lt;br&gt;&lt;br&gt;BeginPlay、输入绑定、Tick 谁触发？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#8796a8;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="620" y="185" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic2" value="&lt;b&gt;03 输入与移动&lt;/b&gt;&lt;br&gt;Move / Look / Jump / Dash 的输入回调&lt;br&gt;&lt;br&gt;冲刺状态何时消耗、何时恢复？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="185" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic3" value="&lt;b&gt;04 开火、连射与瞄准&lt;/b&gt;&lt;br&gt;StartFire → Tick → Fire → SpawnActor&lt;br&gt;&lt;br&gt;相机射线与实体子弹分别做什么？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic4" value="&lt;b&gt;05 子弹命中与敌人受伤&lt;/b&gt;&lt;br&gt;组件碰撞委托 → 扣血 → 命中反馈&lt;br&gt;&lt;br&gt;敌人死亡如何传递给波次系统？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="620" y="430" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic5" value="&lt;b&gt;06 换弹与弹药 HUD&lt;/b&gt;&lt;br&gt;StartReload → Timer → FinishReload&lt;br&gt;&lt;br&gt;按住开火时为何换弹后继续连射？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="430" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic6" value="&lt;b&gt;07 AI、玩家受伤与失败&lt;/b&gt;&lt;br&gt;AI Tick → 追击 / 攻击 → ReceiveEnemyDamage&lt;br&gt;&lt;br&gt;死亡后哪些行为被停止？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="675" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic7" value="&lt;b&gt;08 波次、胜利与重开&lt;/b&gt;&lt;br&gt;Spawner Tick → 清理 → 下一波 / WinGame&lt;br&gt;&lt;br&gt;何时算清波？重开如何恢复状态？" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="620" y="675" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="topic8" value="&lt;b&gt;09 蓝图检查与扩展路线&lt;/b&gt;&lt;br&gt;配置检查、数据归属、功能扩展位置&lt;br&gt;&lt;br&gt;从当前实现逐步扩成自己的 demo" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="675" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="method" value="&lt;b&gt;每页都按这 4 步复习&lt;/b&gt;&lt;br&gt;① 打开 .h 看成员与 UPROPERTY。  ② 沿箭头找到 .cpp 的真实函数。&lt;br&gt;③ 说清触发者、前置条件、状态写入与下游调用。  ④ 在编辑器核实蓝图配置，再独立复写这一段。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="960" width="1720" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;第一轮：01 → 02 → 04 → 05 → 08，读通射击与清波；第二轮补 03 / 06 / 07 / 09。所有节点、文字和连线可直接编辑。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-01" name="01 总框架">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  01  总框架" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="这是当前 C++ 的职责与依赖图；底部列出两条闭环，细节进入后续页签。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ue" value="&lt;b&gt;UE 世界 / GameMode&lt;/b&gt;&lt;br&gt;默认地图：/Game/Test.Test&lt;br&gt;GameMode 选择玩家蓝图为 DefaultPawnClass&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterGameMode.cpp:6&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#8796a8;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="210" width="390" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="input" value="&lt;b&gt;Enhanced Input&lt;/b&gt;&lt;br&gt;IMC_Player + 7 个 IA_* 资产&lt;br&gt;Started / Triggered / Completed 回调到玩家&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:107&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="470" width="390" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="hud" value="&lt;b&gt;UMyHUDWidget  /  展示&lt;/b&gt;&lt;br&gt;由玩家创建并持有 HUDWidget&lt;br&gt;血量 / 弹药 / 波次 / 命中 / 闪红 / 结算&lt;br&gt;HUD 接收数据，不计算伤害或波次&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyHUDWidget.h:18&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf7f0;strokeColor=#519779;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="50" y="840" width="390" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="player" value="&lt;b&gt;AMyArenaShooterCharacter  /  玩家枢纽&lt;/b&gt;&lt;br&gt;输入转发；相机与移动；CurrentHealth&lt;br&gt;持有 CurrentWeapon、HUDWidget&lt;br&gt;bIsDead / bHasWon 控制结算&lt;br&gt;UpadteAmmoHUD / UpadteWaveHUD 转发显示&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.h:18&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="650" y="300" width="470" height="215" as="geometry" />
+        </mxCell>
+        <mxCell id="weapon" value="&lt;b&gt;AMyWeapon  /  射击与弹药&lt;/b&gt;&lt;br&gt;Owner / Instigator = 玩家；挂到相机&lt;br&gt;Tick 连射、Fire 瞄准、Timer 换弹&lt;br&gt;持有弹匣数、备用数、冷却和开火状态&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.h:17&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="650" y="670" width="470" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="projectile" value="&lt;b&gt;AMyProjectile  /  实体子弹&lt;/b&gt;&lt;br&gt;Owner = 武器；Instigator = 发射玩家&lt;br&gt;ProjectileMovement 移动，OnComponentHit 命中&lt;br&gt;伤害通过 TakeProjectileDamage 交给敌人&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.h:15&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="650" y="960" width="470" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="spawner" value="&lt;b&gt;AMyEnemySpawner  /  波次调度&lt;/b&gt;&lt;br&gt;EnemyClass / SpawnPoints / Waves&lt;br&gt;维护 CurrentWaveEnemies 和 CurrentWaveIndex&lt;br&gt;Tick 清理无效引用；最后一波清空 → WinGame&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.h:23&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="210" width="420" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="enemy" value="&lt;b&gt;AMyEnemyCharacter  /  敌人实体&lt;/b&gt;&lt;br&gt;保存敌人血量，接收子弹伤害&lt;br&gt;生命归零 → Destroy()&lt;br&gt;自动由 AMyEnemyAIController 控制&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyCharacter.h:10&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="560" width="420" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="ai" value="&lt;b&gt;AMyEnemyAIController  /  敌人决策&lt;/b&gt;&lt;br&gt;GetPawn() 得到被控制敌人&lt;br&gt;缓存玩家 0；Tick 算距离 / 追击 / 攻击&lt;br&gt;攻击时调用玩家 ReceiveEnemyDamage&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyAIController.h:16&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="940" width="420" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="UE 生成 / 控制 Pawn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="ue" target="player">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="287" />
+              <mxPoint x="500" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="输入回调" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="input" target="player">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="547" />
+              <mxPoint x="530" y="472" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="创建 + Update* / Show*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.9;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="player" target="hud">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="494" />
+              <mxPoint x="570" y="882" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="创建 / 挂载；StartFire / StopFire / StartReload" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="player" target="weapon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="UpdateAmmoHUD → UpadteAmmoHUD" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="weapon" target="player">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1190" y="713" />
+              <mxPoint x="1190" y="472" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="Fire → SpawnActor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="weapon" target="projectile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="碰撞回调中 TakeProjectileDamage" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="projectile" target="enemy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1230" y="1028" />
+              <mxPoint x="1230" y="692" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="SpawnWave → SpawnActor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="spawner" target="enemy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="引用失效" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=1;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="enemy" target="spawner">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1775" y="593" />
+              <mxPoint x="1775" y="362" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" value="Possess / GetPawn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai" target="enemy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="ReceiveEnemyDamage" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.6;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai" target="player">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1260" y="989" />
+              <mxPoint x="1260" y="429" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" value="UpadteWaveHUD / WinGame" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.15;entryDx=0;entryDy=0;" edge="1" parent="1" source="spawner" target="player">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1220" y="267" />
+              <mxPoint x="1220" y="332" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;战斗闭环：输入 → 玩家 → 武器 → 子弹 → 敌人扣血 / 死亡 → 刷怪器清波 → 胜利。反向闭环：敌人 AI → 玩家扣血 → HUD / 失败。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-02" name="02 启动与生命周期">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  02  启动与生命周期" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="各 Actor 的 BeginPlay 与输入初始化由 UE 调度；跨 Actor 的调用顺序不能从这张图当作保证。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  地图与玩家创建" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  玩家 BeginPlay 内部顺序" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  其他 UE 调度入口" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="map" value="&lt;b&gt;打开 Test 地图&lt;/b&gt;&lt;br&gt;GameDefaultMap / EditorStartupMap = /Game/Test.Test&lt;br&gt;GlobalDefaultGameMode 指向 MyArenaShooterGameMode&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;Config/DefaultEngine.ini:3–6&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#8796a8;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="gm" value="&lt;b&gt;AMyArenaShooterGameMode()&lt;/b&gt;&lt;br&gt;FClassFinder 查找 BP_MyArenaShooterCharacter&lt;br&gt;找到后设置 DefaultPawnClass&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterGameMode.cpp:6&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#8796a8;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="435" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="pawn" value="&lt;b&gt;UE 生成并控制默认玩家 Pawn&lt;/b&gt;&lt;br&gt;玩家构造函数创建 FirstPersonCameraComponent&lt;br&gt;相机挂在 Capsule，使用 Pawn 控制旋转&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:17&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="625" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bindings" value="&lt;b&gt;SetupPlayerInputComponent()&lt;/b&gt;&lt;br&gt;BindAction 绑定 7 种 InputAction&lt;br&gt;输入触发时调用对应函数；详见 03 / 04 / 06&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:107&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="865" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="hp" value="&lt;b&gt;玩家 BeginPlay()：先初始化血量&lt;/b&gt;&lt;br&gt;Super::BeginPlay()&lt;br&gt;CurrentHealth = MaxHealth&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:33&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="widget" value="&lt;b&gt;创建并初始化 HUD&lt;/b&gt;&lt;br&gt;HUDWidgetClass → CreateWidget → AddToViewport&lt;br&gt;UpdateHealth(CurrentHealth, MaxHealth)&lt;br&gt;NativeConstruct 隐藏命中标记与闪红&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyHUDWidget.cpp:143&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf7f0;strokeColor=#519779;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="405" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="mapping" value="&lt;b&gt;注册 DefaultMappingContext&lt;/b&gt;&lt;br&gt;取得 PlayerController / LocalPlayer Subsystem&lt;br&gt;AddMappingContext(DefaultMappingContext, 0)&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:60&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="595" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="spawnweapon" value="&lt;b&gt;创建默认武器&lt;/b&gt;&lt;br&gt;DefaultWeaponClass → SpawnActor&lt;br&gt;SpawnParams.Owner = this；Instigator = this&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:72&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="765" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="attach" value="&lt;b&gt;挂到相机并推送初始弹药&lt;/b&gt;&lt;br&gt;AttachToComponent + 相对偏移 (30, 10, -10)&lt;br&gt;读取 GetCurrentAmmo / GetReserveAmmo&lt;br&gt;UpadteAmmoHUD → HUD.UpdateAmmo&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:81&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="935" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="weaponinit" value="&lt;b&gt;武器 BeginPlay()&lt;/b&gt;&lt;br&gt;CurrentAmmo = MagazineSize&lt;br&gt;ReserveAmmo = StartingReserveAmmo&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:26&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="spawnerinit" value="&lt;b&gt;刷怪器 BeginPlay()&lt;/b&gt;&lt;br&gt;查找并缓存玩家 0&lt;br&gt;SpawnWave() 创建第一波；详见 08&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.cpp:13&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="440" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="enemyinit" value="&lt;b&gt;敌人 BeginPlay() / 自动 AI 控制&lt;/b&gt;&lt;br&gt;CurrentHealth = MaxHealth&lt;br&gt;AIControllerClass + PlacedInWorldOrSpawned&lt;br&gt;PossessedBy 当前仅记录日志&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyCharacter.cpp:18&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="645" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="tick" value="&lt;b&gt;运行期间的 Tick / 事件&lt;/b&gt;&lt;br&gt;Weapon.Tick：连射；AI.Tick：追击与攻击&lt;br&gt;Spawner.Tick：清理与波次&lt;br&gt;子弹依赖 Movement 组件，Actor Tick 关闭&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:14&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#8796a8;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="900" width="440" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="UE 使用地图配置" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="map" target="gm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="DefaultPawnClass" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="gm" target="pawn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="UE 输入初始化；与 BeginPlay 独立" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pawn" target="bindings">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="UE 调度 BeginPlay" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pawn" target="hp">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="658" />
+              <mxPoint x="585" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="hp" target="widget">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="widget" target="mapping">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mapping" target="spawnweapon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="spawnweapon" target="attach">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="UE 初始化" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="spawnweapon" target="weaponinit">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1165" y="820" />
+              <mxPoint x="1165" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;扩展启动流程前，先核实蓝图 Class / InputAction 是否赋值；Spawner 与 AI 查找玩家可能受启动时机影响。UE 回调之间没有这里未写明的全局顺序。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-03" name="03 输入与移动">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  03  输入与移动" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="SetupPlayerInputComponent 只绑定回调；Move / Look / Dash 的业务在玩家类，实际移动由 UE 组件执行。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  移动与视角" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  跳跃与冲刺" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  其他输入转发" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="moveinput" value="&lt;b&gt;MoveAction → Triggered / Completed&lt;/b&gt;&lt;br&gt;Triggered → Move(Value)&lt;br&gt;Completed → StopMove(Value)&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:115&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="move" value="&lt;b&gt;Move(Value)&lt;/b&gt;&lt;br&gt;仅检查 bIsDead；读取 FVector2D&lt;br&gt;MovementVector 保存当前输入&lt;br&gt;Y → Forward；X → Right；AddMovementInput&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:209&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="415" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="stop" value="&lt;b&gt;StopMove(Value)&lt;/b&gt;&lt;br&gt;MovementVector = FVector2D::ZeroVector&lt;br&gt;为下次 Dash 提供方向选择依据&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:229&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="625" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="look" value="&lt;b&gt;LookAction Triggered → Look(Value)&lt;/b&gt;&lt;br&gt;X → AddControllerYawInput&lt;br&gt;-Y → AddControllerPitchInput&lt;br&gt;当前没有死亡 / 胜利状态判断&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:234&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="845" width="440" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="jump" value="&lt;b&gt;JumpAction：Started / Completed&lt;/b&gt;&lt;br&gt;Started → ACharacter::Jump&lt;br&gt;Completed → ACharacter::StopJumping&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:140&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="dash" value="&lt;b&gt;DashAction Started → Dash(Value)&lt;/b&gt;&lt;br&gt;若 !bCanDash，直接返回&lt;br&gt;有移动输入：合成 Forward * Y + Right * X&lt;br&gt;没有移动输入：朝角色 Forward&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:242&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="415" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="launch" value="&lt;b&gt;LaunchCharacter() 并消耗冲刺&lt;/b&gt;&lt;br&gt;DashDirection * DashVelocity（默认 1500）&lt;br&gt;XYOverride / ZOverride 均为 false&lt;br&gt;bCanDash = false&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:257&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="645" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="land" value="&lt;b&gt;UE 落地回调 → Landed(Hit)&lt;/b&gt;&lt;br&gt;Super::Landed(Hit)&lt;br&gt;bCanDash = true；落地恢复冲刺&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:377&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="925" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="fire" value="&lt;b&gt;FireAction：Started / Completed&lt;/b&gt;&lt;br&gt;StartFireInput → Weapon.StartFire&lt;br&gt;StopFireInput → Weapon.StopFire&lt;br&gt;开始开火检查 bIsDead || bHasWon&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:266&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="reload" value="&lt;b&gt;ReloadAction Started → ReloadInput&lt;/b&gt;&lt;br&gt;检查 bIsDead || bHasWon&lt;br&gt;有效武器 → StartReload；详见 06&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:415&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="475" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="restart" value="&lt;b&gt;RestartAction Started → RestartGame&lt;/b&gt;&lt;br&gt;仅死亡或胜利后允许&lt;br&gt;GetCurrentLevelName → OpenLevel；详见 08&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:403&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="690" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="boundary" value="&lt;b&gt;当前输入边界&lt;/b&gt;&lt;br&gt;具体按键在 IMC_Player 中，尚未读取映射值&lt;br&gt;Fire / Reload 检查终局状态&lt;br&gt;Dash 只检查 bCanDash；Jump 直接绑定 UE 函数" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="910" width="440" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="Triggered" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="moveinput" target="move">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="结束" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="moveinput" target="stop">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="290" />
+              <mxPoint x="60" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="方向输入" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="move" target="dash">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dash" target="launch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="实际发生落地后，由 UE 回调" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="launch" target="land">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="恢复 bCanDash" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="land" target="dash">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="980" />
+              <mxPoint x="1140" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;复写最小移动 demo：相机 → IMC 注册 → BindAction → Move / Look → Jump → Dash / Landed。扩展冲刺冷却或次数，先调整 bCanDash 的状态策略。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-04" name="04 开火、连射与瞄准">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  04  开火、连射与瞄准" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="注意：相机射线只选 AimPoint；敌人伤害发生在下一页的实体子弹碰撞回调中。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  输入与连射调度" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  Fire 内的瞄准与生成" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  成功后的反馈与记账" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="press" value="&lt;b&gt;Fire Started → Player.StartFireInput&lt;/b&gt;&lt;br&gt;玩家死亡或胜利 → 返回&lt;br&gt;有效 CurrentWeapon → StartFire()&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:266&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="startfire" value="&lt;b&gt;Weapon.StartFire()&lt;/b&gt;&lt;br&gt;bFirePressed = true&lt;br&gt;换弹中 → 返回；弹匣空 → StartReload&lt;br&gt;FireCooldown &amp;lt;= 0 → Fire，随后设置间隔&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:210&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="425" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="weapontick" value="&lt;b&gt;UE 每帧 → Weapon.Tick(DeltaTime)&lt;/b&gt;&lt;br&gt;冷却递减并限制最低为 0&lt;br&gt;按住 &amp;amp;&amp;amp; 非换弹 &amp;amp;&amp;amp; 冷却结束 → Fire()&lt;br&gt;本次判断后 FireCooldown = FireInterval&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:34&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="655" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="release" value="&lt;b&gt;Fire Completed → StopFireInput&lt;/b&gt;&lt;br&gt;Weapon.StopFire() → bFirePressed = false&lt;br&gt;Die / WinGame 也会调用 StopFire&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:232&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="975" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="guards" value="&lt;b&gt;Fire()：检查前置条件&lt;/b&gt;&lt;br&gt;换弹中 → 返回；空弹匣 → StartReload 后返回&lt;br&gt;验证 MuzzleLocation / ProjectileClass&lt;br&gt;由 Owner 获取玩家，再取 FirstPersonCamera&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:53&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="trace" value="&lt;b&gt;相机 LineTraceSingleByObjectType&lt;/b&gt;&lt;br&gt;CameraStart → Forward * 10000 的 CameraEnd&lt;br&gt;检测 Pawn + WorldStatic；忽略玩家与武器&lt;br&gt;命中则 AimPoint = ImpactPoint，否则 CameraEnd&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:102&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="475" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="direction" value="&lt;b&gt;枪口 → AimPoint 计算方向&lt;/b&gt;&lt;br&gt;(AimPoint - MuzzlePosition).GetSafeNormal()&lt;br&gt;近零向量回退 Camera.Forward&lt;br&gt;ShootDirection.Rotation() 得到出生朝向&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:116&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="715" width="440" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="spawn" value="&lt;b&gt;SpawnActor&amp;lt;AMyProjectile&amp;gt;()&lt;/b&gt;&lt;br&gt;ProjectileClass；MuzzlePosition；ShootRotation&lt;br&gt;Owner = 武器；Instigator = 玩家&lt;br&gt;AlwaysSpawn；生成失败直接返回&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:133&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="980" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="fx" value="&lt;b&gt;生成成功 → 枪口特效 / 开火音效&lt;/b&gt;&lt;br&gt;MuzzleFlashEffect → SpawnSystemAttached&lt;br&gt;FireSound → PlaySoundAtLocation&lt;br&gt;是否播放取决于配置是否存在&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:177&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="ammo" value="&lt;b&gt;消耗一发并更新弹药 HUD&lt;/b&gt;&lt;br&gt;--CurrentAmmo → UpdateAmmoHUD()&lt;br&gt;OwnerCharacter.UpadteAmmoHUD&lt;br&gt;HUDWidget.UpdateAmmo；详见 06&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:200&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf7f0;strokeColor=#519779;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="485" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="empty" value="&lt;b&gt;打空弹匣 → StartReload()&lt;/b&gt;&lt;br&gt;只在成功生成子弹后扣弹&lt;br&gt;ReserveAmmo 不足则 StartReload 返回&lt;br&gt;连射间隔默认 0.15 秒，约 6.67 发 / 秒&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:204&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="740" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="next" value="&lt;b&gt;生成后的实体子弹独立飞行&lt;/b&gt;&lt;br&gt;ProjectileMovement 负责移动&lt;br&gt;OnComponentHit 触发伤害；详见 05&lt;br&gt;相机射线本身没有调用敌人伤害函数" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="1010" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="press" target="startfire">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="bFirePressed 持续保存" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="startfire" target="weapontick">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="冷却结束时立即调用" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.4;entryDx=0;entryDy=0;" edge="1" parent="1" source="startfire" target="guards">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="485" />
+              <mxPoint x="580" y="295" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="满足连射条件" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="weapontick" target="guards">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="605" y="760" />
+              <mxPoint x="605" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="guards" target="trace">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="trace" target="direction">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="direction" target="spawn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="同一次 Fire 的后续步骤" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="spawn" target="fx">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1160" y="1032" />
+              <mxPoint x="1160" y="308" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fx" target="ammo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="仅当 CurrentAmmo &amp;lt;= 0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ammo" target="empty">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="UE 组件开始运动" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="spawn" target="next">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="停止后续连射" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="release" target="weapontick">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="1030" />
+              <mxPoint x="60" y="775" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;扩展入口：散射 / 后坐力 / 不同射速在 Weapon.Fire / Tick；新增子弹类型在 ProjectileClass。把射线武器作为新增分支时，才在射线命中处接入伤害。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-05" name="05 子弹命中与敌人受伤">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  05  子弹命中与敌人受伤" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="碰撞不是玩家或武器 Tick 主动调用；它由 ProjectileMovement 运动产生的 OnComponentHit 委托触发。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  子弹初始化与碰撞入口" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  敌人伤害与命中反馈" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  特效、销毁与清波衔接" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="construct" value="&lt;b&gt;AMyProjectile()：创建组件&lt;/b&gt;&lt;br&gt;Sphere 为碰撞根；Mesh 关闭碰撞&lt;br&gt;ProjectileMovement.UpdatedComponent = Sphere&lt;br&gt;默认速度 3000、无重力、寿命 5 秒&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:12&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="begin" value="&lt;b&gt;Projectile.BeginPlay()&lt;/b&gt;&lt;br&gt;OnComponentHit.AddDynamic → OnProjectileHit&lt;br&gt;IgnoreActorWhenMoving：Instigator / Owner&lt;br&gt;忽略发射玩家与武器&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:43&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="465" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="hit" value="&lt;b&gt;OnProjectileHit(...)&lt;/b&gt;&lt;br&gt;OtherActor → Cast&amp;lt;AMyEnemyCharacter&amp;gt;&lt;br&gt;若有效敌人 → TakeProjectileDamage(Damage)&lt;br&gt;默认 Damage = 25&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:72&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="715" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="lifetime" value="&lt;b&gt;未命中：InitialLifeSpan 到期&lt;/b&gt;&lt;br&gt;Actor 存活默认 5 秒后由 UE 销毁&lt;br&gt;Projectile 的 Actor Tick 关闭，不轮询碰撞&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:39&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#8796a8;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="990" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="damage" value="&lt;b&gt;Enemy.TakeProjectileDamage(Damage)&lt;/b&gt;&lt;br&gt;正在销毁 / 已死 / 非有限数 / 非正伤害 → false&lt;br&gt;有效伤害 → Clamp 扣血到 [0, MaxHealth]&lt;br&gt;血量 &amp;lt;= 0 → Destroy；最后返回 true&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyCharacter.cpp:46&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="dead" value="&lt;b&gt;生命归零 → Enemy.Destroy()&lt;/b&gt;&lt;br&gt;没有直接调用 Spawner 的死亡回调&lt;br&gt;敌人引用随后会被 IsValid 判为无效&lt;br&gt;不在这里立即递减波次计数&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyCharacter.cpp:71&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="495" width="440" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="notify" value="&lt;b&gt;TakeProjectileDamage 返回 true 后&lt;/b&gt;&lt;br&gt;Projectile 从 GetInstigator() 找发射玩家&lt;br&gt;Player.NotifyEnemyHit() → HUD.ShowHitMarker()&lt;br&gt;是有效伤害反馈，非仅击杀反馈&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:77&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf7f0;strokeColor=#519779;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="740" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="hide" value="&lt;b&gt;命中标记自动隐藏&lt;/b&gt;&lt;br&gt;ShowHitMarker → Visible&lt;br&gt;Timer 0.15 秒 → HideHitMarker() → Hidden&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyHUDWidget.cpp:74&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf7f0;strokeColor=#519779;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="1020" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="impactfx" value="&lt;b&gt;命中位置播放反馈&lt;/b&gt;&lt;br&gt;ImpactEffect &amp;amp;&amp;amp; bBlockingHit → Niagara 特效&lt;br&gt;ImpactSound &amp;amp;&amp;amp; bBlockingHit → 命中音效&lt;br&gt;命中墙体也会走这里&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:88&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="destroyprojectile" value="&lt;b&gt;OnProjectileHit 最后 Destroy()&lt;/b&gt;&lt;br&gt;无论是否命中敌人、伤害是否有效&lt;br&gt;完成本次命中特效 / 声音后销毁子弹&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyProjectile.cpp:109&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="505" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="cleanup" value="&lt;b&gt;后续 UE Tick → Spawner 清理&lt;/b&gt;&lt;br&gt;CleanupDeadEnemies：倒序遍历数组&lt;br&gt;RemoveAt 无效引用 → 更新剩余敌人 HUD&lt;br&gt;Tick 再检查是否清波；详见 08&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.cpp:146&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="755" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="example" value="&lt;b&gt;用 C++ 默认值复盘一次击杀&lt;/b&gt;&lt;br&gt;敌人 100 血；子弹 25 伤害 → 4 次有效命中&lt;br&gt;最后一次仍可触发命中标记&lt;br&gt;数量变化由刷怪器 Tick 检测，非子弹修改" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="1020" width="440" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="UE BeginPlay" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="construct" target="begin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="碰撞委托触发" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="begin" target="hit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="UE 计时；无碰撞时" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="construct" target="lifetime">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="310" />
+              <mxPoint x="60" y="1060" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="是有效敌人" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hit" target="damage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="785" />
+              <mxPoint x="585" y="317" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="CurrentHealth &amp;lt;= 0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="damage" target="dead">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="返回 true" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="damage" target="notify">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="350" />
+              <mxPoint x="1140" y="785" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="Timer 回调" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="notify" target="hide">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="处理完伤害 / 标记后；也含非敌人命中" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.9;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="hit" target="impactfx">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="476" y="660" />
+              <mxPoint x="1180" y="660" />
+              <mxPoint x="1180" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="impactfx" target="destroyprojectile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="对象引用失效后被检测" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="dead" target="cleanup">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1190" y="553" />
+              <mxPoint x="1190" y="830" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;扩展入口：爆炸 / 穿透在 OnProjectileHit；护盾 / 护甲在 TakeProjectileDamage。要改为死亡事件驱动波次，可新增敌人死亡委托让 Spawner 订阅。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-06" name="06 换弹与弹药 HUD">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  06  换弹与弹药 HUD" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="保留源码中的拼写：bIsReoloading、UpadteAmmoHUD；图中不会把现有名字替换成理想化接口。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  三种触发与开始换弹" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  Timer 完成与弹药计算" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  HUD 数据链与连射恢复" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="triggers" value="&lt;b&gt;StartReload() 的触发来源&lt;/b&gt;&lt;br&gt;① ReloadInput：手动换弹&lt;br&gt;② StartFire / Fire：发现空弹匣&lt;br&gt;③ Fire：成功射出最后一发&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:237&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="guards" value="&lt;b&gt;StartReload() 的 3 个拒绝条件&lt;/b&gt;&lt;br&gt;已在换弹：bIsReoloading&lt;br&gt;弹匣满：CurrentAmmo &amp;gt;= MagazineSize&lt;br&gt;没有备用弹：ReserveAmmo &amp;lt;= 0&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:239&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="timer" value="&lt;b&gt;设置换弹状态与单次 Timer&lt;/b&gt;&lt;br&gt;bIsReoloading = true&lt;br&gt;SetTimer(ReloadTimerHandle, FinishReload)&lt;br&gt;默认 ReloadTime = 1.5 秒；false = 不循环&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:262&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="745" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="block" value="&lt;b&gt;换弹期间的开火行为&lt;/b&gt;&lt;br&gt;StartFire 仍会保存 bFirePressed = true&lt;br&gt;StartFire / Fire 返回；Tick 不调用 Fire&lt;br&gt;StopFire 只把 bFirePressed 设为 false" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1010" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="finish" value="&lt;b&gt;Timer 到期 → FinishReload()&lt;/b&gt;&lt;br&gt;NeededAmmo = MagazineSize - CurrentAmmo&lt;br&gt;AmmoToReload = Min(NeededAmmo, ReserveAmmo)&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:271&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="transfer" value="&lt;b&gt;弹药从备用数转入弹匣&lt;/b&gt;&lt;br&gt;CurrentAmmo += AmmoToReload&lt;br&gt;ReserveAmmo -= AmmoToReload&lt;br&gt;bIsReoloading = false&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:277&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="480" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="example" value="&lt;b&gt;例：弹匣 12 / 30，备用 10&lt;/b&gt;&lt;br&gt;NeededAmmo = 18；AmmoToReload = 10&lt;br&gt;换弹后弹匣 22，备用 0&lt;br&gt;没有凭空增加弹药" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="745" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="continue" value="&lt;b&gt;下一帧 Tick 可恢复连射&lt;/b&gt;&lt;br&gt;仍按住 bFirePressed &amp;amp;&amp;amp; 冷却已结束&lt;br&gt;非换弹状态 → Fire()&lt;br&gt;松开按键则不会继续射击&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:45&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="1010" width="440" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="update" value="&lt;b&gt;Weapon.UpdateAmmoHUD()&lt;/b&gt;&lt;br&gt;GetOwner() → Cast 为玩家&lt;br&gt;玩家有效 → UpadteAmmoHUD(CurrentAmmo, ReserveAmmo)&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:286&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff2df;strokeColor=#cf9038;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="forward" value="&lt;b&gt;Player.UpadteAmmoHUD()&lt;/b&gt;&lt;br&gt;HUDWidget 存在 → UpdateAmmo&lt;br&gt;玩家负责转发，弹药实际保存在武器&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:331&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="480" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="display" value="&lt;b&gt;HUD.UpdateAmmo()&lt;/b&gt;&lt;br&gt;AmmoText.SetText：CurrentAmmo / ReserveAmmo&lt;br&gt;显示不改变弹药状态&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyHUDWidget.cpp:60&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf7f0;strokeColor=#519779;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="745" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="defaults" value="&lt;b&gt;初始化与其他刷新时机&lt;/b&gt;&lt;br&gt;BeginPlay：默认 MagazineSize = 30，Reserve = 90&lt;br&gt;玩家创建武器后先读取一次并更新 HUD&lt;br&gt;每次成功射击 / FinishReload 后刷新&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyWeapon.cpp:26&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="1000" width="440" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="triggers" target="guards">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="全部通过" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="guards" target="timer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="Timer 到期" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="timer" target="finish">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="820" />
+              <mxPoint x="580" y="305" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="finish" target="transfer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="UpdateAmmoHUD()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="transfer" target="update">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1170" y="555" />
+              <mxPoint x="1170" y="305" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="状态解除" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="transfer" target="continue">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="650" y="555" />
+              <mxPoint x="650" y="1077" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="update" target="forward">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="forward" target="display">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;扩展入口：换弹动画 / 取消换弹 / 拾取弹药在 Weapon 的状态与 Timer 流程；HUD 只接收结果。当前 Die / WinGame 停止开火，但未显式取消换弹 Timer。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-07" name="07 AI、玩家受伤与失败">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  07  AI、玩家受伤与失败" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="当前 AI 是 C++ Tick 的距离判断；未调用行为树，也没有用攻击动画通知触发伤害。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  AI 目标与距离决策" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  移动 / 攻击与玩家扣血" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  受击反馈与死亡" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="possess" value="&lt;b&gt;敌人自动使用 MyEnemyAIController&lt;/b&gt;&lt;br&gt;AIControllerClass = StaticClass()&lt;br&gt;AutoPossessAI = PlacedInWorldOrSpawned&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyCharacter.cpp:12&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="begin" value="&lt;b&gt;AI.BeginPlay() 缓存玩家 0&lt;/b&gt;&lt;br&gt;GetPlayerCharacter(GetWorld(), 0)&lt;br&gt;Cast&amp;lt;AMyArenaShooterCharacter&amp;gt; → PlayerCharacter&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyAIController.cpp:13&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="440" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tick" value="&lt;b&gt;UE 每帧 → AI.Tick(DeltaTime)&lt;/b&gt;&lt;br&gt;玩家无效 → 返回；攻击冷却减至最低 0&lt;br&gt;GetPawn() 无效 → 返回&lt;br&gt;计算敌人 Pawn 与玩家位置的距离&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyAIController.cpp:21&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="655" width="440" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="decision" value="&lt;b&gt;DistanceToPlayer &amp;gt; AttackRange？&lt;/b&gt;&lt;br&gt;默认 AttackRange = 150&lt;br&gt;按中心点距离判断" style="shape=rhombus;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=center;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="95" y="965" width="410" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="move" value="&lt;b&gt;超出范围：MoveToActor()&lt;/b&gt;&lt;br&gt;目标为玩家；AcceptanceRadius 默认 50&lt;br&gt;寻路需要编辑器中可用的导航配置&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyAIController.cpp:43&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="attack" value="&lt;b&gt;范围内：StopMovement()&lt;/b&gt;&lt;br&gt;若 CurrentAttackCooldown &amp;lt;= 0&lt;br&gt;ReceiveEnemyDamage(AttackDamage)&lt;br&gt;然后冷却重设为 AttackCooldown&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemyAIController.cpp:50&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffeded;strokeColor=#cb6b6b;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="490" width="440" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="damage" value="&lt;b&gt;Player.ReceiveEnemyDamage(Damage)&lt;/b&gt;&lt;br&gt;死亡 / 胜利 / Damage &amp;lt;= 0 → 返回&lt;br&gt;CurrentHealth = Clamp(CurrentHealth - Damage)&lt;br&gt;默认单次 AttackDamage = 20，冷却 1 秒&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:288&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="770" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="zero" value="&lt;b&gt;扣血后：CurrentHealth &amp;lt;= 0？&lt;/b&gt;&lt;br&gt;是 → Die()&lt;br&gt;否 → 等待下一次攻击" style="shape=rhombus;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=center;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="690" y="1030" width="400" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="feedback" value="&lt;b&gt;受伤时 HUD / 音效&lt;/b&gt;&lt;br&gt;UpdateHealth + ShowDamageFlash&lt;br&gt;Timer 0.2 秒 → HideDamageFlash&lt;br&gt;DamageSound 且本地控制 → PlaySound2D&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyHUDWidget.cpp:117&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf7f0;strokeColor=#519779;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="die" value="&lt;b&gt;Player.Die()&lt;/b&gt;&lt;br&gt;bIsDead = true&lt;br&gt;CurrentWeapon.StopFire()&lt;br&gt;CharacterMovement.DisableMovement()&lt;br&gt;HUD.ShowGameOver()&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:384&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="650" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="boundary" value="&lt;b&gt;当前终局行为边界&lt;/b&gt;&lt;br&gt;死亡时没有 Pause，也未停止 Spawner / AI Tick&lt;br&gt;后续伤害由 ReceiveEnemyDamage 拒绝&lt;br&gt;Look 无终局判断；RestartGame 可重新加载地图" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="1010" width="440" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="UE 调度 AI BeginPlay" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="possess" target="begin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="UE 后续 Tick；引用有效才处理" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="begin" target="tick">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tick" target="decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="是：追击" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="decision" target="move">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="1007" />
+              <mxPoint x="590" y="305" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="否：攻击范围内" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="decision" target="attack">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="1075" />
+              <mxPoint x="615" y="567" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="冷却结束才攻击" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="attack" target="damage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="HUD / 音效" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="damage" target="feedback">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1170" y="811" />
+              <mxPoint x="1170" y="312" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="反馈后判断生命" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="damage" target="zero">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="zero" target="die">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1200" y="1102" />
+              <mxPoint x="1200" y="794" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;扩展入口：AI 感知 / 巡逻 / 行为树在 AIController；攻击参数目前是 private 普通成员，调蓝图前需改为 UPROPERTY。通用护甲 / 护盾可集中到生命组件。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-08" name="08 波次、胜利与重开">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  08  波次、胜利与重开" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="Spawner 管波次，Player 管胜败标志；GameMode 当前只选择 Pawn，没有承担胜负判定。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  SpawnWave 生成与跟踪" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  Tick 清理与推进" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  胜利与重开" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="begin" value="&lt;b&gt;Spawner.BeginPlay() → SpawnWave()&lt;/b&gt;&lt;br&gt;先缓存玩家 0&lt;br&gt;SpawnWave 检查 EnemyClass / SpawnPoints / Waves&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.cpp:71&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="spawn" value="&lt;b&gt;按本波 EnemyCount 循环生成&lt;/b&gt;&lt;br&gt;SpawnPoints[i % Num] 轮流选择出生点&lt;br&gt;出生点 Z + 100；调整碰撞但总是尝试生成&lt;br&gt;成功敌人加入 CurrentWaveEnemies&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.cpp:98&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="465" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="active" value="&lt;b&gt;设置活动状态并更新波次 HUD&lt;/b&gt;&lt;br&gt;循环内部：bWaveActive = Num() &amp;gt; 0&lt;br&gt;Player.UpadteWaveHUD(Index + 1, Waves.Num, Num)&lt;br&gt;HUD.UpdateWaveInfo 显示波数与存活数&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.cpp:125&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="750" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="empty" value="&lt;b&gt;配置为空 / 零敌人 / 全生成失败&lt;/b&gt;&lt;br&gt;无法形成活动波次，Tick 无法正常推进&lt;br&gt;当前没有自动跳过空波或重试逻辑&lt;br&gt;这是扩展时需要补足的状态边界" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1030" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="tick" value="&lt;b&gt;UE 每帧 → Spawner.Tick()&lt;/b&gt;&lt;br&gt;!bWaveActive → 返回&lt;br&gt;CleanupDeadEnemies()&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.cpp:23&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cleanup" value="&lt;b&gt;CleanupDeadEnemies()&lt;/b&gt;&lt;br&gt;倒序遍历 CurrentWaveEnemies&lt;br&gt;!IsValid → RemoveAt；每次变化更新 HUD&lt;br&gt;只跟踪该 Spawner 成功加入数组的敌人&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyEnemySpawner.cpp:146&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="455" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="emptydecision" value="&lt;b&gt;CurrentWaveEnemies.Num() == 0？&lt;/b&gt;&lt;br&gt;否 → 下一帧继续&lt;br&gt;是 → 结束本波，波次索引 +1" style="shape=rhombus;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=center;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="680" y="730" width="420" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="last" value="&lt;b&gt;CurrentWaveIndex &amp;gt;= Waves.Num()？&lt;/b&gt;&lt;br&gt;否 → SpawnWave() 开始下一波&lt;br&gt;是 → 尝试取得玩家并 WinGame" style="shape=rhombus;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=center;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1015" width="420" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="win" value="&lt;b&gt;Player.WinGame()&lt;/b&gt;&lt;br&gt;已死或已胜 → 返回；否则 bHasWon = true&lt;br&gt;Weapon.StopFire + DisableMovement&lt;br&gt;HUD.ShowVictory()&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:355&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="restart" value="&lt;b&gt;RestartAction → RestartGame()&lt;/b&gt;&lt;br&gt;仅 bIsDead || bHasWon 时通过&lt;br&gt;GetCurrentLevelName(this, true)&lt;br&gt;OpenLevel(this, 当前地图名)&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:403&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaf3ff;strokeColor=#4b83ca;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="560" width="440" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="reloadworld" value="&lt;b&gt;UE 重新加载当前地图&lt;/b&gt;&lt;br&gt;重新生成 Actor，重新跑初始化流程&lt;br&gt;血量、弹药、波次状态通过初始化恢复&lt;br&gt;返回 02 启动与生命周期&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyArenaShooterCharacter.cpp:412&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#8796a8;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="900" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="前置配置满足" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="begin" target="spawn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="实际生成并记录" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="spawn" target="active">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="活动波次，UE 后续 Tick" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="active" target="tick">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="832" />
+              <mxPoint x="585" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tick" target="cleanup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cleanup" target="emptydecision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="emptydecision" target="last">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="下一波" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="last" target="begin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="610" y="1102" />
+              <mxPoint x="610" y="1200" />
+              <mxPoint x="60" y="1200" />
+              <mxPoint x="60" y="305" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="是：全部完成" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#465875;strokeWidth=1.7;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="last" target="win">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1170" y="1102" />
+              <mxPoint x="1170" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="允许重开：等待新的输入事件" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9aA5b5;strokeWidth=1.7;dashed=1;dashPattern=1 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="win" target="restart">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="OpenLevel 由 UE 执行" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#427cbb;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="restart" target="reloadworld">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;扩展入口：波次间延时 / Boss / 随机出生点在 Spawner。当前没有分数、掉落、存档或联机状态同步；可以先加波次状态枚举，再逐步扩充 FEnemyWaveData。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="myarena-09" name="09 蓝图检查与扩展路线">
+    <mxGraphModel dx="1800" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1380" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MyArena  /  09  蓝图检查与扩展路线" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=31;fontColor=#253349;fontStyle=1;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" value="资产存在能由目录确认；蓝图属性实际赋值、事件图与关卡实例内容需要在 Unreal Editor 中继续核实。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=17;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="78" width="1720" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="实线＝调用 / 同函数步骤　蓝虚线＝UE 调度 / 输入 / 委托 / Timer　灰点线＝引用 / 状态依赖　橙虚线＝蓝图配置待核实" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=14;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="118" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="source-root" value="源码位置以 Source/MyArenaShooter 为根；参数数值是 C++ 默认值，蓝图可能覆盖。核对：2026-10-11。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#253349;fontStyle=0;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1328" width="1720" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="A  编辑器中逐项检查" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="40" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="B  状态归属与当前边界" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="630" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="C  从当前结构扩展 demo" style="rounded=0;html=1;whiteSpace=wrap;fillColor=#f9fafc;strokeColor=#dbe2ec;align=left;verticalAlign=top;spacingTop=15;spacingLeft=20;fontFamily=Microsoft YaHei;fontSize=19;fontStyle=1;fontColor=#52617a;connectable=0;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="1220" y="170" width="540" height="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="bpplayer" value="&lt;b&gt;BP_MyArenaShooterCharacter&lt;/b&gt;&lt;br&gt;父类应为 AMyArenaShooterCharacter&lt;br&gt;DefaultMappingContext / 7 个 InputAction&lt;br&gt;DefaultWeaponClass / HUDWidgetClass / DamageSound&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;Content/BluePrints/BP_MyArenaShooterCharacter.uasset&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="235" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="bpcombat" value="&lt;b&gt;BP_MyWeapon / BP_MyProjectile&lt;/b&gt;&lt;br&gt;武器：ProjectileClass、模型、枪口偏移、射速&lt;br&gt;子弹：Damage、碰撞、特效与声音&lt;br&gt;NS_MuzzleFlash / NS_Impact 资产已存在&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;Content/BluePrints/Weapons/&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="495" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="bpworld" value="&lt;b&gt;Test 地图 / BP_MyEnemySpawner&lt;/b&gt;&lt;br&gt;地图是否覆盖 GameMode；Spawner 是否放入地图&lt;br&gt;EnemyClass / SpawnPoints 实例引用 / Waves&lt;br&gt;导航区域、敌人模型与 ABP_MyEnemy 配置&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;Content/BluePrints/Enemies/ + Content/Test.umap&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="755" width="440" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="widget" value="&lt;b&gt;WBP_HUD：同名 BindWidget 控件&lt;/b&gt;&lt;br&gt;HealthBar / HealthText / WaveText / EnemyCountText&lt;br&gt;AmmoText / HitMarkerText / GameOverText&lt;br&gt;DamageFlashOverlay / VictoryText&lt;br&gt;检查 GameOverText / VictoryText 初始隐藏&lt;br&gt;&lt;font color=&quot;#65748b&quot; style=&quot;font-size:12px&quot;&gt;MyHUDWidget.h:24&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff3e7;strokeColor=#cf8c40;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1010" width="440" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="data" value="&lt;b&gt;状态放在哪个对象？&lt;/b&gt;&lt;br&gt;Player：CurrentHealth、bIsDead、bHasWon&lt;br&gt;Weapon：Ammo、Cooldown、bFirePressed、换弹状态&lt;br&gt;Enemy：CurrentHealth；AI：攻击冷却与目标&lt;br&gt;Spawner：波次索引、活动状态、敌人数组" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="235" width="440" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="limits" value="&lt;b&gt;当前实现需要记住的边界&lt;/b&gt;&lt;br&gt;单玩家索引 0；没有 RPC / Replicated 代码&lt;br&gt;HUD 是主动推送；清波是 Tick 轮询&lt;br&gt;AI 缓存目标，无自动重找；攻击无动画时机&lt;br&gt;死 / 胜仅停开火与移动；没有全局 Pause" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="540" width="440" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="naming" value="&lt;b&gt;搜索源码时保留真实拼写&lt;/b&gt;&lt;br&gt;UpadteWaveHUD / UpadteAmmoHUD&lt;br&gt;bIsReoloading&lt;br&gt;类前缀 A 表示 Actor，U 表示 UObject / Widget&lt;br&gt;FEnemyWaveData 是波次数据结构，不是 Actor" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="670" y="850" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="step1" value="&lt;b&gt;第一步：替换内容与参数&lt;/b&gt;&lt;br&gt;换枪模型 / 特效 / 音效 → 武器与子弹蓝图&lt;br&gt;新增敌人样式 → EnemyClass + 敌人蓝图&lt;br&gt;调整波数 / 数量 / 出生点 → Spawner 属性" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="440" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" value="&lt;b&gt;第二步：新增玩法状态&lt;/b&gt;&lt;br&gt;弹药拾取 / 换弹动画 / 切枪 → Weapon + Player&lt;br&gt;波次等待 / Boss / 掉落 → Spawner + Enemy&lt;br&gt;护盾 / 伤害类型 → 玩家与敌人的伤害入口" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="515" width="440" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" value="&lt;b&gt;第三步：解耦并复用到新 demo&lt;/b&gt;&lt;br&gt;HealthComponent 统一生命与死亡事件&lt;br&gt;WeaponData / WaveData 配置化&lt;br&gt;委托驱动 HUD 和死亡统计，替代硬引用&lt;br&gt;全局胜败状态逐步移入 GameMode / GameState" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f2edff;strokeColor=#8e71c0;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="810" width="440" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="内容参数稳定后再扩玩法" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#c58a38;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="step1" target="step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="重复逻辑出现后再抽组件" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#c58a38;strokeWidth=1.7;dashed=1;dashPattern=6 4;fontFamily=Microsoft YaHei;fontSize=13;fontColor=#465875;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="step2" target="step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;复习 / 扩展入口&lt;/b&gt;&lt;br&gt;09 的扩展路线是建议，不是项目现有调用链。修改本图后可直接在 draw.io 保存，并按页导出 PNG / SVG；各资产参数请以编辑器实际配置为准。" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fffbea;strokeColor=#cfb85c;strokeWidth=1.5;fontFamily=Microsoft YaHei;fontSize=16;fontColor=#253349;align=left;verticalAlign=middle;spacingLeft=17;spacingRight=12;spacingTop=8;spacingBottom=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1720" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
