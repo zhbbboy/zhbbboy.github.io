@@ -1,0 +1,133 @@
+{
+  "review_date": "2026-10-13",
+  "project": "D:\\code\\Unreal Projects\\MyArenaShooter\\MyArenaShooter",
+  "drawio": "MyArena-战斗动画与武器表现-20261013.drawio",
+  "pages": [
+    {
+      "page_index": 1,
+      "name": "01 敌人战斗动画与逻辑死亡",
+      "preview": "picture/MyArena-战斗动画与武器表现-20261013-01.png",
+      "nodes": 19,
+      "edges": 15
+    },
+    {
+      "page_index": 2,
+      "name": "02 武器数值驱动的表现",
+      "preview": "picture/MyArena-战斗动画与武器表现-20261013-02.png",
+      "nodes": 14,
+      "edges": 11
+    }
+  ],
+  "references": {
+    "AITick": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyAIController.cpp",
+      "line": 22,
+      "symbol": "void AMyEnemyAIController::Tick("
+    },
+    "EnemyTryAttack": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 124,
+      "symbol": "bool AMyEnemyCharacter::TryAttack("
+    },
+    "EnemyApplyDamage": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 156,
+      "symbol": "void AMyEnemyCharacter::ApplyAttackDamage("
+    },
+    "PlayerReceiveDamage": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 288,
+      "symbol": "void AMyArenaShooterCharacter::ReceiveEnemyDamage("
+    },
+    "EnemyStartAttack": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 46,
+      "symbol": "void AMyEnemyCharacter::StartAttack("
+    },
+    "ProjectileHit": {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 72,
+      "symbol": "void AMyProjectile::OnProjectileHit("
+    },
+    "EnemyDamage": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 98,
+      "symbol": "bool AMyEnemyCharacter::TakeProjectileDamage("
+    },
+    "EnemyHitReaction": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 75,
+      "symbol": "void AMyEnemyCharacter::PlayHitReaction("
+    },
+    "EnemyDie": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 190,
+      "symbol": "void AMyEnemyCharacter::Die("
+    },
+    "EnemyFinishDeath": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 233,
+      "symbol": "void AMyEnemyCharacter::FinishDeath("
+    },
+    "SpawnerCleanup": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 146,
+      "symbol": "void AMyEnemySpawner::CleanupDeadEnemies("
+    },
+    "SpawnerTick": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 23,
+      "symbol": "void AMyEnemySpawner::Tick("
+    },
+    "PlayerWin": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 355,
+      "symbol": "void AMyArenaShooterCharacter::WinGame("
+    },
+    "WeaponBeginPlay": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 25,
+      "symbol": "void AMyWeapon::BeginPlay("
+    },
+    "WeaponFire": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 149,
+      "symbol": "void AMyWeapon::Fire("
+    },
+    "WeaponRecoil": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 247,
+      "symbol": "CurrentRecoilBack = FMath::Min"
+    },
+    "WeaponStartReload": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 336,
+      "symbol": "void AMyWeapon::StartReload("
+    },
+    "WeaponReloadCurve": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 59,
+      "symbol": "float ReloadProgress = FMath::Clamp("
+    },
+    "WeaponFinishReload": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 373,
+      "symbol": "void AMyWeapon::FinishReload("
+    },
+    "WeaponSway": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 68,
+      "symbol": "float TargetSwayYaw = 0.0f;"
+    },
+    "WeaponTick": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 36,
+      "symbol": "void AMyWeapon::Tick("
+    },
+    "WeaponTransform": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 145,
+      "symbol": "WeaponMesh->SetRelativeLocation(FinalLocation);"
+    }
+  }
+}

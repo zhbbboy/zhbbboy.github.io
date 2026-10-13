@@ -1500,3 +1500,50 @@ Enemy的伤害入口新增了 `IsFinite`，玩家的这个入口目前没有新�
 3. 为什么伤害被拒绝后，仍可能播放碰撞声音与特效？
 4. Enemy死亡和Spawner波次数量变化为什么属于不同对象、不同执行阶段？
 5. 当前AI行为没有改，为什么玩家胜利后不会再掉血？
+
+
+## 15. 后续学习记录：攻击动画、受击与延后销毁（2026-10-13）
+
+前面的AI直接扣血、冷却与波次创建过程继续保留。最新实现新增蒙太奇驱动的战斗阶段，详细代码、API、Notify连接与完整执行链放到第7节《敌人战斗动画与伤害时机》。
+
+### 15.1 AI从“直接伤害”变成“尝试开始攻击动作”
+
+```text
+AI Tick取得被控制的Enemy
+    → 敌人有效且IsDead为false
+    → 范围外追击，范围内停止移动
+    → 冷却归零时TryAttack
+    → 检查死亡、资源、动画实例、正在播放的攻击/受击蒙太奇
+    → 成功开始AttackMontage才重置AI冷却
+    → 后续动画Notify【需蓝图连接】调用ApplyAttackDamage
+    → 再查玩家与当前距离 → ReceiveEnemyDamage
+```
+
+旧AI头文件中的AttackRange、MoveAcceptanceRadius、AttackDamage仍存在，但当前Tick不再使用这三个成员。攻击范围从Enemy读取，伤害由Enemy提出，追击接受半径直接写成50。
+
+### 15.2 受击表现不决定有没有扣血
+
+伤害先扣血，存活分支才调用 `PlayHitReaction()`。没有HitMontage/AnimInstance或攻击蒙太奇正在播放时，受击动作被跳过，但血量已经减少。TryAttack反过来会拒绝正在播放受击蒙太奇时开始攻击。
+
+### 15.3 最新返回值不能再统一表示伤害接受结果
+
+第14节当时记录“致死伤害返回true”。当前致死分支改为 `Die(); return false;`，所以false现在既包含拒绝伤害，也包含已经执行的致死伤害。子弹仍用true作为命中标记条件，击杀那发会跳过标记。这是当前控制流的结果，不能沿用旧阶段的解释。
+
+### 15.4 逻辑死亡与Actor销毁分开
+
+```text
+Enemy.Die设bIsDead
+    → 停AI寻路、禁用角色移动、关闭胶囊碰撞
+    → 死亡动画成功时注册FinishDeath定时器
+    → Spawner按IsDead提前从战斗数组移除
+    → 本波清完就推进下一波/胜利
+    → 之后FinishDeath才Destroy尸体Actor
+```
+
+当前HUD计数表示仍参与战斗的本波敌人，不能按地图里所有Enemy Actor数量理解。DeathMontage不为空但播放返回0时，当前Die会直接return且不注册销毁Timer，这个漏接分支已在第7节详解。
+
+### 15.5 旧入口保留与清理函数的实际位置
+
+旧 `StartAttack()` / `ISAttacking()` / bIsAttacking还在，当前C++主链却使用 `TryAttack()` 与Montage播放状态；它没有同步更新旧标志。
+
+Spawner的 `PreviousEnemyCount` 现在保存于清理循环外，但HUD更新判断仍在循环内，因此一次删除后还可能反复发送相同数量。完整函数与后续优化思路见第7节。

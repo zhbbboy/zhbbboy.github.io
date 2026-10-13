@@ -1529,3 +1529,34 @@ CreateWidget创建HUD实例，完成控件初始化/绑定
 | 胜利提示显示但世界仍有活动 | ShowVictory只显示文字，未暂停世界、AI和所有定时器 |
 
 复习时试着回答：为什么界面初始状态要在生命周期里处理？为什么“实际接触反馈”和“伤害确认标记”可以有不同条件？为什么胜利文字的可见性不能代替玩家的 `bHasWon` 状态？
+
+
+## 22. 后续学习记录：动画阶段改变反馈与计数含义（2026-10-13）
+
+本次 `MyHUDWidget` 的显示函数与控件声明没有增加新内容。变化来自Enemy和Spawner的上游逻辑。
+
+### 22.1 击杀那一发目前会跳过命中标记
+
+```text
+普通伤害：Enemy扣血后存活 → PlayHitReaction → return true
+    → Projectile通知玩家 → HUD.ShowHitMarker
+
+致死伤害：Enemy扣血归零 → Die → 当前return false
+    → Projectile跳过玩家命中标记通知
+    → 接触特效/命中声音仍按各自条件播放
+```
+
+第21.4节“true包含致死伤害”的说明属于前一阶段。现在不是HUD隐藏函数导致击杀标记不出现，而是伤害函数的致死返回值挡住了通知。第7节解释了完整控制流和返回值需要统一的原因。
+
+### 22.2 剩余为0不要求死亡Actor已经消失
+
+Spawner清理条件新增 `Enemy->IsDead()`，所以敌人设为逻辑死亡后就可从本波数组移除，尸体仍可播放动画。
+
+```text
+Enemy.Die → bIsDead=true
+    → Spawner移除该Enemy引用 → UpadteWaveHUD → UpdateWaveInfo
+    → 数组为空 → 下一波或WinGame → ShowVictory
+    → 尸体的Timer之后才FinishDeath / Destroy
+```
+
+因此胜利提示可能与最后一个敌人的死亡动作同时出现。血量、命中标记、剩余计数、Actor存续时间是不同信息，需要分别沿链核对。
