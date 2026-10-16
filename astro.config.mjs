@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import remarkMath from 'remark-math';
+import remarkNoteLinks from './scripts/remark-note-links.mjs';
 import rehypeKatex from 'rehype-katex';
 import {
   transformerNotationDiff,
@@ -27,7 +28,7 @@ export default defineConfig({
   },
 
   markdown: {
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkNoteLinks, remarkMath],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
       themes: {

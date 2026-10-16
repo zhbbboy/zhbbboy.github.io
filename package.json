@@ -19,6 +19,7 @@
     "@shikijs/transformers": "^3.4.0",
     "@tailwindcss/vite": "4.1.5",
     "astro": "^5.7.10",
+    "github-slugger": "2.0.0",
     "katex": "^0.16.22",
     "reading-time": "^1.5.0",
     "rehype-katex": "^7.0.1",
