@@ -1547,3 +1547,36 @@ Enemy.Die设bIsDead
 旧 `StartAttack()` / `ISAttacking()` / bIsAttacking还在，当前C++主链却使用 `TryAttack()` 与Montage播放状态；它没有同步更新旧标志。
 
 Spawner的 `PreviousEnemyCount` 现在保存于清理循环外，但HUD更新判断仍在循环内，因此一次删除后还可能反复发送相同数量。完整函数与后续优化思路见第7节。
+
+
+## 16. 后续学习记录：攻击状态与刷怪容错闭环（2026-10-20）
+
+本次不是再增加一套AIController冷却，而是把攻击状态与时间统一交给Enemy。旧StartAttack转发TryAttack，AI头文件旧AttackDamage/AttackRange/AttackCooldown等成员已整理掉，只保留当前使用的移动接受半径等数据。
+
+```text
+AI Tick取得Enemy和Player，缺少玩家时可补取
+    → Enemy已死则停移动；Player终局则Enemy.StopCombat
+    → 正在攻击则停移动，不重复起手
+    → 范围外追击，范围内朝向玩家并TryAttack(Player)
+    → Enemy负责目标、冷却、一次窗口和结束清理
+```
+
+攻击的目标弱引用、动画结束委托与Timer兜底，以及距离/朝向/Visibility遮挡检查，已详细追加到第7节。本次致死伤害重新返回true，死亡动画播放失败会FinishDeath；上次记录的这两项缺口已补上。
+
+### 16.1 波次配置分成“跳过”“错误停止”“正常完成”
+
+| 情况 | 新处理 |
+| --- | --- |
+| 非空波次数组中数量为0 | while迭代跳过 |
+| Waves为空、负数量、无类/抽象类、没有有效出生点、全部生成失败 | FailSpawning记录Error并StopSpawning，不误判胜利 |
+| 出生点部分无效 | 先筛ValidPoints，再按有效数组取模 |
+| 生成部分成功 | Warning记录实际/请求数量，只登记成功对象继续 |
+| 合法波次完成 | Tick等待有效玩家后WinGame |
+
+CleanupDeadEnemies先倒序删除无效/IsDead对象，再在循环外统一请求HUD更新。UpdateWaveHUD还会等待玩家/HUD就绪，并按接收者和数字去重。
+
+### 16.2 逻辑死亡与停止战斗不同
+
+IsDead表示已死亡；StopCombat也可用于仍活着但回合已结束的敌人。它会停止攻击、AI寻路/焦点/Tick和角色移动，但不把生命值改为0，也不自动销毁这个活着的Actor。
+
+StopSpawning会关闭自己的Tick并停止当前登记敌人的战斗；玩家终局还遍历World内所有匹配Enemy停止战斗，覆盖刷怪器之外放置的敌人。完整单机全局规则与容错函数见第9节。

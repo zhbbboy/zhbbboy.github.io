@@ -1,0 +1,175 @@
+{
+  "review_date": "2026-10-20",
+  "project": "D:\\code\\Unreal Projects\\MyArenaShooter\\MyArenaShooter",
+  "drawio": "MyArena-基础单机闭环-20261020.drawio",
+  "pages": [
+    {
+      "page_index": 1,
+      "name": "01 攻击窗口与死亡反馈",
+      "preview": "picture/MyArena-基础单机闭环-20261020-01.png",
+      "nodes": 21,
+      "edges": 18
+    },
+    {
+      "page_index": 2,
+      "name": "02 单机回合终局与生命周期",
+      "preview": "picture/MyArena-基础单机闭环-20261020-02.png",
+      "nodes": 17,
+      "edges": 11
+    },
+    {
+      "page_index": 3,
+      "name": "03 波次容错、HUD晚就绪与胜利",
+      "preview": "picture/MyArena-基础单机闭环-20261020-03.png",
+      "nodes": 19,
+      "edges": 14
+    }
+  ],
+  "references": {
+    "AITick": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyAIController.cpp",
+      "line": 22,
+      "symbol": "void AMyEnemyAIController::Tick("
+    },
+    "EnemyTryAttack": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 112,
+      "symbol": "bool AMyEnemyCharacter::TryAttack("
+    },
+    "EnemyAttackEnded": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 255,
+      "symbol": "void AMyEnemyCharacter::OnAttackMontageEnded("
+    },
+    "EnemyFinishAttack": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 247,
+      "symbol": "void AMyEnemyCharacter::FinishAttack("
+    },
+    "EnemyApplyDamage": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 147,
+      "symbol": "void AMyEnemyCharacter::ApplyAttackDamage("
+    },
+    "PlayerDamage": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 301,
+      "symbol": "void AMyArenaShooterCharacter::ReceiveEnemyDamage("
+    },
+    "EnemyDamage": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 86,
+      "symbol": "bool AMyEnemyCharacter::TakeProjectileDamage("
+    },
+    "EnemyDie": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 179,
+      "symbol": "void AMyEnemyCharacter::Die("
+    },
+    "EnemyFinishDeath": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 223,
+      "symbol": "void AMyEnemyCharacter::FinishDeath("
+    },
+    "SpawnerCleanup": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 124,
+      "symbol": "void AMyEnemySpawner::CleanupDeadEnemies("
+    },
+    "ProjectileHit": {
+      "file": "Source/MyArenaShooter/Private/MyProjectile.cpp",
+      "line": 72,
+      "symbol": "void AMyProjectile::OnProjectileHit("
+    },
+    "EnemyStop": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 264,
+      "symbol": "void AMyEnemyCharacter::StopCombat("
+    },
+    "PlayerWin": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 368,
+      "symbol": "void AMyArenaShooterCharacter::WinGame("
+    },
+    "WeaponCanUse": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 433,
+      "symbol": "bool AMyWeapon::CanUseWeapon("
+    },
+    "PlayerDie": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 391,
+      "symbol": "void AMyArenaShooterCharacter::Die("
+    },
+    "PlayerStopRound": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 441,
+      "symbol": "void AMyArenaShooterCharacter::StopRoundGameplay("
+    },
+    "WeaponStop": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 446,
+      "symbol": "void AMyWeapon::StopCombat("
+    },
+    "WeaponCancelReload": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 439,
+      "symbol": "void AMyWeapon::CancelReload("
+    },
+    "WeaponFinishReload": {
+      "file": "Source/MyArenaShooter/Private/MyWeapon.cpp",
+      "line": 398,
+      "symbol": "void AMyWeapon::FinishReload("
+    },
+    "SpawnerStop": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 161,
+      "symbol": "void AMyEnemySpawner::StopSpawning("
+    },
+    "PlayerRestart": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 408,
+      "symbol": "void AMyArenaShooterCharacter::RestartGame("
+    },
+    "EnemyEnd": {
+      "file": "Source/MyArenaShooter/Private/MyEnemyCharacter.cpp",
+      "line": 285,
+      "symbol": "void AMyEnemyCharacter::EndPlay("
+    },
+    "PlayerEnd": {
+      "file": "Source/MyArenaShooter/Private/MyArenaShooterCharacter.cpp",
+      "line": 467,
+      "symbol": "void AMyArenaShooterCharacter::EndPlay("
+    },
+    "SpawnerSpawn": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 52,
+      "symbol": "void AMyEnemySpawner::SpawnWave("
+    },
+    "SpawnerTick": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 17,
+      "symbol": "void AMyEnemySpawner::Tick("
+    },
+    "SpawnerFail": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 175,
+      "symbol": "void AMyEnemySpawner::FailSpawning("
+    },
+    "SpawnerHUD": {
+      "file": "Source/MyArenaShooter/Private/MyEnemySpawner.cpp",
+      "line": 141,
+      "symbol": "void AMyEnemySpawner::UpdateWaveHUD("
+    },
+    "TestDeath": {
+      "file": "Source/MyArenaShooter/Private/Tests/MyArenaP0Tests.cpp",
+      "line": 106,
+      "symbol": "IMPLEMENT_SIMPLE_AUTOMATION_TEST(FMyArenaDeathTest,"
+    },
+    "TestAttack": {
+      "file": "Source/MyArenaShooter/Private/Tests/MyArenaP0Tests.cpp",
+      "line": 213,
+      "symbol": "IMPLEMENT_SIMPLE_AUTOMATION_TEST(FMyArenaAttackTest,"
+    }
+  }
+}

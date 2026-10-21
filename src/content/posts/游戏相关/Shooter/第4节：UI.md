@@ -1560,3 +1560,24 @@ Enemy.Die → bIsDead=true
 ```
 
 因此胜利提示可能与最后一个敌人的死亡动作同时出现。血量、命中标记、剩余计数、Actor存续时间是不同信息，需要分别沿链核对。
+
+
+## 23. 后续学习记录：HUD晚就绪、数据去重与命中恢复（2026-10-20）
+
+MyHUDWidget的基础显示函数没有新增接口；变化来自上游Spawner、伤害入口和玩家生命周期。
+
+### 23.1 波次数字等HUD引用建立后再发送
+
+Spawner.UpdateWaveHUD会补取玩家，要求IsHUDReady，再比较HUDPlayer、DisplayedWave、DisplayedEnemies。只有接收者或数字改变，才发送并更新缓存。HUD未就绪时直接返回，不提前记成“已显示”，下一次Tick仍可补发。
+
+IsHUDReady当前仅检查HUDWidget非空，不证明所有蓝图控件都绑定正确。WaveNumber用Min限制在TotalWaves内；清理死亡数组后也只在循环外请求一次更新，不再一边删一边反复刷新。
+
+### 23.2 致死伤害命中标记恢复
+
+2026-10-13记录的致死false分支已改为true，因此击杀那一发也能进入NotifyEnemyHit → ShowHitMarker。子弹另增加bHitProcessed，让同一颗子弹的重复碰撞回调不重复执行伤害和反馈。
+
+### 23.3 终局状态与显示仍分工明确
+
+WinGame/Die先设置结果、调用StopRoundGameplay，再ShowVictory/ShowGameOver。收尾会停止战斗对象，世界仍运行，UI可以继续显示。HUD控件和默认隐藏配置沿用前面章节，并未自动改成“HUD后来出现就重放终局提示”。
+
+重开/退出时玩家EndPlay移除HUD并处理武器，新的玩家再创建新的HUD。第9节提供等待、缓存、终局和清理的完整链与验证范围。

@@ -11,7 +11,6 @@ updated: 2026-10-15
 description: 依据本地 UE5.4 工程、学习笔记和调用链图修订的双人合作 PvE 路线，包含基线修复、AI、服务器权威同步、武器数据驱动与验收。
 tags:
   - UE5
-  - C++
   - 游戏客户端
   - 网络同步
   - AI
@@ -117,16 +116,16 @@ draft: false
 
 以下均是待实施任务；本次修改计划没有修复游戏代码。
 
-| ID / 优先级 | 代码事实或风险 | 计划处理与验证 |
-| --- | --- | --- |
-| BASE-01 / 必须 | `TakeProjectileDamage()` 致死分支调用 `Die()` 后返回 `false`，子弹因此跳过击杀那一发的 Hit Marker | 返回值统一表示「伤害被接受」；普通命中与致死命中均有反馈，拒绝伤害时无反馈。位置：`MyEnemyCharacter.cpp:115`、`MyProjectile.cpp:77` |
-| BASE-02 / 必须 | `DeathMontage` 存在但播放返回 0 时直接 return，没有销毁兜底 | 无动画、播放成功、播放失败三条路径均能结束尸体生命周期；`MyEnemyCharacter.cpp:212` |
-| BASE-03 / 必须 | 后坐力只有累加，`CurrentSwayYaw/Pitch` 未接入目标插值；Yaw 目标也未写入 | 按第 8 节补齐回零、水平/垂直摆动与最终变换；若预算不允许则显式关闭未完成效果，不能宣称完整手感。`MyWeapon.cpp:36 / 68 / 247` |
-| BASE-04 / 必须 | 攻击靠 Blueprint Notify 调用伤害；`ApplyAttackDamage()` 没有「本轮已命中」保护，仅按距离判断 | 核实 Slot / Notify；加入本次攻击标识或已结算标志，检查目标存活、距离、朝向与遮挡；重复 Notify 不得重复扣血。`MyEnemyCharacter.cpp:124 / 156` |
-| BASE-05 / 必须 | 空 Waves、零敌人、无有效出生点或全生成失败会进入无推进路径 | 明确空波跳过规则；配置错误 / 全失败应报错并终止或进入有上限的重试，不得静默卡住或误报胜利。`MyEnemySpawner.cpp:71` |
-| BASE-06 / 必须 | 死亡 / 胜利只 StopFire；换弹 Timer 仍可回调；Dash / Jump 的终局检查不统一 | 终局与 EndPlay 停火、取消换弹 / 攻击计时、拒绝新动作；统一输入状态检查。位置：玩家 `Die/WinGame/Dash`、武器 `StartReload/FinishReload` |
-| BASE-07 / AI 前必须 | 敌人有旧 `StartAttack/bIsAttacking` 与当前 `TryAttack` 两套入口，冷却也分布在敌人和 AIController | 搜索 Blueprint 引用后统一实际入口与冷却来源，避免直接删掉仍被资产引用的接口；P1 不再依赖两套状态 |
-| BASE-08 / 双人回合验收前必须 | AIController、敌人伤害、Spawner 都依赖玩家 0；个人 `bHasWon` 同时承担全局结算 | P1 明确目标；P2 将共享结算移至 GameMode / GameState，个人死亡与整局失败分开 |
+| ID / 优先级            | 代码事实或风险                                                                     | 计划处理与验证                                                                                           |
+| ------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| BASE-01 / 必须        | `TakeProjectileDamage()` 致死分支调用 `Die()` 后返回 `false`，子弹因此跳过击杀那一发的 Hit Marker | 返回值统一表示「伤害被接受」；普通命中与致死命中均有反馈，拒绝伤害时无反馈。位置：`MyEnemyCharacter.cpp:115`、`MyProjectile.cpp:77`         |
+| BASE-02 / 必须        | `DeathMontage` 存在但播放返回 0 时直接 return，没有销毁兜底                                  | 无动画、播放成功、播放失败三条路径均能结束尸体生命周期；`MyEnemyCharacter.cpp:212`                                            |
+| BASE-03 / 必须        | 后坐力只有累加，`CurrentSwayYaw/Pitch` 未接入目标插值；Yaw 目标也未写入                           | 按第 8 节补齐回零、水平/垂直摆动与最终变换；若预算不允许则显式关闭未完成效果，不能宣称完整手感。`MyWeapon.cpp:36 / 68 / 247`                    |
+| BASE-04 / 必须        | 攻击靠 Blueprint Notify 调用伤害；`ApplyAttackDamage()` 没有「本轮已命中」保护，仅按距离判断          | 核实 Slot / Notify；加入本次攻击标识或已结算标志，检查目标存活、距离、朝向与遮挡；重复 Notify 不得重复扣血。`MyEnemyCharacter.cpp:124 / 156` |
+| BASE-05 / 必须        | 空 Waves、零敌人、无有效出生点或全生成失败会进入无推进路径                                            | 明确空波跳过规则；配置错误 / 全失败应报错并终止或进入有上限的重试，不得静默卡住或误报胜利。`MyEnemySpawner.cpp:71`                            |
+| BASE-06 / 必须        | 死亡 / 胜利只 StopFire；换弹 Timer 仍可回调；Dash / Jump 的终局检查不统一                        | 终局与 EndPlay 停火、取消换弹 / 攻击计时、拒绝新动作；统一输入状态检查。位置：玩家 `Die/WinGame/Dash`、武器 `StartReload/FinishReload`  |
+| BASE-07 / AI 前必须    | 敌人有旧 `StartAttack/bIsAttacking` 与当前 `TryAttack` 两套入口，冷却也分布在敌人和 AIController | 搜索 Blueprint 引用后统一实际入口与冷却来源，避免直接删掉仍被资产引用的接口；P1 不再依赖两套状态                                           |
+| BASE-08 / 双人回合验收前必须 | AIController、敌人伤害、Spawner 都依赖玩家 0；个人 `bHasWon` 同时承担全局结算                     | P1 明确目标；P2 将共享结算移至 GameMode / GameState，个人死亡与整局失败分开                                               |
 
 日志中有相邻约 50ms 的两条 `Enemy Attack Hit!`，目前缺少敌人实例名与攻击编号，**不能据此断言同一攻击重复伤害**。在 BASE-04 验证时补日志，区分多敌人同时攻击和同一 Notify 重入。
 
