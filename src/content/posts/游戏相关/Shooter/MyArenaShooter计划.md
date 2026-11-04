@@ -26,7 +26,7 @@ draft: false
 **核对日期：2026-10-15。** 本次已阅读本地 `Source/MyArenaShooter`、项目配置、相关学习资料与既有图纸说明，并抽查运行日志；未执行新的 UE 编译、PIE 或打包。下文区分「源码已有」「日志线索」「待编辑器验证」「计划新增」，任务勾选以实际验收为准。
 
 **工程目录：**`D:\code\Unreal Projects\MyArenaShooter\MyArenaShooter`。本文中的 `Source/`、`Config/`、`Content/` 均相对此目录。源码行号是本次核对时的位置，后续以函数名定位。
-
+![[Pasted image 20261104095538.png]]
 ## 0. 本次修订结论与交付范围
 
 ### 0.1 原计划需要改的六件事
